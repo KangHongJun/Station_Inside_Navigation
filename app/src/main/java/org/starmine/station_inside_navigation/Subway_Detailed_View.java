@@ -17,7 +17,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
         setContentView(R.layout.subway_detailed_view);
 
         //툴바 세팅
-        Toolbar toolbar = findViewById(R.id.Route_Toolbar);
+        Toolbar toolbar = findViewById(R.id.Detail_Toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         ActionBar actionBar = getSupportActionBar();

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
 
         android:theme="@style/Theme.Station_Inside_Navigation">
-        <activity android:name=".testfile">
+        <activity android:name=".Subway_Detailed_View">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
