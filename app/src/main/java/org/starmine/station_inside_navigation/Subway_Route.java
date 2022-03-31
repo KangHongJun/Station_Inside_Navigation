@@ -1,24 +1,26 @@
 package org.starmine.station_inside_navigation;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class Subway_Map extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+public class Subway_Route extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.subway_map);
+        setContentView(R.layout.subway_route);
 
         //툴바 세팅
-        Toolbar toolbar = findViewById(R.id.Subway_Map_Toolbar);
+        Toolbar toolbar = findViewById(R.id.Route_Toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
@@ -29,7 +31,7 @@ public class Subway_Map extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu,menu);
+        menuInflater.inflate(R.menu.route_menu,menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -39,7 +41,7 @@ public class Subway_Map extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int curId = item.getItemId();
         switch (curId){
-            case R.id.menu_setting:
+            case R.id.menu_change:
                 Toast.makeText(this,"설정메뉴",Toast.LENGTH_LONG).show();
                 break;
             default:
@@ -48,4 +50,3 @@ public class Subway_Map extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-

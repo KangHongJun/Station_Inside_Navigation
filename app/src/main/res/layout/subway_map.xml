@@ -6,7 +6,7 @@
     android:layout_height="match_parent" >
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/Toolbar_Subway_Map"
+        android:id="@+id/Subway_Map_Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -14,7 +14,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/Image_Subway_Map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srcCompat="@drawable/ic_launcher_background" />

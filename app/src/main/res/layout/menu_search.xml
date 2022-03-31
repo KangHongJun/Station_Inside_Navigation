@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <EditText
-        android:id="@+id/edit_text"
+        android:id="@+id/Menu_Search_Edit"
         android:hint="검색"
         android:textColor="#808080"
         android:layout_width="270dp"

@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
-
+//지하철 시간표
 public class Subway_Schedule extends AppCompatActivity {
 
 
@@ -24,6 +24,7 @@ public class Subway_Schedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_schedule);
 
+        //툴바 세팅
         Toolbar toolbar = findViewById(R.id.Toolbar_Schedule);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -35,14 +36,15 @@ public class Subway_Schedule extends AppCompatActivity {
         Saturday = new Fragment_Saturday();
         Holiday = new Fragment_Holiday();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,Weekday).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.Schedule_Container,Weekday).commit();
 
         @SuppressLint("WrongViewCast")
-        TabLayout tabs = findViewById(R.id.tabs);
+        TabLayout tabs = findViewById(R.id.Tab_Schedule);
         tabs.addTab(tabs.newTab().setText("평일"));
         tabs.addTab(tabs.newTab().setText("토요일"));
         tabs.addTab(tabs.newTab().setText("공휴일"));
 
+        //클릭 시 fragment 변경
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -57,7 +59,7 @@ public class Subway_Schedule extends AppCompatActivity {
                 }else if (position == 2){
                     selected = Holiday;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,selected).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.Schedule_Container,selected).commit();
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -71,6 +73,7 @@ public class Subway_Schedule extends AppCompatActivity {
         });
 
     }
+    //메뉴 적용
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
