@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/Bookmark_Toolbar"
+        android:id="@+id/Options_Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/Bookmark_List"
+            android:id="@+id/Options_List"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </ListView>

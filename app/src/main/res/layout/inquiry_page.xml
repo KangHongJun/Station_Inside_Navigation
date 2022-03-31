@@ -5,28 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/Inquiry_Page_Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/Backspace_Btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="뒤로가기"/>
-
-        <TextView
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="30dp"
-            android:text="문의하기"/>
-
-    </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,10 +21,10 @@
             android:id="@+id/Inquiry_Edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:gravity="top"
             android:layout_margin="10dp"
             android:hint="문의 내용을 적어주세요."
-            android:background="@color/white"
             android:lines="20"/>
 
     </LinearLayout>
@@ -51,7 +35,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/Photo_Attachment"
+            android:id="@+id/Inquiry_Photo_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -59,7 +43,7 @@
             android:text="사진첨부"/>
 
         <Button
-            android:id="@+id/Check_Btn"
+            android:id="@+id/Inquiry_Check_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

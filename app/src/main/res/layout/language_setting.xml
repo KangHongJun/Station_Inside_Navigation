@@ -6,14 +6,14 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/Korean_Btn"
+        android:id="@+id/Setting_Korean_Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="한국어"
         android:layout_weight="1"/>
 
     <Button
-        android:id="@+id/English_Btn"
+        android:id="@+id/Setting_English_Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="English"
