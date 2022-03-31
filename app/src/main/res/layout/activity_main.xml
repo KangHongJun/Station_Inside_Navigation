@@ -17,5 +17,5 @@
         android:layout_height="wrap_content"
         android:text="역 내부 안내"
         android:layout_weight="1"/>
-    
+
 </LinearLayout>
