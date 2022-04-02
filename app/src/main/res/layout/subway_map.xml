@@ -3,19 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/Subway_Map_Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="wrap_content" />
 
     <ImageView
-        android:id="@+id/Image_Subway_Map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:id="@+id/SubwayMap_Img"
+        android:layout_width="377dp"
+        android:layout_height="428dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/subway_map" />
 </RelativeLayout>
