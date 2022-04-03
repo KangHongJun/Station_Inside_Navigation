@@ -1,41 +1,56 @@
 package org.starmine.station_inside_navigation;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 public class testfile extends AppCompatActivity {
-    TextView textView1,textView2,textView3,textView4;
-    Button button1,button2,button3,button4;
+    private ScaleGestureDetector scaleGestureDetector;
+    private float ScaleFactor = 1.0f;
+    SubsamplingScaleImageView imageView;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.testlayout);
+        setContentView(R.layout.testmap);
 
-        textView1 = findViewById(R.id.testText1);
-        textView2 = findViewById(R.id.testText2);
-        textView3 = findViewById(R.id.testText3);
-        textView4 = findViewById(R.id.testText4);
+        Toolbar toolbar = findViewById(R.id.Subway_Map_Toolbar);
+        setSupportActionBar(toolbar);
 
-        textView1.setVisibility(View.GONE);
-        textView2.setVisibility(View.GONE);
-        textView3.setVisibility(View.GONE);
-        textView4.setVisibility(View.GONE);
 
-        button1= findViewById(R.id.testb1);
-        button2= findViewById(R.id.testb2);
-        button3= findViewById(R.id.testb3);
-        button4= findViewById(R.id.testb4);
+        //이미지 줌인 함수 적용
+        imageView = findViewById(R.id.SubwayMap_Img);
+        scaleGestureDetector = new ScaleGestureDetector(this,new ScaleListener());
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textView1.setVisibility(View.VISIBLE);
-                textView3.setVisibility(View.VISIBLE);
-            }
-        });
+        Drawable bitmap = getResources().getDrawable(R.drawable.subway_map);
+
+    }
+
+
+    public boolean onTouchEvent(MotionEvent motionEvent){
+        scaleGestureDetector.onTouchEvent(motionEvent);
+
+        return true;
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener{
+        @Override
+        public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
+            ScaleFactor *= scaleGestureDetector.getScaleFactor();
+
+            ScaleFactor = Math.max(0.01f,
+                    Math.min(ScaleFactor,10.f));
+
+
+            imageView.setScaleX(ScaleFactor);
+            imageView.setScaleY(ScaleFactor);
+
+            return true;
+        }
     }
 }

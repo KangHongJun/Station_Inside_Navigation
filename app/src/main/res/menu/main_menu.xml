@@ -6,9 +6,9 @@
     <item android:id="@+id/menu_search"
         android:title="검색"
         android:icon="@drawable/ic_launcher_background"
-        app:showAsAction="always|withText"
-        app:actionLayout="@layout/menu_search"
-    />
+        app:showAsAction="ifRoom|withText"
+        app:actionLayout="@layout/menu_search" />
+
     <item android:id="@+id/menu_setting"
         android:title="설정"
         android:icon="@drawable/ic_launcher_background"

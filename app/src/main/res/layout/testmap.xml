@@ -7,17 +7,14 @@
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/Subway_Map_Toolbar"
+        android:id="@+id/tool"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        />
+        android:layout_height="wrap_content"/>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:layout_below="@id/Subway_Map_Toolbar">
+        android:layout_below="@id/tool">
         <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
             android:id="@+id/SubwayMap_Img"
             android:layout_width="match_parent"
