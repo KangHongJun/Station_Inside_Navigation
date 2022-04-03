@@ -1,4 +1,4 @@
-package com.example.songcapstone;
+package org.starmine.station_inside_navigation;
 
 import android.os.Bundle;
 

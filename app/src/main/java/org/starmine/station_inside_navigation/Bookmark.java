@@ -1,4 +1,4 @@
-package com.example.songcapstone;
+package org.starmine.station_inside_navigation;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import org.starmine.station_inside_navigation.R;
 
 public class Bookmark extends AppCompatActivity {
     @Override
