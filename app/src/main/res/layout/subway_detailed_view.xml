@@ -132,7 +132,7 @@
                     android:text="즐겨찾기" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -141,14 +141,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="출구 정보" />
-
-                <ImageView
-                    android:id="@+id/Detail_Map"
+                <RelativeLayout
+                    android:id="@+id/Kakao_map"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_margin="7dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
-            </LinearLayout>
+                    android:layout_height="300dp"/>
+
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

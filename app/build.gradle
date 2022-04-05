@@ -31,6 +31,14 @@ android {
             maven { url "https://jitpack.io" }
         }
     }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'armeabi'
+            universalApk false
+        }
+    }
 
 }
 
@@ -42,7 +50,9 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
-
+    implementation files('libs/libDaumMapAndroid.jar')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/libDaumMapAndroid.jar')
 
     testImplementation 'junit:junit:4.+'
 
