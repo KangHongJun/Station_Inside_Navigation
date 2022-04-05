@@ -19,9 +19,6 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 public class Subway_Map extends AppCompatActivity {
 
-    //이미지 줌인 최대치 조절 변수
-    private ScaleGestureDetector scaleGestureDetector;
-    private float ScaleFactor = 1.0f;
     SubsamplingScaleImageView imageView;
 
 

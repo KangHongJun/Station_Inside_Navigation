@@ -19,7 +19,7 @@
                 android:id="@+id/Toolbar_Schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/teal_200"
+                android:background="@color/white"
                 android:elevation="1dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
 
@@ -39,7 +39,7 @@
                 android:id="@+id/Tab_Schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#808080"
+                android:background="@drawable/black_border"
                 android:elevation="1dp"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
