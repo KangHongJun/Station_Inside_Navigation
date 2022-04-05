@@ -1,11 +1,6 @@
 package org.starmine.station_inside_navigation;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,8 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import net.daum.mf.map.api.MapView;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class Subway_Detailed_View extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +25,6 @@ public class Subway_Detailed_View extends AppCompatActivity {
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.Kakao_map);
         mapViewContainer.addView(mapView);
 
-        getDebugHashKey();
-
         //툴바 세팅
         Toolbar toolbar = findViewById(R.id.Detail_Toolbar);
         setSupportActionBar(toolbar);
@@ -43,6 +34,8 @@ public class Subway_Detailed_View extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
+
+
 
     //메뉴 적용
     @Override
@@ -68,24 +61,4 @@ public class Subway_Detailed_View extends AppCompatActivity {
     }
 
 
-    private void getDebugHashKey() {
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            if (packageInfo == null)
-                Log.e("KeyHash", "KeyHash:null");
-            else {
-                for (Signature signature : packageInfo.signatures) {
-                    MessageDigest md = MessageDigest.getInstance("SHA");
-                    md.update(signature.toByteArray());
-                    Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-                }
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
 }
