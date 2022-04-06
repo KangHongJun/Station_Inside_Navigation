@@ -21,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Subway_Map"/>
+        <activity android:name=".Subway_Route"/>
+        <activity android:name=".Subway_Schedule"/>
+        <activity android:name=".Inquiry_Page"/>
+        <activity android:name=".Language_Setting"/>
+        <activity android:name=".Bookmark"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="ae013cba2d59b75e684532d3c53bd6f1"/>
     </application>
 
