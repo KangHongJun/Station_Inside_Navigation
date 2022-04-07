@@ -102,6 +102,13 @@ public class Subway_Detailed_View extends AppCompatActivity {
     //메뉴 클릭시
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                // 액티비티 이동
+                finish();
+                return true;
+            }
+        }
         int curId = item.getItemId();
         switch (curId) {
             case R.id.menu_refresh:
