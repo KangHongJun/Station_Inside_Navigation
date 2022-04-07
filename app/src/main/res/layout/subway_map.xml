@@ -3,6 +3,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/Subway_Map_Toolbar"
         android:layout_width="match_parent"
@@ -12,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical" >
@@ -20,8 +22,11 @@
             <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
                 android:id="@+id/SubwayMap_Img"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                android:layout_height="match_parent"/>
+
+
+
+        </FrameLayout>
     </HorizontalScrollView>
 
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
@@ -22,6 +23,8 @@ public class Subway_Map extends AppCompatActivity {
 
     SubsamplingScaleImageView imageView;
     private GestureDetector mDetector;
+    Button button;
+
 
 
     @Override
@@ -37,9 +40,14 @@ public class Subway_Map extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //이미지 줌인 함수 적용
+        //퀵 액션 예제
+       
+
+
+
         imageView = findViewById(R.id.SubwayMap_Img);
         imageView.setImage(ImageSource.resource(R.drawable.subway_map));
+
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -82,13 +90,16 @@ public class Subway_Map extends AppCompatActivity {
                     do{
                         if ((x_cor > cursor.getInt(2)) && (x_cor < cursor.getInt(4)) && (y_cor > cursor.getInt(3)) && (y_cor < cursor.getInt(5))) {
                             String targetStation = cursor.getString(1);
-                            Toast.makeText(getApplicationContext(),targetStation,Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(getApplicationContext(), targetStation, Toast.LENGTH_LONG).show();
+
+
                         } // send Station Name (column 1)
                     } while (cursor.moveToNext());
 
                 }
 
-
+                Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor,Toast.LENGTH_LONG).show();
                 return false;
             }
 
@@ -109,8 +120,6 @@ public class Subway_Map extends AppCompatActivity {
         });
 
 
-        //DB 접속 및 터치
-        UpdateDB();
 
     }
 
@@ -125,10 +134,7 @@ public class Subway_Map extends AppCompatActivity {
 
         return true;
     }
-    public void UpdateDB(){
 
-
-    }
 
 }
 
