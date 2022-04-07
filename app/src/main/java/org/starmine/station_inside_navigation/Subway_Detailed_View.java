@@ -1,12 +1,9 @@
 package org.starmine.station_inside_navigation;
 
-<<<<<<< HEAD
-=======
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
->>>>>>> origin/main
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -115,9 +112,4 @@ public class Subway_Detailed_View extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/main
 }

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
 
         android:theme="@style/Theme.Station_Inside_Navigation">
-        <activity android:name=".Subway_Map">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
