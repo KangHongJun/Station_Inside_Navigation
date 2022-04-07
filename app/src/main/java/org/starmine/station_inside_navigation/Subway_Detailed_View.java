@@ -1,10 +1,19 @@
 package org.starmine.station_inside_navigation;
 
+<<<<<<< HEAD
+=======
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+>>>>>>> origin/main
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +42,53 @@ public class Subway_Detailed_View extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        //경로찾기 버튼
+        Button Detail_Route_Btn = (Button) findViewById(R.id.Detail_Route_Btn);
+        Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Subway_Route.class);
+                startActivity(intent);
+            }
+        });
+
+        /* 역 내부안내 만들어지면 수정할 인텐트
+        Button Detail_Route_Btn = (Button) findViewById(R.id.Detail_Route_Btn);
+        Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Subway_Route.class);
+                startActivity(intent);
+            }
+        });*/
+
+
+        // 시간표 버튼
+        Button Deatil_Schedule_Btn = (Button) findViewById(R.id.Deatil_Schedule_Btn);
+        Deatil_Schedule_Btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Subway_Schedule.class);
+                startActivity(intent);
+            }
+        });
+
+        Button Detail_Bookmark_Btn = (Button) findViewById(R.id.Detail_Bookmark_Btn);
+        Detail_Bookmark_Btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Bookmark.class);
+                startActivity(intent);
+            }
+        });
+
+        //문의하기 버튼
+        Button Detail_Inquire_Btn = (Button) findViewById(R.id.Detail_Inquire_Btn);
+        Detail_Inquire_Btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Inquiry_Page.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
 
@@ -59,6 +115,9 @@ public class Subway_Detailed_View extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/main
 }
