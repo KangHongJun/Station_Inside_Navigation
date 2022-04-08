@@ -25,7 +25,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/Detail_Back_Text"
+                        android:id="@+id/Detail_Back_Btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

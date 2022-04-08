@@ -13,11 +13,12 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
 
+import fragment.Fragment_Detail;
+
 
 public class Subway_Detailed_View extends AppCompatActivity {
-    Fragment_Weekday Weekday;
-    Fragment_Saturday Saturday;
-    Fragment_Holiday Holiday;
+
+    Fragment_Detail detailed_view;
 
     private static Cursor cursor_line;
     private static String curStation;
@@ -52,10 +53,13 @@ public class Subway_Detailed_View extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(), ""+Staionline[i], Toast.LENGTH_LONG).show();
         }
 
+        detailed_view = new Fragment_Detail();
 
-        Weekday = new Fragment_Weekday();
-        Saturday = new Fragment_Saturday();
-        Holiday = new Fragment_Holiday();
+
+        //프라크먼트 데이터 이동동
+        Bundle bundle = new Bundle();
+        bundle.putString("station",curStation);
+        detailed_view.setArguments(bundle);
 
        //
 
@@ -84,17 +88,17 @@ public class Subway_Detailed_View extends AppCompatActivity {
             ((LinearLayout) tabs.getTabAt(line-1).view).setVisibility(View.VISIBLE);
         }
 
+        //프라그먼트 첫번째 화면 지정
         int line = 1;
         switch (line){
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,Weekday).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,detailed_view).commit();
             case 2:
-                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,Holiday).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,detailed_view).commit();
             case 3:
-                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,Saturday).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,detailed_view).commit();
             default:
-                Toast.makeText(getApplicationContext(), "ww", Toast.LENGTH_SHORT).show();
-
+               break;
         }
 
 
@@ -110,25 +114,25 @@ public class Subway_Detailed_View extends AppCompatActivity {
                 Fragment selected = null;
 
                 if (position == 0){
-                    selected = Weekday;
+                    selected = detailed_view;
                 }else if (position == 1){
-                    selected = Saturday;
+                    selected = detailed_view;
                 }else if (position == 2){
-                    selected = Holiday;
+                    selected = detailed_view;
                 }else if (position == 3){
-                    selected = Holiday;
+                    selected = detailed_view;
                 }else if (position == 4){
-                    selected = Holiday;
+                    selected = detailed_view;
                 }else if (position == 5){
-                    selected = Holiday;
+                    selected = detailed_view;
                 }else if (position == 6){
-                    selected = Holiday;
+                    selected = detailed_view;
                 }else if (position == 7){
-                    selected = Holiday;
+                    selected = detailed_view;
                 }else if (position == 8){
-                    selected = Holiday;
+                    selected = detailed_view;
                 } else if (position == 9){
-                    selected = Holiday;
+                    selected = detailed_view;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,selected).commit();
             }
@@ -145,15 +149,6 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-
-
-
-
         //카카오 map
 //        MapView mapView = new MapView(this);
 //        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.Kakao_map);
@@ -161,77 +156,5 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
         //툴바 세팅
 
-
-//        //경로찾기 버튼
-//        Button Detail_Route_Btn = (Button) findViewById(R.id.Detail_Route_Btn);
-//        Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), Subway_Route.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        /* 역 내부안내 만들어지면 수정할 인텐트
-//        Button Detail_Route_Btn = (Button) findViewById(R.id.Detail_Route_Btn);
-//        Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), Subway_Route.class);
-//                startActivity(intent);
-//            }
-//        });*/
-//
-//
-//        // 시간표 버튼
-//        Button Deatil_Schedule_Btn = (Button) findViewById(R.id.Deatil_Schedule_Btn);
-//        Deatil_Schedule_Btn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), Subway_Schedule.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        Button Detail_Bookmark_Btn = (Button) findViewById(R.id.Detail_Bookmark_Btn);
-//        Detail_Bookmark_Btn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), Bookmark.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        //문의하기 버튼
-//        Button Detail_Inquire_Btn = (Button) findViewById(R.id.Detail_Inquire_Btn);
-//        Detail_Inquire_Btn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), Inquiry_Page.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//
-//    }
-//
-//
-//
-//    //메뉴 적용
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater menuInflater = getMenuInflater();
-//        menuInflater.inflate(R.menu.detail_menu, menu);
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    //메뉴 클릭시
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int curId = item.getItemId();
-//        switch (curId) {
-//            case R.id.menu_refresh:
-//                Toast.makeText(this, "설정메뉴", Toast.LENGTH_LONG).show();
-//                break;
-//            default:
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
 
 }

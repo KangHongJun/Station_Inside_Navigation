@@ -14,18 +14,20 @@
         android:supportsRtl="true"
 
         android:theme="@style/Theme.Station_Inside_Navigation">
-        <activity android:name=".Subway_Map">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Subway_Map"/>
         <activity android:name=".Subway_Detailed_View"/>
         <activity android:name=".Subway_Route"/>
         <activity android:name=".Inquiry_Page"/>
         <activity android:name=".Language_Setting"/>
         <activity android:name=".Bookmark"/>
+        <activity android:name=".Subway_Schedule"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="ae013cba2d59b75e684532d3c53bd6f1"/>
     </application>
 
