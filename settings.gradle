@@ -1,2 +1,3 @@
 include ':app'
 rootProject.name = "Station_Inside_Navigation"
+include ':newQuickAction3D'
