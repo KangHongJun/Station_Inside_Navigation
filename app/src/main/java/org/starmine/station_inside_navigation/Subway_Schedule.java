@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -43,6 +44,7 @@ public class Subway_Schedule extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("평일"));
         tabs.addTab(tabs.newTab().setText("토요일"));
         tabs.addTab(tabs.newTab().setText("공휴일"));
+
 
         //클릭 시 fragment 변경
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
