@@ -81,6 +81,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
 
 
+<<<<<<< HEAD
         //해당하는 역의 호선 탭 활성화
         for (int i=0;i<count;i++){
             Toast.makeText(getApplicationContext(),"test"+Staionline[i],Toast.LENGTH_LONG).show();
@@ -97,6 +98,23 @@ public class Subway_Detailed_View extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,detailed_view).commit();
             case 3:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container,detailed_view).commit();
+=======
+    //메뉴 클릭시
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                // 액티비티 이동
+                finish();
+                return true;
+            }
+        }
+        int curId = item.getItemId();
+        switch (curId) {
+            case R.id.menu_refresh:
+                Toast.makeText(this, "설정메뉴", Toast.LENGTH_LONG).show();
+                break;
+>>>>>>> 3edb391ab349c2f51a643589657fe2a7bde20c88
             default:
                break;
         }
@@ -148,6 +166,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
         });
 
     }
+<<<<<<< HEAD
 
         //카카오 map
 //        MapView mapView = new MapView(this);
@@ -158,3 +177,6 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
 
 }
+=======
+}
+>>>>>>> 3edb391ab349c2f51a643589657fe2a7bde20c88
