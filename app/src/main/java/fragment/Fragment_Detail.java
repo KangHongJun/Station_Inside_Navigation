@@ -38,7 +38,7 @@ public class Fragment_Detail extends Fragment {
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
 
-        //DB데이터
+        //DB읽기
         DBHelper Helper;
         SQLiteDatabase sqlDB;
         Helper = new DBHelper(getActivity(),"subway_info.db",null,1);
@@ -46,11 +46,13 @@ public class Fragment_Detail extends Fragment {
         Helper.onCreate(sqlDB);
 
 
+        //현재역 code 얻기
         String sqlCode = "select CODE from subway_line where NAME = " +"\""+ curStation +"\""+"";
 
         cursor_code = sqlDB.rawQuery(sqlCode,null);
         cursor_code.moveToNext();
 
+        //현재역 code값으로 다음, 이전역 코드 얻기
         int code = cursor_code.getInt(0);
         int nextCode = code+1;
         int beforeCode = code-1;
