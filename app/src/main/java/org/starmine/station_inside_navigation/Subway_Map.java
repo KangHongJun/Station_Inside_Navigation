@@ -215,10 +215,8 @@ public class Subway_Map extends AppCompatActivity {
 
         return true;
     }
-<<<<<<< HEAD
-}
 
-=======
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -231,4 +229,3 @@ public class Subway_Map extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
->>>>>>> 3edb391ab349c2f51a643589657fe2a7bde20c88

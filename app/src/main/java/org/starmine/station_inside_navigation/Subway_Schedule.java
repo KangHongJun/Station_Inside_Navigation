@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-<<<<<<< HEAD
-=======
+
 import android.view.MenuItem;
->>>>>>> 3edb391ab349c2f51a643589657fe2a7bde20c88
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
