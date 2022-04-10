@@ -52,7 +52,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
         for (int i = 0; i < count; i++) {
             cursor_line.moveToNext();
             Staionline[i] = cursor_line.getString(3);
-            //Toast.makeText(getApplicationContext(), ""+Staionline[i], Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), ""+Staionline[i], Toast.LENGTH_LONG).show();
         }
 
         detailed_view = new Fragment_Detail();
