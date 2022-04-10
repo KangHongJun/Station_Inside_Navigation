@@ -16,14 +16,30 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.tabs.TabLayout;
 
 import fragment.Fragment_Detail;
+import fragment.Fragment_Detail_line1;
+import fragment.Fragment_Detail_line2;
+import fragment.Fragment_Detail_line3;
+import fragment.Fragment_Detail_line4;
+import fragment.Fragment_Detail_line5;
+import fragment.Fragment_Detail_line6;
+import fragment.Fragment_Detail_line7;
 
 
 public class Subway_Detailed_View extends AppCompatActivity {
 
     Fragment_Detail detailed_view;
+    Fragment_Detail_line1 detailed_view1;
+    Fragment_Detail_line2 detailed_view2;
+    Fragment_Detail_line3 detailed_view3;
+    Fragment_Detail_line4 detailed_view4;
+    Fragment_Detail_line5 detailed_view5;
+    Fragment_Detail_line6 detailed_view6;
+    Fragment_Detail_line7 detailed_view7;
+
 
     private static Cursor cursor_line;
     private static String curStation;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +68,62 @@ public class Subway_Detailed_View extends AppCompatActivity {
         for (int i = 0; i < count; i++) {
             cursor_line.moveToNext();
             Staionline[i] = cursor_line.getString(3);
-            Toast.makeText(getApplicationContext(), ""+Staionline[i], Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), ""+Staionline[i], Toast.LENGTH_LONG).show();
         }
 
         detailed_view = new Fragment_Detail();
+        detailed_view1 = new Fragment_Detail_line1();
+        detailed_view2 = new Fragment_Detail_line2();
+        detailed_view3 = new Fragment_Detail_line3();
+        detailed_view4 = new Fragment_Detail_line4();
+        detailed_view5 = new Fragment_Detail_line5();
+        detailed_view6 = new Fragment_Detail_line6();
+        detailed_view7 = new Fragment_Detail_line7();
 
 
-        //프라크먼트 데이터 이동동
+//프라크먼트 데이터 이동
         Bundle bundle = new Bundle();
         bundle.putString("station", curStation);
         detailed_view.setArguments(bundle);
 
-        //
+//        detailed_view1.setArguments(bundle);
+//        detailed_view2.setArguments(bundle);
+//        detailed_view3.setArguments(bundle);
+        //detailed_view4.setArguments(bundle);
+//        detailed_view5.setArguments(bundle);
+//        detailed_view6.setArguments(bundle);
+//        detailed_view7.setArguments(bundle);
 
+
+        for (int i = 0; i < count; i++) {
+            int line = Integer.parseInt(Staionline[i]);
+            if (line==1){
+                bundle.putString("station", curStation);
+                detailed_view1.setArguments(bundle);
+            }else if(line==2){
+                bundle.putString("station", curStation);
+                detailed_view2.setArguments(bundle);
+            }
+            else if(line==3){
+                bundle.putString("station", curStation);
+                detailed_view3.setArguments(bundle);
+            }
+            else if(line==4){
+                bundle.putString("station", curStation);
+                detailed_view4.setArguments(bundle);
+            }
+            else if(line==5){
+                bundle.putString("station", curStation);
+                detailed_view5.setArguments(bundle);
+            }
+            else if(line==6){
+                bundle.putString("station", curStation);
+                detailed_view6.setArguments(bundle);
+            }
+
+        }
+
+        
         TabLayout tabs = findViewById(R.id.Detail_subway_line_Tab);
         tabs.addTab(tabs.newTab().setText("1"));
         tabs.addTab(tabs.newTab().setText("2"));
@@ -82,29 +141,46 @@ public class Subway_Detailed_View extends AppCompatActivity {
         }
 
 
+
         //해당하는 역의 호선 탭 활성화
         for (int i = 0; i < count; i++) {
-            Toast.makeText(getApplicationContext(), "test" + Staionline[i], Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "test" + Staionline[i], Toast.LENGTH_LONG).show();
             int line = Integer.parseInt(Staionline[i]);
             ((LinearLayout) tabs.getTabAt(line - 1).view).setVisibility(View.VISIBLE);
         }
 
+
         //프라그먼트 첫번째 화면 지정
-        int line = 1;
+        int line = Integer.parseInt(Staionline[0]);
+        Toast.makeText(getApplicationContext(),""+line,Toast.LENGTH_SHORT).show();
         switch (line) {
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view1).commit();
+                break;
             case 2:
-                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view2).commit();
+                break;
             case 3:
-                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view3).commit();
+                break;
             case 4:
-                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view4).commit();
+                break;
+            case 5:
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view5).commit();
+                break;
+            case 6:
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view6).commit();
+                break;
+            case 7:
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view7).commit();
+                break;
+            default:
+                break;
         }
 
 
         //메뉴 클릭시
-
         //클릭 시 fragment 변경
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -114,25 +190,19 @@ public class Subway_Detailed_View extends AppCompatActivity {
                 Fragment selected = null;
 
                 if (position == 0) {
-                    selected = detailed_view;
+                    selected = detailed_view1;
                 } else if (position == 1) {
-                    selected = detailed_view;
+                    selected = detailed_view2;
                 } else if (position == 2) {
-                    selected = detailed_view;
+                    selected = detailed_view3;
                 } else if (position == 3) {
-                    selected = detailed_view;
+                    selected = detailed_view4;
                 } else if (position == 4) {
-                    selected = detailed_view;
+                    selected = detailed_view5;
                 } else if (position == 5) {
-                    selected = detailed_view;
+                    selected = detailed_view6;
                 } else if (position == 6) {
-                    selected = detailed_view;
-                } else if (position == 7) {
-                    selected = detailed_view;
-                } else if (position == 8) {
-                    selected = detailed_view;
-                } else if (position == 9) {
-                    selected = detailed_view;
+                    selected = detailed_view7;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, selected).commit();
             }
