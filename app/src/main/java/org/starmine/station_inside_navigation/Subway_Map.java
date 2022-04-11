@@ -225,6 +225,10 @@ public class Subway_Map extends AppCompatActivity {
                 finish();
                 return true;
             }
+            case R.id.menu_search:{
+                Intent intent = new Intent(Subway_Map.this,Subway_Search.class);
+                startActivity(intent);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
