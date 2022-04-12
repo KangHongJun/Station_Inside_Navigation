@@ -14,10 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.tabs.TabLayout;
+
 import org.starmine.station_inside_navigation.Bookmark;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
 import org.starmine.station_inside_navigation.R;
+import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
@@ -48,6 +51,7 @@ public class Fragment_Detail_line4 extends Fragment {
         sqlDB = Helper.getReadableDatabase();
         Helper.onCreate(sqlDB);
 
+        TabLayout tabs = ((Subway_Detailed_View)getActivity()).findViewById(R.id.Detail_subway_line_Tab);
 
         //현재역 code 얻기
         sqlCode = "select CODE from subway_line where NAME = " +"\""+ curStation +"\""+"and line=4";
@@ -60,12 +64,9 @@ public class Fragment_Detail_line4 extends Fragment {
         int nextCode = code+1;
         int beforeCode = code-1;
 
-        String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
-        cursor_code = sqlDB.rawQuery(nextStation,null);
-        cursor_code.moveToNext();
 
-        TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
-        nextSt.setText(cursor_code.getString(0));
+
+
 
         String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
         cursor_code = sqlDB.rawQuery(beforeStation,null);
@@ -74,14 +75,31 @@ public class Fragment_Detail_line4 extends Fragment {
         TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
         beforeSt.setText(cursor_code.getString(0));
 
+        String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
+        cursor_code = sqlDB.rawQuery(nextStation,null);
+        cursor_code.moveToNext();
 
-        Button Detail_Back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
+        TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
+        nextSt.setText(cursor_code.getString(0));
+
+
+
+        Button Detail_Back_Btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
         Detail_Back_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 code = code+1;
                 int nextCode = code+1;
                 int beforeCode = code-1;
+
+                String curStation = "select NAME from subway_line where CODE = " + code +"";
+                cursor_code = sqlDB.rawQuery(curStation,null);
+                cursor_code.moveToNext();
+
+                TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
+                curSt.setText(cursor_code.getString(0));
+
+                ((Subway_Detailed_View)getActivity()).Update_tab(cursor_code.getString(0));
 
                 String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
                 cursor_code = sqlDB.rawQuery(nextStation,null);
@@ -94,8 +112,13 @@ public class Fragment_Detail_line4 extends Fragment {
                 cursor_code = sqlDB.rawQuery(beforeStation,null);
                 cursor_code.moveToNext();
 
+                String befroe = cursor_code.getString(0);
                 TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
-                beforeSt.setText(cursor_code.getString(0));
+                beforeSt.setText(befroe);
+
+
+
+
 
             }
         });
