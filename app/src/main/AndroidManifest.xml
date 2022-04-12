@@ -29,6 +29,7 @@
         <activity android:name=".Bookmark"/>
         <activity android:name=".Subway_Schedule"/>
         <activity android:name=".Subway_Search"/>
+        <activity android:name=".Options"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="ae013cba2d59b75e684532d3c53bd6f1"/>
     </application>
 
