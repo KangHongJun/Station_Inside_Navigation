@@ -179,7 +179,7 @@ public class Subway_Map extends AppCompatActivity {
                         if ((x_cor > cursor_coor.getInt(2)) && (x_cor < cursor_coor.getInt(4)) && (y_cor > cursor_coor.getInt(3)) && (y_cor < cursor_coor.getInt(5))) {
 
                             curStation = cursor_coor.getString(1);
-                            quickAction.show(imageView);
+                            quickAction.show(imageView,1,1);
                             //Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
                         }
                     } while (cursor_coor.moveToNext());

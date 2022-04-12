@@ -26,9 +26,11 @@ public class Fragment_Detail_line4 extends Fragment {
     Cursor cursor_code;
     static String sqlCode;
 
+    //현재역 코드 저장
+    static int code;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
-
 
         //해당 역 번들 데이터 얻기
         Bundle curstation = getArguments();
@@ -54,7 +56,7 @@ public class Fragment_Detail_line4 extends Fragment {
         cursor_code.moveToNext();
 
         //현재역 code값으로 다음, 이전역 코드 얻기
-        int code = cursor_code.getInt(0);
+        code = cursor_code.getInt(0);
         int nextCode = code+1;
         int beforeCode = code-1;
 
@@ -73,9 +75,30 @@ public class Fragment_Detail_line4 extends Fragment {
         beforeSt.setText(cursor_code.getString(0));
 
 
-//
+        Button Detail_Back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
+        Detail_Back_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                code = code+1;
+                int nextCode = code+1;
+                int beforeCode = code-1;
 
+                String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
+                cursor_code = sqlDB.rawQuery(nextStation,null);
+                cursor_code.moveToNext();
 
+                TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
+                nextSt.setText(cursor_code.getString(0));
+
+                String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
+                cursor_code = sqlDB.rawQuery(beforeStation,null);
+                cursor_code.moveToNext();
+
+                TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
+                beforeSt.setText(cursor_code.getString(0));
+
+            }
+        });
 
 
 

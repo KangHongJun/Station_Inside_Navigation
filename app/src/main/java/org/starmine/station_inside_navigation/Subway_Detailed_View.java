@@ -39,8 +39,12 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
     private static Cursor cursor_line;
     private static String curStation;
+    public TabLayout tabs;
 
-
+    //해당 역 호선 수
+    public static int count;
+    //호선 정보
+    static String[] Staionline = new String[10];
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +65,9 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
         String sql_line = "select * from subway_line where NAME = " + "\"" + curStation + "\"" + "";
         cursor_line = sqlDB.rawQuery(sql_line, null);
-        int count = cursor_line.getCount();
+        count = cursor_line.getCount();
 
-        String[] Staionline = new String[10];//역 호선 정보
+        //역 호선 정보
 
         for (int i = 0; i < count; i++) {
             cursor_line.moveToNext();
@@ -124,30 +128,22 @@ public class Subway_Detailed_View extends AppCompatActivity {
         }
 
         
-        TabLayout tabs = findViewById(R.id.Detail_subway_line_Tab);
-        tabs.addTab(tabs.newTab().setText("1"));
-        tabs.addTab(tabs.newTab().setText("2"));
-        tabs.addTab(tabs.newTab().setText("3"));
-        tabs.addTab(tabs.newTab().setText("4"));
-        tabs.addTab(tabs.newTab().setText("5"));
-        tabs.addTab(tabs.newTab().setText("6"));
-        tabs.addTab(tabs.newTab().setText("7"));
-        tabs.addTab(tabs.newTab().setText("8"));
-
-        //탭 숨기기 gone
-        int tab_count = tabs.getTabCount();
-        for (int i = 0; i < tab_count; i++) {
-            ((LinearLayout) tabs.getTabAt(i).view).setVisibility(View.GONE);
-        }
 
 
+//        //탭 숨기기 gone
+//        int tab_count = tabs.getTabCount();
+//        for (int i = 0; i < tab_count; i++) {
+//            ((LinearLayout) tabs.getTabAt(i).view).setVisibility(View.GONE);
+//        }
+//
+//        //해당하는 역의 호선 탭 활성화
+//        for (int i = 0; i < count; i++) {
+//            //Toast.makeText(getApplicationContext(), "test" + Staionline[i], Toast.LENGTH_LONG).show();
+//            int line = Integer.parseInt(Staionline[i]);
+//            ((LinearLayout) tabs.getTabAt(line - 1).view).setVisibility(View.VISIBLE);
+//        }
+        Setting_tab();
 
-        //해당하는 역의 호선 탭 활성화
-        for (int i = 0; i < count; i++) {
-            //Toast.makeText(getApplicationContext(), "test" + Staionline[i], Toast.LENGTH_LONG).show();
-            int line = Integer.parseInt(Staionline[i]);
-            ((LinearLayout) tabs.getTabAt(line - 1).view).setVisibility(View.VISIBLE);
-        }
 
 
         //프라그먼트 첫번째 화면 지정
@@ -217,10 +213,32 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
             }
         });
-
-
     }
 
+    //탭 세팅
+    public void Setting_tab(){
+        tabs = findViewById(R.id.Detail_subway_line_Tab);
+        tabs.addTab(tabs.newTab().setText("1"));
+        tabs.addTab(tabs.newTab().setText("2"));
+        tabs.addTab(tabs.newTab().setText("3"));
+        tabs.addTab(tabs.newTab().setText("4"));
+        tabs.addTab(tabs.newTab().setText("5"));
+        tabs.addTab(tabs.newTab().setText("6"));
+        tabs.addTab(tabs.newTab().setText("7"));
+        tabs.addTab(tabs.newTab().setText("8"));
+
+        int tab_count = tabs.getTabCount();
+        for (int i = 0; i < tab_count; i++) {
+            ((LinearLayout) tabs.getTabAt(i).view).setVisibility(View.GONE);
+        }
+
+        //해당하는 역의 호선 탭 활성화
+        for (int i = 0; i < count; i++) {
+            //Toast.makeText(getApplicationContext(), "test" + Staionline[i], Toast.LENGTH_LONG).show();
+            int line = Integer.parseInt(Staionline[i]);
+            ((LinearLayout) tabs.getTabAt(line - 1).view).setVisibility(View.VISIBLE);
+        }
+    }
     //메뉴 클릭시
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
