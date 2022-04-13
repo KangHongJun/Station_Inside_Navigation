@@ -228,10 +228,12 @@ public class Subway_Map extends AppCompatActivity {
             case R.id.menu_search:{
                 Intent intent = new Intent(Subway_Map.this,Subway_Search.class);
                 startActivity(intent);
+                break;
             }
             case R.id.menu_setting:{
                 Intent intent = new Intent(Subway_Map.this,Options.class);
                 startActivity(intent);
+                break;
             }
         }
         return super.onOptionsItemSelected(item);
