@@ -37,6 +37,7 @@ public class Subway_Map extends AppCompatActivity {
     private QuickAction quickAction;
 
     private static String curStation;//선택한 지하철 역 이름
+    private static float TileScale;
 
 
 
@@ -58,6 +59,8 @@ public class Subway_Map extends AppCompatActivity {
 
         imageView = findViewById(R.id.SubwayMap_Img);
         imageView.setImage(ImageSource.resource(subway_map));
+        TileScale = imageView.getMaxScale();
+      
 
         DBHelper Helper;
         SQLiteDatabase sqlDB;
@@ -168,25 +171,23 @@ public class Subway_Map extends AppCompatActivity {
 
             @Override
             public boolean onSingleTapUp(MotionEvent event){
-
-
                 PointF sCoord = imageView.viewToSourceCoord(event.getX(), event.getY());
                 int x_cor = (int) sCoord.x;
                 int y_cor = (int) sCoord.y;
 
                 if (cursor_coor.moveToFirst()){
                     do{
-                        if ((x_cor > cursor_coor.getInt(2)) && (x_cor < cursor_coor.getInt(4)) && (y_cor > cursor_coor.getInt(3)) && (y_cor < cursor_coor.getInt(5))) {
+                        if ((x_cor > cursor_coor.getInt(2)*TileScale) && (x_cor < cursor_coor.getInt(4)*TileScale) && (y_cor > cursor_coor.getInt(3)*TileScale) && (y_cor < cursor_coor.getInt(5)*TileScale)) {
 
                             curStation = cursor_coor.getString(1);
                             quickAction.show(imageView,1,1);
-                            //Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
                         }
                     } while (cursor_coor.moveToNext());
 
                 }
 
-                //Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor,Toast.LENGTH_LONG).show();
                 return false;
             }
 
