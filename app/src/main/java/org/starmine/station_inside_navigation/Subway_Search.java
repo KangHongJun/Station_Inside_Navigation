@@ -60,14 +60,14 @@ public class Subway_Search extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = adapterView.getItemAtPosition(i).toString();
+                db.insertData(name);
+                historyList.clear();
                 viewData();
                 Toast.makeText(Subway_Search.this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
             }
         });
 
         viewData();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, historyList);
-        listView_history.setAdapter(adapter);
 
         listView_history.setOnItemClickListener((new AdapterView.OnItemClickListener() {
             @Override
@@ -87,6 +87,8 @@ public class Subway_Search extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Subway_Search.this.arrayAdapter.getFilter().filter(newText);
+                adapter = new ArrayAdapter<String>(Subway_Search.this, android.R.layout.simple_list_item_1, historyList);
+                listView_history.setAdapter(adapter);
                 if (newText.length() >= 1) {
                     listView_search.setVisibility(View.VISIBLE);
                     listView_bookmark.setVisibility(View.GONE);
@@ -96,8 +98,8 @@ public class Subway_Search extends AppCompatActivity {
                     listView_search.setVisibility(View.GONE);
                     listView_bookmark.setVisibility(View.VISIBLE);
                     listView_history.setVisibility(View.VISIBLE);
+
                 }
-                
                 return true;
             }
         });
@@ -110,6 +112,9 @@ public class Subway_Search extends AppCompatActivity {
         while (cursor.moveToNext()) {
             historyList.add(cursor.getString(1));
         }
+
+        adapter = new ArrayAdapter<String>(Subway_Search.this, android.R.layout.simple_list_item_1, historyList);
+        listView_history.setAdapter(adapter);
     }
 
     @Override

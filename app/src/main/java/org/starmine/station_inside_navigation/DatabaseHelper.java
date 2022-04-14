@@ -11,18 +11,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Search.db";
     private static final String DB_TABLE = "Search_History";
 
+    private static final String ID = "ID";
     private static final String NAME = "NAME";
 
-    private static final String CREEATE_TABLE = "CREATE TABLE " + DB_TABLE +
-            " (" + NAME + "TEXT " + ")";
+    private static final String CREATE_TABLE = "CREATE TABLE " + DB_TABLE +
+            " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT " + ")";
 
     public DatabaseHelper(Context context){
-        super (context, DB_NAME, null, 1);
+        super (context, DB_NAME, null, 2);
     }
 
     @Override
     public void onCreate (SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(CREEATE_TABLE);
+        sqLiteDatabase.execSQL(CREATE_TABLE);
     }
 
     @Override
