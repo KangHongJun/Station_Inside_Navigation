@@ -1,5 +1,6 @@
 package org.starmine.station_inside_navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +40,16 @@ public class Inside_Navigation extends AppCompatActivity {
                 // 액티비티 이동
                 finish();
                 return true;
+            }
+            case R.id.menu_map:{
+                Intent intent = new Intent(Inside_Navigation.this,Subway_Map.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.menu_detail:{
+                Intent intent = new Intent(Inside_Navigation.this,Subway_Detailed_View.class);
+                startActivity(intent);
+                break;
             }
         }
         return super.onOptionsItemSelected(item);
