@@ -14,7 +14,7 @@
         android:supportsRtl="true"
 
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,6 +31,7 @@
         <activity android:name=".Subway_Search"/>
         <activity android:name=".Options"/>
         <activity android:name=".Inside_Navigation"/>
+        <activity android:name=".MainActivity"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="ae013cba2d59b75e684532d3c53bd6f1"/>
     </application>
 
