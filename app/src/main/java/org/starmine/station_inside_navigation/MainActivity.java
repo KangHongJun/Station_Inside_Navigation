@@ -24,14 +24,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /* 내부안내 인텐트
+        //내부안내 인텐트
         Button Main_Guide_Btn = (Button) findViewById(R.id.Main_Guide_Btn);
         Main_Guide_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Subway_Map.class);
+                Intent intent = new Intent(getApplicationContext(), Inside_Navigation.class);
                 startActivity(intent);
             }
         });
-        */
     }
 }
