@@ -18,6 +18,7 @@ import org.starmine.station_inside_navigation.Bookmark;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
 import org.starmine.station_inside_navigation.R;
+import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
@@ -25,6 +26,7 @@ public class Fragment_Detail_line2 extends Fragment {
     private static String curStation;
     Cursor cursor_code;
     static String sqlCode;
+    static int code;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
@@ -48,31 +50,103 @@ public class Fragment_Detail_line2 extends Fragment {
 
 
         //현재역 code 얻기
-        if(curStation!= null){
-            sqlCode = "select CODE from subway_line where NAME = " +"\""+ curStation +"\""+"and line=2";
 
-            cursor_code = sqlDB.rawQuery(sqlCode,null);
-            cursor_code.moveToNext();
+        sqlCode = "select CODE from subway_line where NAME = " +"\""+ curStation +"\""+"and line=2";
 
-            //현재역 code값으로 다음, 이전역 코드 얻기
-            int code = cursor_code.getInt(0);
-            int nextCode = code+1;
-            int beforeCode = code-1;
+        cursor_code = sqlDB.rawQuery(sqlCode,null);
+        cursor_code.moveToNext();
 
-            String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
-            cursor_code = sqlDB.rawQuery(nextStation,null);
-            cursor_code.moveToNext();
+        //현재역 code값으로 다음, 이전역 코드 얻기
+        code = cursor_code.getInt(0);
+        int nextCode = code-1;
+        int beforeCode = code+1;
 
-            TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
-            nextSt.setText(cursor_code.getString(0));
 
-            String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
-            cursor_code = sqlDB.rawQuery(beforeStation,null);
-            cursor_code.moveToNext();
+        String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
+        cursor_code = sqlDB.rawQuery(beforeStation,null);
+        cursor_code.moveToNext();
 
-            TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
-            beforeSt.setText(cursor_code.getString(0));
-        }
+        TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
+        beforeSt.setText(cursor_code.getString(0));
+
+        String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
+        cursor_code = sqlDB.rawQuery(nextStation,null);
+        cursor_code.moveToNext();
+
+        TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
+        nextSt.setText(cursor_code.getString(0));
+
+        Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
+        next_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                code = code-1;
+                int nextCode = code-1;
+                int beforeCode = code+1;
+
+                String curStation = "select NAME from subway_line where CODE = " + code +"";
+                cursor_code = sqlDB.rawQuery(curStation,null);
+                cursor_code.moveToNext();
+
+                TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
+                curSt.setText(cursor_code.getString(0));
+
+                ((Subway_Detailed_View)getActivity()).Update_tab(cursor_code.getString(0));
+
+                String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
+                cursor_code = sqlDB.rawQuery(nextStation,null);
+                cursor_code.moveToNext();
+
+                TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
+                nextSt.setText(cursor_code.getString(0));
+
+                String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
+                cursor_code = sqlDB.rawQuery(beforeStation,null);
+                cursor_code.moveToNext();
+
+                String befroe = cursor_code.getString(0);
+                TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
+                beforeSt.setText(befroe);
+            }
+        });
+
+
+
+        Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
+        back_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                code = code+1;
+                int nextCode = code-1;
+                int beforeCode = code+1;
+
+                String curStation = "select NAME from subway_line where CODE = " + code +"";
+                cursor_code = sqlDB.rawQuery(curStation,null);
+                cursor_code.moveToNext();
+
+                TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
+                curSt.setText(cursor_code.getString(0));
+
+                ((Subway_Detailed_View)getActivity()).Update_tab(cursor_code.getString(0));
+
+                String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
+                cursor_code = sqlDB.rawQuery(nextStation,null);
+                cursor_code.moveToNext();
+
+                TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
+                nextSt.setText(cursor_code.getString(0));
+
+                String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
+                cursor_code = sqlDB.rawQuery(beforeStation,null);
+                cursor_code.moveToNext();
+
+                String before = cursor_code.getString(0);
+                TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
+                beforeSt.setText(before);
+            }
+        });
+
+
 
 
 

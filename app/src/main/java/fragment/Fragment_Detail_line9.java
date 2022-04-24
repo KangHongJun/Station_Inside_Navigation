@@ -22,7 +22,7 @@ import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
-public class Fragment_Detail_line6 extends Fragment {
+public class Fragment_Detail_line9 extends Fragment {
     private static String curStation;
     Cursor cursor_code;
     static String sqlCode;
@@ -48,16 +48,17 @@ public class Fragment_Detail_line6 extends Fragment {
         sqlDB = Helper.getReadableDatabase();
         Helper.onCreate(sqlDB);
 
+
         //현재역 code 얻기
-        sqlCode = "select CODE from subway_line where NAME = " +"\""+ curStation +"\""+"and line=6";
+        sqlCode = "select CODE from subway_line where NAME = " +"\""+ curStation +"\""+"and line=9";
         cursor_code = sqlDB.rawQuery(sqlCode,null);
         cursor_code.moveToNext();
-
 
         //현재역 code값으로 다음, 이전역 코드 얻기
         code = cursor_code.getInt(0);
         int nextCode = code-1;
         int beforeCode = code+1;
+
 
         String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
         cursor_code = sqlDB.rawQuery(beforeStation,null);
@@ -142,8 +143,6 @@ public class Fragment_Detail_line6 extends Fragment {
                 beforeSt.setText(before);
             }
         });
-
-
 
 
 

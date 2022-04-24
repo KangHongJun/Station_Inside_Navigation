@@ -41,6 +41,7 @@ public class Fragment_Detail_line4 extends Fragment {
 
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
+        curSt.setBackgroundResource(R.drawable.station4_main);
 
         //DB읽기
         DBHelper Helper;
@@ -75,6 +76,7 @@ public class Fragment_Detail_line4 extends Fragment {
         nextSt.setText(cursor_code.getString(0));
 
         Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
+        next_btn.setBackgroundResource(R.drawable.station4_sub);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +113,7 @@ public class Fragment_Detail_line4 extends Fragment {
 
 
         Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
+        back_Btn.setBackgroundResource(R.drawable.station4_sub);
         back_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,9 +141,9 @@ public class Fragment_Detail_line4 extends Fragment {
                 cursor_code = sqlDB.rawQuery(beforeStation,null);
                 cursor_code.moveToNext();
 
-                String befroe = cursor_code.getString(0);
+                String before = cursor_code.getString(0);
                 TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
-                beforeSt.setText(befroe);
+                beforeSt.setText(before);
             }
         });
 
@@ -168,8 +171,8 @@ public class Fragment_Detail_line4 extends Fragment {
 
 
         // 시간표 버튼
-        Button Deatil_Schedule_Btn = viewGroup.findViewById(R.id.Deatil_Schedule_Btn);
-        Deatil_Schedule_Btn.setOnClickListener(new View.OnClickListener() {
+        Button Detail_Schedule_Btn = viewGroup.findViewById(R.id.Deatil_Schedule_Btn);
+        Detail_Schedule_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Subway_Schedule.class);
                 startActivity(intent);

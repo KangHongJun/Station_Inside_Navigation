@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,9 +27,6 @@ import piruincopy.quickaction.QuickAction;
 
 import static org.starmine.station_inside_navigation.R.drawable.subway_map;
 
-//import me.piruin.quickaction.ActionItem;
-//import me.piruin.quickaction.QuickAction;
-
 public class Subway_Map extends AppCompatActivity {
 
     SubsamplingScaleImageView imageView;
@@ -36,7 +34,7 @@ public class Subway_Map extends AppCompatActivity {
     private QuickAction quickAction;
 
     private static String curStation;//선택한 지하철 역 이름
-    private static float TileScale;
+    private static double TileScale;
 
 
 
@@ -55,6 +53,8 @@ public class Subway_Map extends AppCompatActivity {
         imageView = findViewById(R.id.SubwayMap_Img);
         imageView.setImage(ImageSource.resource(subway_map));
         TileScale = imageView.getMaxScale();
+
+        Toast.makeText(getApplicationContext(),""+TileScale,Toast.LENGTH_LONG).show();
       
 
         DBHelper Helper;
@@ -73,7 +73,7 @@ public class Subway_Map extends AppCompatActivity {
         QuickAction.setDefaultColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
         QuickAction.setDefaultTextColor(Color.BLACK);
 
-        //아이템 번호, 모양 지정
+//        //아이템 번호, 모양 지정
 //        ActionItem searchItem = new ActionItem(ID_SEARCH, "경로", R.drawable.ic_search);
 //        ActionItem infoItem = new ActionItem(ID_INFO, "상세보기", R.drawable.ic_info);
 //        ActionItem okItem = new ActionItem(ID_OK, "OK", R.drawable.ic_ok);
@@ -90,7 +90,7 @@ public class Subway_Map extends AppCompatActivity {
 //        quickAction.addActionItem(searchItem);
 //        quickAction.addActionItem(infoItem);
 //        quickAction.addActionItem(okItem);
-
+//
 //        //퀵 액션 클릭 리스너
 //        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
 //            @Override public void onItemClick(ActionItem item) {
@@ -120,7 +120,7 @@ public class Subway_Map extends AppCompatActivity {
 //                //if (!item.isSticky()) quickAction.remove(item);
 //            }
 //        });
-
+//
 
 
         //툴바 세팅
@@ -156,13 +156,13 @@ public class Subway_Map extends AppCompatActivity {
                 PointF sCoord = imageView.viewToSourceCoord(event.getX(), event.getY());
                 int x_cor = (int) sCoord.x;
                 int y_cor = (int) sCoord.y;
+                //TileScale = 1;
 
                 if (cursor_coor.moveToFirst()){
                     do{
                         if ((x_cor > cursor_coor.getInt(2)*TileScale) && (x_cor < cursor_coor.getInt(4)*TileScale) && (y_cor > cursor_coor.getInt(3)*TileScale) && (y_cor < cursor_coor.getInt(5)*TileScale)) {
 
                             curStation = cursor_coor.getString(1);
-                            //quickAction.getActionItemById(4).setTitle("qwe");
                             makeQuickAction();
                             quickAction.show(imageView,1,1);
                             //Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
@@ -170,7 +170,6 @@ public class Subway_Map extends AppCompatActivity {
                     } while (cursor_coor.moveToNext());
 
                 }
-
                 //Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor,Toast.LENGTH_LONG).show();
                 return false;
             }
@@ -227,20 +226,22 @@ public class Subway_Map extends AppCompatActivity {
     public void makeQuickAction(){
         ActionItem searchItem = new ActionItem(ID_SEARCH, "경로", R.drawable.ic_search);
         ActionItem infoItem = new ActionItem(ID_INFO, "상세보기", R.drawable.ic_info);
-        ActionItem okItem = new ActionItem(ID_OK, "OK", R.drawable.ic_ok);
+        ActionItem bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.ic_launcher_background);
+        ActionItem inner = new ActionItem(5,"역 내부 안내", R.drawable.ic_info);
         ActionItem name = new ActionItem(4, curStation);
 
         //말풍선 생성
         quickAction = new QuickAction(this);
         quickAction.setColorRes(R.color.purple_200);
-        quickAction.setTextColorRes(R.color.white);
 
         //말풍선에 아이템 추가
         quickAction.setTextColor(Color.YELLOW);
         quickAction.addActionItem(name);
-        quickAction.addActionItem(searchItem);
         quickAction.addActionItem(infoItem);
-        quickAction.addActionItem(okItem);
+        quickAction.addActionItem(searchItem);
+        quickAction.addActionItem(inner);
+        quickAction.addActionItem(bookmark);
+
 
         //퀵 액션 클릭 리스너
         quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {

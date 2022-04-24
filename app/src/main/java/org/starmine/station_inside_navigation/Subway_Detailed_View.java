@@ -23,6 +23,8 @@ import fragment.Fragment_Detail_line4;
 import fragment.Fragment_Detail_line5;
 import fragment.Fragment_Detail_line6;
 import fragment.Fragment_Detail_line7;
+import fragment.Fragment_Detail_line8;
+import fragment.Fragment_Detail_line9;
 
 
 public class Subway_Detailed_View extends AppCompatActivity {
@@ -35,6 +37,8 @@ public class Subway_Detailed_View extends AppCompatActivity {
     Fragment_Detail_line5 detailed_view5;
     Fragment_Detail_line6 detailed_view6;
     Fragment_Detail_line7 detailed_view7;
+    Fragment_Detail_line8 detailed_view8;
+    Fragment_Detail_line9 detailed_view9;
 
 
     private static Cursor cursor_line;
@@ -83,6 +87,8 @@ public class Subway_Detailed_View extends AppCompatActivity {
         detailed_view5 = new Fragment_Detail_line5();
         detailed_view6 = new Fragment_Detail_line6();
         detailed_view7 = new Fragment_Detail_line7();
+        detailed_view8 = new Fragment_Detail_line8();
+        detailed_view9 = new Fragment_Detail_line9();
 
 
 //프라크먼트 데이터 이동
@@ -123,6 +129,18 @@ public class Subway_Detailed_View extends AppCompatActivity {
             else if(line==6){
                 bundle.putString("station", curStation);
                 detailed_view6.setArguments(bundle);
+            }
+            else if(line==7){
+                bundle.putString("station", curStation);
+                detailed_view7.setArguments(bundle);
+            }
+            else if(line==8){
+                bundle.putString("station", curStation);
+                detailed_view8.setArguments(bundle);
+            }
+            else if(line==9){
+                bundle.putString("station", curStation);
+                detailed_view9.setArguments(bundle);
             }
 
         }
@@ -171,6 +189,12 @@ public class Subway_Detailed_View extends AppCompatActivity {
             case 7:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view7).commit();
                 break;
+            case 8:
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view8).commit();
+                break;
+            case 9:
+                getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view9).commit();
+                break;
             default:
                 break;
         }
@@ -199,6 +223,10 @@ public class Subway_Detailed_View extends AppCompatActivity {
                     selected = detailed_view6;
                 } else if (position == 6) {
                     selected = detailed_view7;
+                } else if (position == 7) {
+                    selected = detailed_view8;
+                } else if (position == 8) {
+                    selected = detailed_view9;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, selected).commit();
             }
@@ -221,17 +249,18 @@ public class Subway_Detailed_View extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("1"));
         tabs.addTab(tabs.newTab().setText("2"));
         tabs.addTab(tabs.newTab().setText("3"));
-        tabs.addTab(tabs.newTab().setText("4"));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.line4));
         tabs.addTab(tabs.newTab().setText("5"));
         tabs.addTab(tabs.newTab().setText("6"));
         tabs.addTab(tabs.newTab().setText("7"));
         tabs.addTab(tabs.newTab().setText("8"));
+        tabs.addTab(tabs.newTab().setText("9"));
 
         int tab_count = tabs.getTabCount();
         for (int i = 0; i < tab_count; i++) {
             ((LinearLayout) tabs.getTabAt(i).view).setVisibility(View.GONE);
         }
-        tabs.selectTab(tabs.getTabAt(4));
+        //tabs.selectTab(tabs.getTabAt(4));
 
         //해당하는 역의 호선 탭 활성화
         for (int i = 0; i < count; i++) {
@@ -257,7 +286,6 @@ public class Subway_Detailed_View extends AppCompatActivity {
         count = cursor_line.getCount();
 
         //역 호선 정보
-
         for (int i = 0; i < count; i++) {
             cursor_line.moveToNext();
             Staionline[i] = cursor_line.getString(3);
@@ -313,9 +341,19 @@ public class Subway_Detailed_View extends AppCompatActivity {
             else if(line==6){
                 bundle.putString("station", station);
                 detailed_view6.setArguments(bundle);
+            }else if(line==7) {
+                bundle.putString("station", station);
+                detailed_view7.setArguments(bundle);
+            }else if(line==8) {
+                bundle.putString("station", station);
+                detailed_view8.setArguments(bundle);
+            }else if(line==9) {
+                bundle.putString("station", station);
+                detailed_view9.setArguments(bundle);
             }
         }
     }
+
     //메뉴 클릭시
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
