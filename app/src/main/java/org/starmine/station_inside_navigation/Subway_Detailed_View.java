@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
@@ -54,6 +57,14 @@ public class Subway_Detailed_View extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_detailed_view);
+
+        Toolbar toolbar = findViewById(R.id.Detail_Toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setTitle("");
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //DB class따로 만들기
         DBHelper Helper;
@@ -166,7 +177,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
         //프라그먼트 첫번째 화면 지정
         int line = Integer.parseInt(Staionline[0]);
-        Toast.makeText(getApplicationContext(),""+line,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),""+line,Toast.LENGTH_SHORT).show();
         switch (line) {
             case 1:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, detailed_view1).commit();
@@ -200,7 +211,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
         }
 
 
-        //메뉴 클릭시
+
         //클릭 시 fragment 변경
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -249,7 +260,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("1"));
         tabs.addTab(tabs.newTab().setText("2"));
         tabs.addTab(tabs.newTab().setText("3"));
-        tabs.addTab(tabs.newTab().setIcon(R.drawable.line4));
+        tabs.addTab(tabs.newTab().setText("4"));
         tabs.addTab(tabs.newTab().setText("5"));
         tabs.addTab(tabs.newTab().setText("6"));
         tabs.addTab(tabs.newTab().setText("7"));
@@ -354,6 +365,16 @@ public class Subway_Detailed_View extends AppCompatActivity {
         }
     }
 
+
+
+    //메뉴 적용
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.detail_menu,menu);
+
+        return true;
+    }
     //메뉴 클릭시
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -367,7 +388,6 @@ public class Subway_Detailed_View extends AppCompatActivity {
         int curId = item.getItemId();
         switch (curId) {
             case R.id.menu_refresh:
-                Toast.makeText(this, "설정메뉴", Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;

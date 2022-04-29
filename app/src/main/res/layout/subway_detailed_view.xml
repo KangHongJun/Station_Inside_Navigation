@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         app:tabGravity="start"/>
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/Detail_Toolbar"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
     <FrameLayout
         android:layout_below="@id/Detail_subway_line_Tab"
         android:id="@+id/Subway_Detail_Container"

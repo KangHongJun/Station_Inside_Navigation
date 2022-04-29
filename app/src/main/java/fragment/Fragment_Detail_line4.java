@@ -14,9 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.starmine.station_inside_navigation.Bookmark;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
+import org.starmine.station_inside_navigation.Inside_Navigation;
 import org.starmine.station_inside_navigation.R;
 import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
@@ -41,7 +41,7 @@ public class Fragment_Detail_line4 extends Fragment {
 
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
-        curSt.setBackgroundResource(R.drawable.station4_main);
+        //curSt.setBackgroundResource(R.drawable.station4_main);
 
         //DB읽기
         DBHelper Helper;
@@ -76,7 +76,7 @@ public class Fragment_Detail_line4 extends Fragment {
         nextSt.setText(cursor_code.getString(0));
 
         Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
-        next_btn.setBackgroundResource(R.drawable.station4_sub);
+        //next_btn.setBackgroundResource(R.drawable.station4_sub);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +113,7 @@ public class Fragment_Detail_line4 extends Fragment {
 
 
         Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
-        back_Btn.setBackgroundResource(R.drawable.station4_sub);
+        //back_Btn.setBackgroundResource(R.drawable.station4_sub);
         back_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,16 +158,13 @@ public class Fragment_Detail_line4 extends Fragment {
         });
 
 
-
-
-        /* 역 내부안내 만들어지면 수정할 인텐트
-        Button Detail_Route_Btn = (Button) findViewById(R.id.Detail_Route_Btn);
-        Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
+        Button Detail_Inner_Btn = viewGroup.findViewById(R.id.Detail_Inner_Btn);
+        Detail_Inner_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Subway_Route.class);
+                Intent intent = new Intent(getActivity(), Inside_Navigation.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
 
         // 시간표 버튼
@@ -178,15 +175,7 @@ public class Fragment_Detail_line4 extends Fragment {
                 startActivity(intent);
             }
         });
-
-        Button Detail_Bookmark_Btn = viewGroup.findViewById(R.id.Detail_Bookmark_Btn);
-        Detail_Bookmark_Btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Bookmark.class);
-                startActivity(intent);
-            }
-        });
-
+        
         //문의하기 버튼
         Button Detail_Inquire_Btn = viewGroup.findViewById(R.id.Detail_Inquire_Btn);
         Detail_Inquire_Btn.setOnClickListener(new View.OnClickListener() {
