@@ -39,6 +39,7 @@ public class Subway_Search extends AppCompatActivity {
         listView_history = findViewById(R.id.Subway_History_List);
         listView_bookmark = findViewById(R.id.Subway_Bookmark_List);
         listView_search.setVisibility(View.GONE);
+        listView_bookmark.setVisibility(View.GONE);
 
         db = new DatabaseHelper(this);
 
@@ -97,8 +98,12 @@ public class Subway_Search extends AppCompatActivity {
                 }
                 else if (newText.length() == 0) {
                     listView_search.setVisibility(View.GONE);
-                    listView_bookmark.setVisibility(View.VISIBLE);
-                    listView_history.setVisibility(View.VISIBLE);
+                    listView_bookmark.setVisibility(View.GONE);
+                    if(db.getTableRowCount() == 0){
+                        listView_history.setVisibility(View.GONE);
+                    }
+                    else
+                        listView_history.setVisibility(View.VISIBLE);
 
                 }
                 return true;

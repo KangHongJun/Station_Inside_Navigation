@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT " + ")";
 
     public DatabaseHelper(Context context){
-        super (context, DB_NAME, null, 2);
+        super (context, DB_NAME, null, 3);
     }
 
     @Override
@@ -36,10 +36,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertData (String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(NAME, name);
-
+        String query = "select ID from " + DB_TABLE
+                + " where " + NAME + "= '"+ name + "'";
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount() == 0) {
+            contentValues.put(NAME, name);
+        }
         long result = db.insert(DB_TABLE, null, contentValues);
-
         return result != -1; // if result = -1 데이터 안넣어짐
     }
 
@@ -49,5 +52,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         return cursor;
+    }
+
+    public int getTableRowCount() {
+        String countQuery = "SELECT * FROM " + DB_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        return cursor.getCount();
     }
 }
