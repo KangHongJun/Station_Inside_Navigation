@@ -1,22 +1,32 @@
 package org.starmine.station_inside_navigation;
 
+import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Subway_Search extends AppCompatActivity {
     SearchView searchView;
@@ -28,6 +38,7 @@ public class Subway_Search extends AppCompatActivity {
 
     ArrayAdapter<String> arrayAdapter;
     ArrayList<String> historyList;
+    ArrayList<String> bookmarkList;
     ArrayAdapter adapter;
 
     @Override
@@ -44,6 +55,8 @@ public class Subway_Search extends AppCompatActivity {
         db = new DatabaseHelper(this);
 
         historyList = new ArrayList<>();
+        bookmarkList = new ArrayList<>();
+
         //툴바 세팅
         Toolbar toolbar = findViewById(R.id.Subway_Search_Toolbar);
         setSupportActionBar(toolbar);
@@ -119,8 +132,7 @@ public class Subway_Search extends AppCompatActivity {
             historyList.add(cursor.getString(1));
         }
 
-        adapter = new ArrayAdapter<String>(Subway_Search.this, android.R.layout.simple_list_item_1, historyList);
-        listView_history.setAdapter(adapter);
+        listView_history.setAdapter(new MyListAdapter(this, R.layout.search_list_item,historyList));
     }
 
     @Override
@@ -142,5 +154,44 @@ public class Subway_Search extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class MyListAdapter extends ArrayAdapter<String> {
+        private int layout;
+        private MyListAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
+            super(context, resource, objects);
+            layout = resource;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            ViewHolder mainViewHolder = null;
+            if(convertView == null){
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(layout, parent, false);
+                ViewHolder viewHolder = new ViewHolder();
+                viewHolder.title = (TextView) convertView.findViewById(R.id.list_textView);
+                viewHolder.button = (ImageButton) convertView.findViewById(R.id.list_button);
+                viewHolder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
+                    }
+                });
+                convertView.setTag(viewHolder);
+            }
+            else{
+                mainViewHolder = (ViewHolder) convertView.getTag();
+                mainViewHolder.title.setText(getItem(position));
+            }
+
+            return convertView;
+        }
+    }
+
+    public class ViewHolder {
+        TextView title;
+        ImageButton button;
     }
 }
