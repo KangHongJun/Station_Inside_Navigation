@@ -5,15 +5,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-
 import android.view.MenuItem;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
+
+import fragment.Fragment_Holiday;
+import fragment.Fragment_Saturday;
+import fragment.Fragment_Weekday;
+
 //지하철 시간표
 public class Subway_Schedule extends AppCompatActivity {
 
@@ -27,13 +29,6 @@ public class Subway_Schedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_schedule);
 
-        //툴바 세팅
-        Toolbar toolbar = findViewById(R.id.Toolbar_Schedule);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Weekday = new Fragment_Weekday();
         Saturday = new Fragment_Saturday();

@@ -59,6 +59,9 @@ public class Subway_Map extends AppCompatActivity {
         imageView.setImage(ImageSource.resource(subway_map));
         TileScale = imageView.getMaxScale();
 
+        //이미지 뷰 특정위치로 이동 및 확대 - 이벤트로는 가능하지만, 시작시 안됨
+        imageView.setScaleAndCenter(1.1f,new PointF(3900, 3120));
+
         //Toast.makeText(getApplicationContext(),""+TileScale,Toast.LENGTH_LONG).show();
       
 
@@ -171,12 +174,17 @@ public class Subway_Map extends AppCompatActivity {
                             curStation = cursor_coor.getString(1);
                             makeQuickAction();
                             quickAction.show(imageView,1,1);
+
                             //Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
+
                         }
                     } while (cursor_coor.moveToNext());
 
                 }
-                //Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor,Toast.LENGTH_LONG).show();
+
+                //배율 얻기, PointF 위치로 화면 이동
+                float a = imageView.getScale();
+                //Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor+ "배율"+a,Toast.LENGTH_LONG).show();
                 return false;
             }
 
