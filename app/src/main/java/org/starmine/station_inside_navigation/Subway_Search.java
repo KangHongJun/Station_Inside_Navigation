@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +34,6 @@ public class Subway_Search extends AppCompatActivity {
     DatabaseHelper db;
     String[] subwayList = {"사당역" , "총신대입구역", "남태령역"};
 
-
-
     ArrayAdapter<String> arrayAdapter;
     ArrayList<String> historyList;
     ArrayList<String> bookmarkList;
@@ -50,7 +48,8 @@ public class Subway_Search extends AppCompatActivity {
         listView_history = findViewById(R.id.Subway_History_List);
         listView_bookmark = findViewById(R.id.Subway_Bookmark_List);
         listView_search.setVisibility(View.GONE);
-        listView_bookmark.setVisibility(View.GONE);
+        listView_bookmark.setVisibility(View.VISIBLE);
+        listView_history.setVisibility(View.VISIBLE);
 
         db = new DatabaseHelper(this);
 
@@ -81,9 +80,19 @@ public class Subway_Search extends AppCompatActivity {
             }
         });
 
+        BookmarkviewData();
         viewData();
 
         listView_history.setOnItemClickListener((new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String name = adapterView.getItemAtPosition(i).toString();
+                //Toast.makeText(Subway_Search.this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();;
+                finish();
+            }
+        }));
+
+        listView_bookmark.setOnItemClickListener((new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = adapterView.getItemAtPosition(i).toString();
@@ -111,7 +120,8 @@ public class Subway_Search extends AppCompatActivity {
                 }
                 else if (newText.length() == 0) {
                     listView_search.setVisibility(View.GONE);
-                    listView_bookmark.setVisibility(View.GONE);
+                    listView_bookmark.setVisibility(View.VISIBLE);
+
                     if(db.getTableRowCount() == 0){
                         listView_history.setVisibility(View.GONE);
                     }
@@ -123,16 +133,6 @@ public class Subway_Search extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void viewData() {
-        Cursor cursor = db.viewData();
-
-        while (cursor.moveToNext()) {
-            historyList.add(cursor.getString(1));
-        }
-
-        listView_history.setAdapter(new MyListAdapter(this, R.layout.search_list_item,historyList));
     }
 
     @Override
@@ -156,9 +156,9 @@ public class Subway_Search extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class MyListAdapter extends ArrayAdapter<String> {
+    private class HistoryListAdapter extends ArrayAdapter<String> {
         private int layout;
-        private MyListAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
+        private HistoryListAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
             super(context, resource, objects);
             layout = resource;
         }
@@ -171,12 +171,14 @@ public class Subway_Search extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
-                viewHolder.title = (TextView) convertView.findViewById(R.id.list_textView);
-                viewHolder.button = (ImageButton) convertView.findViewById(R.id.list_button);
+                viewHolder.title = (TextView) convertView.findViewById(R.id.history_textView);
+                viewHolder.button = (ImageButton) convertView.findViewById(R.id.history_button);
                 viewHolder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
+                        String name = viewHolder.title.getText().toString();
+                        Insert_Bookmark(name);
                     }
                 });
                 convertView.setTag(viewHolder);
@@ -185,7 +187,45 @@ public class Subway_Search extends AppCompatActivity {
                 mainViewHolder = (ViewHolder) convertView.getTag();
                 mainViewHolder.title.setText(getItem(position));
             }
+            mainViewHolder = (ViewHolder) convertView.getTag();
+            mainViewHolder.title.setText(getItem(position));
+            return convertView;
+        }
+    }
 
+    private class BookmarkListAdapter extends ArrayAdapter<String> {
+        private int layout;
+        private BookmarkListAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
+            super(context, resource, objects);
+            layout = resource;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            ViewHolder mainViewHolder = null;
+            if(convertView == null){
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(layout, parent, false);
+                ViewHolder viewHolder = new ViewHolder();
+                viewHolder.title = (TextView) convertView.findViewById(R.id.bookmark_textView);
+                viewHolder.button = (ImageButton) convertView.findViewById(R.id.bookmark_button);
+                viewHolder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
+                        String name = viewHolder.title.getText().toString();
+                        Delete_Bookmark(name);
+                    }
+                });
+                convertView.setTag(viewHolder);
+            }
+            else{
+                mainViewHolder = (ViewHolder) convertView.getTag();
+                mainViewHolder.title.setText(getItem(position));
+            }
+            mainViewHolder = (ViewHolder) convertView.getTag();
+            mainViewHolder.title.setText(getItem(position));
             return convertView;
         }
     }
@@ -194,4 +234,72 @@ public class Subway_Search extends AppCompatActivity {
         TextView title;
         ImageButton button;
     }
+
+    private void Insert_Bookmark(String name){
+        db.insertBookmark(name);
+        bookmarkList.clear();
+        db.deleteData(name);
+        historyList.clear();
+
+        BookmarkviewData();
+        viewData();
+    }
+
+    private void Delete_Bookmark(String name){
+        db.deleteBookmark(name);
+        bookmarkList.clear();
+        db.insertData(name);
+        historyList.clear();
+
+        BookmarkviewData();
+        viewData();
+    }
+
+    private void viewData() {
+        Cursor cursor = db.viewData();
+
+        while (cursor.moveToNext()) {
+            historyList.add(cursor.getString(1));
+        }
+
+        listView_history.setAdapter(new HistoryListAdapter(this, R.layout.history_list_item,historyList));
+        //setListViewHeightBasedOnChildren(listView_history);
+    }
+
+    private void BookmarkviewData() {
+        Cursor cursor = db.BookmarkviewData();
+
+        while (cursor.moveToNext()) {
+            bookmarkList.add(cursor.getString(1));
+        }
+
+        listView_bookmark.setAdapter(new BookmarkListAdapter(this, R.layout.bookmark_list_item,bookmarkList));
+        //setListViewHeightBasedOnChildren(listView_bookmark);
+    }
+
+    /*리스트 크기만큼 출력
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            //listItem.measure(0, 0);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+
+        params.height = totalHeight;
+        listView.setLayoutParams(params);
+
+        listView.requestLayout();
+    }
+     */
 }
