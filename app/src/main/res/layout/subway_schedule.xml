@@ -25,9 +25,11 @@
 
                 >
                 <TextView
+                    android:id="@+id/Schedule_Station_Text"
                     android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="25sp"
                     android:text="역 이름"
                     android:layout_marginRight="20dp"
                     android:gravity="center_horizontal"/>
@@ -35,16 +37,33 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/Tab_Schedule"
+            <RadioGroup
+                android:id="@+id/Schedule_RadioGroup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/black_border"
-                android:elevation="1dp"
-                app:tabGravity="fill"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/black"
-                app:tabTextColor="@color/white" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/Week_radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="평일" />
+
+                <RadioButton
+                    android:id="@+id/Satur_radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="토요일" />
+
+                <RadioButton
+                    android:id="@+id/Hoil_radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="공휴일" />
+            </RadioGroup>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,6 +98,7 @@
             android:id="@+id/Schedule_Container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:background="@color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >

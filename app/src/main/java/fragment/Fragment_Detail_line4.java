@@ -171,7 +171,14 @@ public class Fragment_Detail_line4 extends Fragment {
         Button Detail_Schedule_Btn = viewGroup.findViewById(R.id.Deatil_Schedule_Btn);
         Detail_Schedule_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Subway_Schedule.class);
+
+                Bundle curstation = getArguments();
+                if(curstation != null){
+                    curStation = curstation.getString("station");
+                }
+
+                Intent intent = new Intent(getActivity(),Subway_Schedule.class);
+                intent.putExtra("station",curStation+"4");
                 startActivity(intent);
             }
         });

@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -282,6 +283,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
     }
 
     public void Update_tab(String station){
+        curStation = station;
 
         DBHelper Helper;
         SQLiteDatabase sqlDB;
@@ -326,7 +328,9 @@ public class Subway_Detailed_View extends AppCompatActivity {
         }
 
         Bundle bundle = new Bundle();
-        bundle.putString("station", curStation);
+        bundle.putString("station", station);
+
+        Toast.makeText(getApplicationContext(),station,Toast.LENGTH_SHORT).show();
 
         for (int i = 0; i < count; i++) {
             int line = Integer.parseInt(Staionline[i]);
