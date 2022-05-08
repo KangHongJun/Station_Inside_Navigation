@@ -1,16 +1,18 @@
 package org.starmine.station_inside_navigation;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.material.tabs.TabLayout;
 
 import fragment.Fragment_Holiday;
 import fragment.Fragment_Saturday;
@@ -18,6 +20,9 @@ import fragment.Fragment_Weekday;
 
 //지하철 시간표
 public class Subway_Schedule extends AppCompatActivity {
+
+    TextView Station_name;
+    static String curStation;
 
 
     Fragment_Weekday Weekday;
@@ -29,48 +34,52 @@ public class Subway_Schedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_schedule);
 
+        setDirection();
+
+        Intent get_intent = getIntent();
+        curStation = get_intent.getStringExtra("station");
+
+        Station_name = findViewById(R.id.Schedule_Station_Text);
+        Station_name.setText(curStation+"호선");
 
         Weekday = new Fragment_Weekday();
         Saturday = new Fragment_Saturday();
         Holiday = new Fragment_Holiday();
 
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString("station", curStation);
+        Weekday.setArguments(bundle);
+        Saturday.setArguments(bundle);
+        Holiday.setArguments(bundle);
+
+
         getSupportFragmentManager().beginTransaction().replace(R.id.Schedule_Container,Weekday).commit();
 
-        @SuppressLint("WrongViewCast")
-        TabLayout tabs = findViewById(R.id.Tab_Schedule);
-        tabs.addTab(tabs.newTab().setText("평일"));
-        tabs.addTab(tabs.newTab().setText("토요일"));
-        tabs.addTab(tabs.newTab().setText("공휴일"));
 
+        //라디오 버튼
+        RadioGroup radioGroup = findViewById(R.id.Schedule_RadioGroup);
+        radioGroup.check(R.id.Week_radioButton);
 
-        //클릭 시 fragment 변경
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                Log.d("subway_schedule","선택된 탭"+ position);
-
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 Fragment selected = null;
-                if (position == 0){
-                    selected = Weekday;
-                }else if (position == 1){
-                    selected = Saturday;
-                }else if (position == 2){
-                    selected = Holiday;
+                switch (i){
+                    case R.id.Week_radioButton:
+                        selected=Weekday;
+                        break;
+                    case R.id.Satur_radioButton:
+                        selected =Saturday;
+                        break;
+                    case R.id.Hoil_radioButton:
+                        selected=Holiday;
+                        break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.Schedule_Container,selected).commit();
             }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
         });
-
     }
     //메뉴 적용
     @Override
@@ -91,5 +100,38 @@ public class Subway_Schedule extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setDirection(){
+        DBHelper Helper;
+        SQLiteDatabase sqlDB;
+        Helper = new DBHelper(getApplicationContext(),"subway_schedule.db",null,1);
+        sqlDB = Helper.getReadableDatabase();
+        Helper.onCreate(sqlDB);
+
+
+        Intent get_intent = getIntent();
+        curStation = get_intent.getStringExtra("station");
+
+        String sqlCode = "select DIR from line4 where NAME = " +"\""+ curStation +"\"";
+        Cursor UPDIR_cursor = sqlDB.rawQuery(sqlCode,null);
+
+        int count = UPDIR_cursor.getCount();
+        String[] array = new String[100];
+
+        UPDIR_cursor.moveToFirst();
+        for(int i = 0; i < count; i++){
+            array[i] = UPDIR_cursor.getString(0);
+            UPDIR_cursor.moveToNext();
+        }
+
+        Toast.makeText(getApplicationContext(),""+count+curStation,Toast.LENGTH_SHORT).show();
+
+        TextView LDirText = findViewById(R.id.Schedule_LDirection_Text);
+        LDirText.setText(array[0] + "방향");
+
+        TextView RDirText = findViewById(R.id.Schedule_RDirection_Text);
+        RDirText.setText(array[1] + "방향");
+
     }
 }

@@ -81,55 +81,6 @@ public class Subway_Map extends AppCompatActivity {
         QuickAction.setDefaultColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
         QuickAction.setDefaultTextColor(Color.BLACK);
 
-//        //아이템 번호, 모양 지정
-//        ActionItem searchItem = new ActionItem(ID_SEARCH, "경로", R.drawable.ic_search);
-//        ActionItem infoItem = new ActionItem(ID_INFO, "상세보기", R.drawable.ic_info);
-//        ActionItem okItem = new ActionItem(ID_OK, "OK", R.drawable.ic_ok);
-//        ActionItem name = new ActionItem(4, "1");
-//
-//        //말풍선 생성
-//        quickAction = new QuickAction(this);
-//        quickAction.setColorRes(R.color.purple_200);
-//        quickAction.setTextColorRes(R.color.white);
-//
-//        //말풍선에 아이템 추가
-//        quickAction.setTextColor(Color.YELLOW);
-//        quickAction.addActionItem(name);
-//        quickAction.addActionItem(searchItem);
-//        quickAction.addActionItem(infoItem);
-//        quickAction.addActionItem(okItem);
-//
-//        //퀵 액션 클릭 리스너
-//        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
-//            @Override public void onItemClick(ActionItem item) {
-//                //here we can filter which action item was clicked with pos or actionId parameter
-//                String title = item.getTitle();
-//
-//                switch (title){
-//                    case "경로":
-//                        startActivity(new Intent(Subway_Map.this,Subway_Route.class));
-//                        Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
-//                        break;
-//                    case "상세보기":
-//                        Intent intent = new Intent(Subway_Map.this,Subway_Detailed_View.class);
-//                        intent.putExtra("station",curStation);
-//                        startActivity(intent);
-//                        //Toast.makeText(getApplicationContext(), cursor_line, Toast.LENGTH_LONG).show();
-//                        break;
-//                    default:
-//                        Toast.makeText(Subway_Map.this, title+" selected", Toast.LENGTH_SHORT).show();
-//                        break;
-//
-//                }
-//
-//                quickAction.show(imageView);
-//
-//                //Toast.makeText(Subway_Map.this, title+" selected", Toast.LENGTH_SHORT).show();
-//                //if (!item.isSticky()) quickAction.remove(item);
-//            }
-//        });
-//
-
 
         //툴바 세팅
         Toolbar toolbar = findViewById(R.id.Subway_Map_Toolbar);
