@@ -1,6 +1,7 @@
 package org.starmine.station_inside_navigation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -32,7 +33,8 @@ public class Subway_Search extends AppCompatActivity {
     SearchView searchView;
     ListView listView_search, listView_history, listView_bookmark;
     DatabaseHelper db;
-    String[] subwayList = {"사당역" , "총신대입구역", "남태령역"};
+    String[] subwayList = {"사당" , "총신대입구", "남태령"};
+    private static String curStation;
 
     ArrayAdapter<String> arrayAdapter;
     ArrayList<String> historyList;
@@ -75,6 +77,10 @@ public class Subway_Search extends AppCompatActivity {
                 db.insertData(name);
                 historyList.clear();
                 viewData();
+                curStation = name;
+                Intent intent = new Intent(Subway_Search.this,Subway_Detailed_View.class);
+                intent.putExtra("station",curStation);
+                startActivity(intent);
                 //Toast.makeText(Subway_Search.this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG).show();
                 finish();
             }
@@ -173,10 +179,21 @@ public class Subway_Search extends AppCompatActivity {
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.history_textView);
                 viewHolder.button = (ImageButton) convertView.findViewById(R.id.history_button);
+                viewHolder.title.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
+                        String name = viewHolder.title.getText().toString();
+                        curStation = name;
+                        Intent intent = new Intent(Subway_Search.this,Subway_Detailed_View.class);
+                        intent.putExtra("station",curStation);
+                        startActivity(intent);
+                    }
+                });
                 viewHolder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
                         String name = viewHolder.title.getText().toString();
                         Insert_Bookmark(name);
                     }
@@ -210,10 +227,21 @@ public class Subway_Search extends AppCompatActivity {
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.bookmark_textView);
                 viewHolder.button = (ImageButton) convertView.findViewById(R.id.bookmark_button);
+                viewHolder.title.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
+                        String name = viewHolder.title.getText().toString();
+                        curStation = name;
+                        Intent intent = new Intent(Subway_Search.this,Subway_Detailed_View.class);
+                        intent.putExtra("station",curStation);
+                        startActivity(intent);
+                    }
+                });
                 viewHolder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
                         String name = viewHolder.title.getText().toString();
                         Delete_Bookmark(name);
                     }
