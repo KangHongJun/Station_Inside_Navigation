@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.R;
+import org.starmine.station_inside_navigation.Schedule;
+import org.starmine.station_inside_navigation.ScheduleAdapter;
 
 public class Fragment_Weekday extends Fragment {
     ViewGroup viewGroup;
@@ -28,40 +31,41 @@ public class Fragment_Weekday extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_schedule_weekday,container,false);
+        viewGroup = (ViewGroup)inflater.inflate(R.layout.test_schedule,container,false);
 
-//        RecyclerView recyclerView = viewGroup.findViewById(R.id.testCycle);
-//
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-//
-//        recyclerView.setLayoutManager(layoutManager);
-//        ScheduleAdapter adapter = new ScheduleAdapter();
-//
-//        adapter.addItem(new Schedule("qwe\nqwe","qwe"));
-//        adapter.addItem(new Schedule("qwe","qwe"));
-//        adapter.addItem(new Schedule("qwe","qwe"));
-//
-//        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = viewGroup.findViewById(R.id.testCycle);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+
+        recyclerView.setLayoutManager(layoutManager);
+        ScheduleAdapter adapter = new ScheduleAdapter();
 
 
         for (int i=3;i<22;i++){
             setUPSchedule(i);
             setDOWNSchedule(i);
+            adapter.addItem(new Schedule(UP_schedule,DOWN_schedule));
         }
 
+        recyclerView.setAdapter(adapter);
 
 
-        TextView UP_textView = viewGroup.findViewById(R.id.UP_text);
-        UP_textView.setText(UP_schedule);
 
-        TextView DOWN_textView = viewGroup.findViewById(R.id.DOWN_text);
-        DOWN_textView.setText(DOWN_schedule);
+
+
+
+//        TextView UP_textView = viewGroup.findViewById(R.id.UP_text);
+//        UP_textView.setText(UP_schedule);
+//
+//        TextView DOWN_textView = viewGroup.findViewById(R.id.DOWN_text);
+//        DOWN_textView.setText(DOWN_schedule);
 
         return viewGroup;
     }
 
 
     private void setUPSchedule(int time){
+        UP_schedule = "";
         Bundle curstation_bundle = getArguments();
         if(curstation_bundle != null){
             curStation = curstation_bundle.getString("station");
@@ -113,6 +117,7 @@ public class Fragment_Weekday extends Fragment {
     }
 
     private void setDOWNSchedule(int time){
+        DOWN_schedule = "";
         Bundle curstation_bundle = getArguments();
         if(curstation_bundle != null){
             curStation = curstation_bundle.getString("station");

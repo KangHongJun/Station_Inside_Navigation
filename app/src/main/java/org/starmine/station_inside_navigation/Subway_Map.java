@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -126,16 +125,14 @@ public class Subway_Map extends AppCompatActivity {
                             makeQuickAction();
                             quickAction.show(imageView,1,1);
 
-                            //Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), x_cor + "/"+ y_cor + "\n" , Toast.LENGTH_LONG).show();
 
                         }
                     } while (cursor_coor.moveToNext());
 
                 }
 
-                //배율 얻기, PointF 위치로 화면 이동
-                float a = imageView.getScale();
-                //Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor+ "배율"+a,Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor,Toast.LENGTH_LONG).show();
                 return false;
             }
 
@@ -219,13 +216,13 @@ public class Subway_Map extends AppCompatActivity {
             bookmark_coor.moveToNext();
             //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0), Toast.LENGTH_SHORT).show();
             if(curStation.equals(bookmark_coor.getString(0))){
-                Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
                 bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.yellow_star);
                 Bookmark_Code = 0;
                 break;
             }
             else if (!curStation.equals(bookmark_coor.getString(0))){
-                Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
                 bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.empty_star);
                 Bookmark_Code = 1;
             }
@@ -239,7 +236,7 @@ public class Subway_Map extends AppCompatActivity {
         quickAction.setColorRes(R.color.purple_200);
 
         //말풍선에 아이템 추가
-        quickAction.setTextColor(Color.YELLOW);
+        quickAction.setTextColor(Color.WHITE);
         quickAction.addActionItem(name);
         quickAction.addActionItem(infoItem);
         quickAction.addActionItem(searchItem);
