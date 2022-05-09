@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -34,8 +33,6 @@ public class Subway_Schedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_schedule);
 
-        setDirection();
-
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
 
@@ -46,7 +43,7 @@ public class Subway_Schedule extends AppCompatActivity {
         Saturday = new Fragment_Saturday();
         Holiday = new Fragment_Holiday();
 
-
+        setDirection();
 
         Bundle bundle = new Bundle();
         bundle.putString("station", curStation);
@@ -125,7 +122,7 @@ public class Subway_Schedule extends AppCompatActivity {
             UPDIR_cursor.moveToNext();
         }
 
-        Toast.makeText(getApplicationContext(),""+count+curStation,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),""+count+curStation,Toast.LENGTH_SHORT).show();
 
         TextView LDirText = findViewById(R.id.Schedule_LDirection_Text);
         LDirText.setText(array[0] + "방향");
