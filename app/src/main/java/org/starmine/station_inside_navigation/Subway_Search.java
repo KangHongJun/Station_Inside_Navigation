@@ -100,8 +100,6 @@ public class Subway_Search extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Subway_Search.this.arrayAdapter.getFilter().filter(newText);
-                adapter = new ArrayAdapter<String>(Subway_Search.this, android.R.layout.simple_list_item_1, historyList);
-                listView_history.setAdapter(adapter);
                 if (newText.length() >= 1) {
                     listView_search.setVisibility(View.VISIBLE);
                     listView_bookmark.setVisibility(View.GONE);
