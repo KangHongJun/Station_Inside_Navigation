@@ -68,6 +68,8 @@ public class Subway_Search extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        BookmarkviewData();
+        viewData();
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, subwayList);
         listView_search.setAdapter(arrayAdapter);
 
@@ -87,8 +89,6 @@ public class Subway_Search extends AppCompatActivity {
             }
         });
 
-        BookmarkviewData();
-        viewData();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -111,7 +111,6 @@ public class Subway_Search extends AppCompatActivity {
                     listView_search.setVisibility(View.GONE);
                     listView_bookmark.setVisibility(View.VISIBLE);
                     listView_history.setVisibility(View.VISIBLE);
-
                 }
                 return true;
             }
