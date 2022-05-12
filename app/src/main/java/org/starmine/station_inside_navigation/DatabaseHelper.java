@@ -111,4 +111,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String deleteDB = "delete from " + BOOKMARK_TABLE + " where " + NAME + " = '" + name + "'";
         db.execSQL(deleteDB);
     }
+
+    public void alldelete(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String deleteBookmark = "delete from " + BOOKMARK_TABLE;
+        String deleteHistory = "delete from " + DB_TABLE;
+        db.execSQL(deleteHistory);
+        db.execSQL(deleteBookmark);
+    }
 }

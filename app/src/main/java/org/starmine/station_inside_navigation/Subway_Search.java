@@ -67,6 +67,7 @@ public class Subway_Search extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         BookmarkviewData();
         viewData();
@@ -133,6 +134,15 @@ public class Subway_Search extends AppCompatActivity {
                 finish();
                 return true;
             }
+        }
+        int curId = item.getItemId();
+        switch (curId){
+            case R.id.bookmark_all_delete: //북마크 삭제
+                All_Delete();
+                break;
+
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -280,6 +290,15 @@ public class Subway_Search extends AppCompatActivity {
 
         listView_bookmark.setAdapter(new BookmarkListAdapter(this, R.layout.bookmark_list_item,bookmarkList));
         //setListViewHeightBasedOnChildren(listView_bookmark);
+    }
+
+    private void All_Delete(){
+        db.alldelete();
+        bookmarkList.clear();
+        historyList.clear();
+        
+        BookmarkviewData();
+        viewData();
     }
 
     /*리스트 크기만큼 출력

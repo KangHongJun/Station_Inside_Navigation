@@ -89,7 +89,7 @@ public class Subway_Map extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -251,7 +251,9 @@ public class Subway_Map extends AppCompatActivity {
 
                 switch (title){
                     case "경로":
-                        startActivity(new Intent(Subway_Map.this,Subway_Route.class));
+                        Intent intent3 = new Intent(Subway_Map.this,Subway_Route.class);
+                        intent3.putExtra("station", curStation);
+                        startActivity(intent3);
                         //Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
                         break;
                     case "상세보기":

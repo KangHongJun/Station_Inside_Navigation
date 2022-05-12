@@ -25,6 +25,7 @@ public class Inquiry_Page extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
     }
     //메뉴적용
     @Override

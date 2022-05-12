@@ -6,7 +6,7 @@
 
     <item android:id="@+id/menu_change"
         android:title="역 변경"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_swap_vert"
         app:showAsAction="always"
         />
 

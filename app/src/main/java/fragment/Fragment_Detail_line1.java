@@ -20,6 +20,7 @@ import org.starmine.station_inside_navigation.Inquiry_Page;
 import org.starmine.station_inside_navigation.Inside_Navigation;
 import org.starmine.station_inside_navigation.R;
 import org.starmine.station_inside_navigation.Subway_Detailed_View;
+import org.starmine.station_inside_navigation.Subway_Map;
 import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
@@ -148,7 +149,8 @@ public class Fragment_Detail_line1 extends Fragment {
         Button Detail_Route_Btn = viewGroup.findViewById(R.id.Detail_Route_Btn);
         Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),Subway_Route.class);
+                Intent intent = new Intent(getActivity(), Subway_Route.class);
+                intent.putExtra("station", curStation);
                 startActivity(intent);
             }
         });
