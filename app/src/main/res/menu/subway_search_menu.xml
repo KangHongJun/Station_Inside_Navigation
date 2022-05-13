@@ -2,4 +2,11 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/bookmark_all_delete"
+        android:title="즐겨찾기 전체 삭제"
+        android:orderInCategory="0"
+        app:showAsAction="never"
+        />
+
 </menu>

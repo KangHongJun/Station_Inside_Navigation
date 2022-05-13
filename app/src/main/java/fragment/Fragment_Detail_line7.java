@@ -149,7 +149,8 @@ public class Fragment_Detail_line7 extends Fragment {
         Button Detail_Route_Btn = viewGroup.findViewById(R.id.Detail_Route_Btn);
         Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),Subway_Route.class);
+                Intent intent = new Intent(getActivity(), Subway_Route.class);
+                intent.putExtra("station", curStation);
                 startActivity(intent);
             }
         });

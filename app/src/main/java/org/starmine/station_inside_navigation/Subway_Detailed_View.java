@@ -66,6 +66,7 @@ public class Subway_Detailed_View extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         //DB class따로 만들기
         DBHelper Helper;
@@ -258,15 +259,15 @@ public class Subway_Detailed_View extends AppCompatActivity {
     //탭 세팅
     public void Setting_tab(){
         tabs = findViewById(R.id.Detail_subway_line_Tab);
-        tabs.addTab(tabs.newTab().setText("1"));
-        tabs.addTab(tabs.newTab().setText("2"));
-        tabs.addTab(tabs.newTab().setText("3"));
-        tabs.addTab(tabs.newTab().setText("4"));
-        tabs.addTab(tabs.newTab().setText("5"));
-        tabs.addTab(tabs.newTab().setText("6"));
-        tabs.addTab(tabs.newTab().setText("7"));
-        tabs.addTab(tabs.newTab().setText("8"));
-        tabs.addTab(tabs.newTab().setText("9"));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line1));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line2));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line3));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line4));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line5));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line6));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line7));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line8));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.img_line9));
 
         int tab_count = tabs.getTabCount();
         for (int i = 0; i < tab_count; i++) {

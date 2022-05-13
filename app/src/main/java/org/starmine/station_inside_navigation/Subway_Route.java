@@ -1,9 +1,11 @@
 package org.starmine.station_inside_navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,11 +14,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class Subway_Route extends AppCompatActivity {
+    private static String curStation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_route);
+        EditText start_station = (EditText)findViewById(R.id.Route_Start_Edit);
+        EditText arrival_station = (EditText)findViewById(R.id.Route_Arrival_Edit);
 
+        Intent get_intent = getIntent();
+        curStation = get_intent.getStringExtra("station");
+        start_station.setText(curStation);
+
+        //start_station.setOnClickListener();
         //툴바 세팅
         Toolbar toolbar = findViewById(R.id.Route_Toolbar);
         setSupportActionBar(toolbar);
@@ -25,6 +36,7 @@ public class Subway_Route extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
     }
 
     //메뉴 적용
