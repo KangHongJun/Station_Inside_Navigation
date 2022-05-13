@@ -22,7 +22,18 @@ import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class Fragment_Detail_line4 extends Fragment {
+    static ViewGroup viewGroup;
+    TextView Arrival_L1;
+    TextView Arrival_L2;
+    TextView Arrival_R1;
+    TextView Arrival_R2;
+
     private static String curStation;
     Cursor cursor_code;
     static String sqlCode;
@@ -30,8 +41,10 @@ public class Fragment_Detail_line4 extends Fragment {
     //현재역 코드 저장
     static int code;
 
+    static Date neardate = new Date();
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
+        viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
 
         //해당 역 번들 데이터 얻기
         Bundle curstation = getArguments();
@@ -75,7 +88,13 @@ public class Fragment_Detail_line4 extends Fragment {
         TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
         nextSt.setText(cursor_code.getString(0));
 
-        Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
+        //도착정보 세팅
+        setUPArrivalTime();
+        setDOWNArrivalTime();
+
+
+        //다음역 버튼
+       Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
         //next_btn.setBackgroundResource(R.drawable.station4_sub);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +129,7 @@ public class Fragment_Detail_line4 extends Fragment {
             }
         });
 
-
-
+        //이전역 버튼
         Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
         //back_Btn.setBackgroundResource(R.drawable.station4_sub);
         back_Btn.setOnClickListener(new View.OnClickListener() {
@@ -193,5 +211,255 @@ public class Fragment_Detail_line4 extends Fragment {
             }
         });
         return viewGroup;
+    }
+
+
+    //도착정보 시간표 기준
+    //상행 도착 ㅎ정보
+    private void setUPArrivalTime(){
+        int min = -1 ;
+
+        Bundle curstation = getArguments();
+        if(curstation != null){
+            curStation = curstation.getString("station")+4;
+        }
+
+        //현재시간
+        long curTime = System.currentTimeMillis();
+        Date date = new Date(curTime);
+
+        TimeZone timezone;
+        timezone = TimeZone.getTimeZone("Asia/Seoul");
+
+
+        //현재 시
+        SimpleDateFormat dateFormat = new SimpleDateFormat("k", Locale.KOREAN);
+        dateFormat.setTimeZone(timezone);
+        String curHour = dateFormat.format(date);
+
+        SimpleDateFormat dateFormat_MM = new SimpleDateFormat("mm", Locale.KOREAN);
+        dateFormat_MM.setTimeZone(timezone);
+        String curMinute = dateFormat_MM.format(date);
+
+        SimpleDateFormat dateFormat_SS = new SimpleDateFormat("ss", Locale.KOREAN);
+        dateFormat_SS.setTimeZone(timezone);
+        String curSecond = dateFormat_SS.format(date);
+
+
+        SimpleDateFormat dateFormat_QQ = new SimpleDateFormat("k:mm:ss", Locale.KOREAN);
+        dateFormat_QQ.setTimeZone(timezone);
+
+        DBHelper Helper;
+        SQLiteDatabase sqlDB;
+        Helper = new DBHelper(getActivity(),"subway_schedule.db",null,1);
+        sqlDB = Helper.getReadableDatabase();
+        Helper.onCreate(sqlDB);
+
+        curStation = "사당4";
+
+        String sqlCode = "select * from line4 where NAME = " +"\""+ curStation +"\""+"and TYPE=0";
+        Cursor UP_cursor = sqlDB.rawQuery(sqlCode,null);
+
+        int UP_count = UP_cursor.getCount();
+        String[] UP_array = new String[100];
+        String UP_nlist = null;
+        String UP_tlist = null;
+        String[] UP_text = new String[100];
+
+        int time = Integer.parseInt(curHour)-2;
+        int minute = Integer.parseInt(curMinute);
+
+        //시간 데이터
+        UP_cursor.moveToFirst();
+        for(int i = 0; i < UP_count; i++){
+            UP_nlist = UP_cursor.getString(time).replaceAll("[^0-9]", " ");
+            UP_cursor.moveToNext();
+        }
+        UP_nlist = UP_nlist.replaceAll("\\s+", " ");
+        UP_array = UP_nlist.split(" ");
+
+
+        //방향 데이터
+        UP_cursor.moveToFirst();
+        for(int i = 0; i < UP_count; i++){
+            UP_tlist = UP_cursor.getString(time).replaceAll("[0-9]", " ");
+            UP_cursor.moveToNext();
+        }
+        UP_tlist = UP_tlist.replaceAll("\\s+", " ");
+        UP_text = UP_tlist.split(" ");
+
+
+        String nearTime=curHour;
+        int second = 60 - Integer.parseInt(curSecond);
+
+
+        //다음 도착 시간 - 분 기준
+        for(int i =0; i<UP_array.length;i++) {
+            if (minute <= Integer.parseInt(UP_array[i])) {
+                min = Integer.parseInt(UP_array[i]) - Integer.parseInt(curMinute)-1;
+                Arrival_L1 = viewGroup.findViewById(R.id.Detail_LTime_Text);
+                Arrival_L1.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
+                if (i + 1 != UP_array.length) {
+                    min = Integer.parseInt(UP_array[i + 1]) - Integer.parseInt(curMinute) - 1;
+                    Arrival_L2 = viewGroup.findViewById(R.id.Detail_LNextTime_Text);
+                    Arrival_L2.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
+                    break;
+                    } else {
+                        UP_cursor.moveToFirst();
+                        for (int j = 0; j < UP_count; j++) {
+                            UP_nlist = UP_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
+                            UP_cursor.moveToNext();
+                        }
+                        UP_nlist = UP_nlist.replaceAll("\\s+", " ");
+                        UP_array = UP_nlist.split(" ");
+                        min = Integer.parseInt(UP_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
+
+                        Arrival_L2 = viewGroup.findViewById(R.id.Detail_LTime_Text);
+                        Arrival_L2.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
+                    }
+                    break;
+                }
+
+                if (i == UP_array.length && min == -1) {
+                    UP_cursor.moveToFirst();
+                    for (int j = 0; j < UP_count; j++) {
+                        UP_nlist = UP_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
+                        UP_cursor.moveToNext();
+                    }
+                    UP_nlist = UP_nlist.replaceAll("\\s+", " ");
+                    UP_array = UP_nlist.split(" ");
+                    min = Integer.parseInt(UP_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
+
+                    Arrival_L1 = viewGroup.findViewById(R.id.Detail_LTime_Text);
+                    Arrival_L1.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초\n" + minute + "\n" + UP_array[0]);
+                    break;
+                }
+            }
+    }
+
+    //하행 도착정보
+    private void setDOWNArrivalTime(){
+        int min = -1 ;
+
+        Bundle curstation = getArguments();
+        if(curstation != null){
+            curStation = curstation.getString("station")+4;
+        }
+
+        //현재시간
+        long curTime = System.currentTimeMillis();
+        Date date = new Date(curTime);
+
+        TimeZone timezone;
+        timezone = TimeZone.getTimeZone("Asia/Seoul");
+
+        //현재 시
+        SimpleDateFormat dateFormat = new SimpleDateFormat("k", Locale.KOREAN);
+        dateFormat.setTimeZone(timezone);
+        String curHour = dateFormat.format(date);
+
+        SimpleDateFormat dateFormat_MM = new SimpleDateFormat("mm", Locale.KOREAN);
+        dateFormat_MM.setTimeZone(timezone);
+        String curMinute = dateFormat_MM.format(date);
+
+        SimpleDateFormat dateFormat_SS = new SimpleDateFormat("ss", Locale.KOREAN);
+        dateFormat_SS.setTimeZone(timezone);
+        String curSecond = dateFormat_SS.format(date);
+
+
+        SimpleDateFormat dateFormat_QQ = new SimpleDateFormat("k:mm:ss", Locale.KOREAN);
+        dateFormat_QQ.setTimeZone(timezone);
+
+        DBHelper Helper;
+        SQLiteDatabase sqlDB;
+        Helper = new DBHelper(getActivity(),"subway_schedule.db",null,1);
+        sqlDB = Helper.getReadableDatabase();
+        Helper.onCreate(sqlDB);
+
+        curStation = "사당4";
+        //상행
+        String sqlCode = "select * from line4 where NAME = " +"\""+ curStation +"\""+"and TYPE=1";
+        Cursor DOWN_cursor = sqlDB.rawQuery(sqlCode,null);
+
+        int UP_count = DOWN_cursor.getCount();
+        String[] DOWN_array = new String[100];
+        String DOWN_nlist = null;
+        String DOWN_tlist = null;
+        String[] DOWN_text = new String[100];
+
+        int time = Integer.parseInt(curHour)-2;
+        int minute = Integer.parseInt(curMinute);
+
+        //시간 데이터
+        DOWN_cursor.moveToFirst();
+        for(int i = 0; i < UP_count; i++){
+            DOWN_nlist = DOWN_cursor.getString(time).replaceAll("[^0-9]", " ");
+            DOWN_cursor.moveToNext();
+        }
+        DOWN_nlist = DOWN_nlist.replaceAll("\\s+", " ");
+        DOWN_array = DOWN_nlist.split(" ");
+
+
+        //방향 데이터
+        DOWN_cursor.moveToFirst();
+        for(int i = 0; i < UP_count; i++){
+            DOWN_tlist = DOWN_cursor.getString(time).replaceAll("[0-9]", " ");
+            DOWN_cursor.moveToNext();
+        }
+        DOWN_tlist = DOWN_tlist.replaceAll("\\s+", " ");
+        DOWN_text = DOWN_tlist.split(" ");
+
+
+        String nearTime=curHour;
+        int second = 60 - Integer.parseInt(curSecond);
+
+
+        //다음 도착 시간 - 분 기준
+        for(int i =0; i<DOWN_array.length;i++) {
+            if (minute <= Integer.parseInt(DOWN_array[i])) {
+                min = Integer.parseInt(DOWN_array[i]) - Integer.parseInt(curMinute)-1;
+                Arrival_R1 = viewGroup.findViewById(R.id.Detail_RTime_Text);
+                Arrival_R1.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
+                if (i + 1 != DOWN_array.length) {
+                    min = Integer.parseInt(DOWN_array[i + 1]) - Integer.parseInt(curMinute) - 1;
+                    Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
+                    Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
+                    break;
+                } else {
+                    DOWN_cursor.moveToFirst();
+                    for (int j = 0; j < UP_count; j++) {
+                        DOWN_nlist = DOWN_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
+                        DOWN_cursor.moveToNext();
+                    }
+                    DOWN_nlist = DOWN_nlist.replaceAll("\\s+", " ");
+                    DOWN_array = DOWN_nlist.split(" ");
+                    min = Integer.parseInt(DOWN_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
+
+                    Arrival_R2 = viewGroup.findViewById(R.id.Detail_RTime_Text);
+                    Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
+                }
+                break;
+            }
+
+            if (i == DOWN_array.length && min == -1) {
+                DOWN_cursor.moveToFirst();
+                for (int j = 0; j < UP_count; j++) {
+                    DOWN_nlist = DOWN_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
+                    DOWN_cursor.moveToNext();
+                }
+                DOWN_nlist = DOWN_nlist.replaceAll("\\s+", " ");
+                DOWN_array = DOWN_nlist.split(" ");
+                min = Integer.parseInt(DOWN_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
+
+                Arrival_R1 = viewGroup.findViewById(R.id.Detail_RTime_Text);
+                Arrival_R1.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초\n" + minute + "\n" + DOWN_array[0]);
+
+                min = Integer.parseInt(DOWN_array[1]) + 60 - Integer.parseInt(curMinute) - 1;
+                Arrival_R2 = viewGroup.findViewById(R.id.Detail_RTime_Text);
+                Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
+                break;
+            }
+        }
+
     }
 }

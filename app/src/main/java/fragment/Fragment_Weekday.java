@@ -78,7 +78,7 @@ public class Fragment_Weekday extends Fragment {
         Helper.onCreate(sqlDB);
 
         //상행
-        String sqlCode = "select * from line4 where NAME = " +"\""+ curStation +"\""+"and TYPE=0";
+        String sqlCode = "select * from schedule4 where NAME = " +"\""+ curStation +"\""+"and TYPE=0";
         Cursor UP_cursor = sqlDB.rawQuery(sqlCode,null);
 
 
@@ -93,8 +93,11 @@ public class Fragment_Weekday extends Fragment {
             UP_nlist = UP_cursor.getString(time).replaceAll("[^0-9]", " ");
             UP_cursor.moveToNext();
         }
-        UP_nlist = UP_nlist.replaceAll("\\s+", " ");
-        UP_array = UP_nlist.split(" ");
+        if(UP_count!=0){
+            UP_nlist = UP_nlist.replaceAll("\\s+", " ");
+            UP_array = UP_nlist.split(" ");
+        }
+
 
         UP_cursor.moveToFirst();
         for(int i = 0; i < UP_count; i++){
@@ -131,7 +134,7 @@ public class Fragment_Weekday extends Fragment {
         Helper.onCreate(sqlDB);
 
         //하행
-        String sqlCode = "select * from line4 where NAME = " +"\""+ curStation +"\""+"and TYPE=1";
+        String sqlCode = "select * from schedule4 where NAME = " +"\""+ curStation +"\""+"and TYPE=1";
         Cursor DOWN_cursor = sqlDB.rawQuery(sqlCode,null);
 
         DOWN_count = DOWN_cursor.getCount();
