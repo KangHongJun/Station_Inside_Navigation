@@ -59,7 +59,7 @@ public class Subway_Map extends AppCompatActivity {
         TileScale = imageView.getMaxScale();
 
         //이미지 뷰 특정위치로 이동 및 확대 - 이벤트로는 가능하지만, 시작시 안됨
-        imageView.setScaleAndCenter(1.1f,new PointF(3900, 3120));
+        //imageView.setScaleAndCenter(1.1f,new PointF(3900, 3120));
 
         //Toast.makeText(getApplicationContext(),""+TileScale,Toast.LENGTH_LONG).show();
       

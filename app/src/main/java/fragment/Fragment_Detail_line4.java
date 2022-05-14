@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
 import org.starmine.station_inside_navigation.Inside_Navigation;
@@ -22,6 +25,7 @@ import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -43,6 +47,8 @@ public class Fragment_Detail_line4 extends Fragment {
 
     static Date neardate = new Date();
 
+    String nums="jj";
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
 
@@ -51,6 +57,8 @@ public class Fragment_Detail_line4 extends Fragment {
         if(curstation != null){
             curStation = curstation.getString("station");
         }
+
+
 
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
@@ -90,7 +98,43 @@ public class Fragment_Detail_line4 extends Fragment {
 
         //도착정보 세팅
         setUPArrivalTime();
-        setDOWNArrivalTime();
+        //setDOWNArrivalTime();
+
+
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    String URL = "https://m.search.naver.com/search.naver?sm=tab_hty.top&where=m&query=%EC%82%AC%EB%8B%B9%EC%97%AD+4%ED%98%B8%EC%84%A0&oquery=%EC%A7%80%ED%95%98%EC%B2%A0+%EC%8B%9C%EA%B0%84%ED%91%9C&tqi=hF9zGdp0JXVssi7Uul8ssssssRN-487450";
+                    Document doc;
+                    doc = Jsoup.connect(URL).get();
+
+                    Elements minute = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(1) > span.count > em");
+
+                    Elements dir = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(1) > span.time_box > span");
+
+
+                    String test = dir.get(0).text() + "행 "+minute.get(0).text();
+                    System.out.println(test);
+
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+
+
+       // Arrival_R1 = viewGroup.findViewById(R.id.Detail_RTime_Text);
+
+
+
+
+
+
+
+
 
 
         //다음역 버튼
