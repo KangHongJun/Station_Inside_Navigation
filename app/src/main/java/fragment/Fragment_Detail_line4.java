@@ -45,10 +45,6 @@ public class Fragment_Detail_line4 extends Fragment {
     //현재역 코드 저장
     static int code;
 
-    static Date neardate = new Date();
-
-    String nums="jj";
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
 
@@ -98,10 +94,11 @@ public class Fragment_Detail_line4 extends Fragment {
 
         //도착정보 세팅
         setUPArrivalTime();
-        //setDOWNArrivalTime();
+        setDOWNArrivalTime();
 
 
-        new Thread(){
+        //실시간 도착정보 크롤링
+         new Thread(){
             @Override
             public void run() {
                 try {
@@ -114,8 +111,8 @@ public class Fragment_Detail_line4 extends Fragment {
                     Elements dir = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(1) > span.time_box > span");
 
 
-                    String test = dir.get(0).text() + "행 "+minute.get(0).text();
-                    System.out.println(test);
+                    //String test = dir.get(0).text() + "행 "+minute.get(0).text();
+                    //System.out.println(test);
 
 
                 }catch (IOException e){
@@ -127,12 +124,6 @@ public class Fragment_Detail_line4 extends Fragment {
 
 
        // Arrival_R1 = viewGroup.findViewById(R.id.Detail_RTime_Text);
-
-
-
-
-
-
 
 
 
@@ -170,6 +161,10 @@ public class Fragment_Detail_line4 extends Fragment {
                 String befroe = cursor_code.getString(0);
                 TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
                 beforeSt.setText(befroe);
+
+                //도착정보 갱신
+                setUPArrivalTime();
+                setDOWNArrivalTime();
             }
         });
 
@@ -206,6 +201,10 @@ public class Fragment_Detail_line4 extends Fragment {
                 String before = cursor_code.getString(0);
                 TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
                 beforeSt.setText(before);
+
+                //도착정보 갱신
+                setUPArrivalTime();
+                setDOWNArrivalTime();
             }
         });
 
@@ -339,7 +338,8 @@ public class Fragment_Detail_line4 extends Fragment {
 
         //다음 도착 시간 - 분 기준
         for(int i =0; i<UP_array.length;i++) {
-            if (minute <= Integer.parseInt(UP_array[i])) {
+            //분 비교
+            if (minute < Integer.parseInt(UP_array[i])) {
                 min = Integer.parseInt(UP_array[i]) - Integer.parseInt(curMinute)-1;
                 Arrival_L1 = viewGroup.findViewById(R.id.Detail_LTime_Text);
                 Arrival_L1.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
@@ -348,23 +348,21 @@ public class Fragment_Detail_line4 extends Fragment {
                     Arrival_L2 = viewGroup.findViewById(R.id.Detail_LNextTime_Text);
                     Arrival_L2.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
                     break;
-                    } else {
-                        UP_cursor.moveToFirst();
-                        for (int j = 0; j < UP_count; j++) {
-                            UP_nlist = UP_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
-                            UP_cursor.moveToNext();
-                        }
-                        UP_nlist = UP_nlist.replaceAll("\\s+", " ");
-                        UP_array = UP_nlist.split(" ");
-                        min = Integer.parseInt(UP_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
-
-                        Arrival_L2 = viewGroup.findViewById(R.id.Detail_LTime_Text);
-                        Arrival_L2.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
+//                    } else {
+//                        UP_cursor.moveToFirst();
+//                        for (int j = 0; j < UP_count; j++) {
+//                            UP_nlist = UP_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
+//                            UP_cursor.moveToNext();
+//                        }
+//                        UP_nlist = UP_nlist.replaceAll("\\s+", " ");
+//                        UP_array = UP_nlist.split(" ");
+//                        min = Integer.parseInt(UP_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
+//
+//                        Arrival_L2 = viewGroup.findViewById(R.id.Detail_LTime_Text);
+//                        Arrival_L2.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
+//                    break;
                     }
-                    break;
-                }
-
-                if (i == UP_array.length && min == -1) {
+                }else if (i == UP_array.length && min == -1) {
                     UP_cursor.moveToFirst();
                     for (int j = 0; j < UP_count; j++) {
                         UP_nlist = UP_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
@@ -420,12 +418,13 @@ public class Fragment_Detail_line4 extends Fragment {
         sqlDB = Helper.getReadableDatabase();
         Helper.onCreate(sqlDB);
 
-        curStation = "사당4";
-        //상행
-        String sqlCode = "select * from line4 where NAME = " +"\""+ curStation +"\""+"and TYPE=1";
+        //curStation = "사당4";
+        //상행 test
+        String sqlCode = "select * from schedule where NAME = " +"\""+ curStation +"\""+"and TYPE=1";
         Cursor DOWN_cursor = sqlDB.rawQuery(sqlCode,null);
 
-        int UP_count = DOWN_cursor.getCount();
+        int DOWN_count = DOWN_cursor.getCount();
+
         String[] DOWN_array = new String[100];
         String DOWN_nlist = null;
         String DOWN_tlist = null;
@@ -436,17 +435,16 @@ public class Fragment_Detail_line4 extends Fragment {
 
         //시간 데이터
         DOWN_cursor.moveToFirst();
-        for(int i = 0; i < UP_count; i++){
+        for(int i = 0; i < DOWN_count; i++){
             DOWN_nlist = DOWN_cursor.getString(time).replaceAll("[^0-9]", " ");
             DOWN_cursor.moveToNext();
         }
         DOWN_nlist = DOWN_nlist.replaceAll("\\s+", " ");
         DOWN_array = DOWN_nlist.split(" ");
 
-
         //방향 데이터
         DOWN_cursor.moveToFirst();
-        for(int i = 0; i < UP_count; i++){
+        for(int i = 0; i < DOWN_count; i++){
             DOWN_tlist = DOWN_cursor.getString(time).replaceAll("[0-9]", " ");
             DOWN_cursor.moveToNext();
         }
@@ -460,7 +458,7 @@ public class Fragment_Detail_line4 extends Fragment {
 
         //다음 도착 시간 - 분 기준
         for(int i =0; i<DOWN_array.length;i++) {
-            if (minute <= Integer.parseInt(DOWN_array[i])) {
+            if (minute < Integer.parseInt(DOWN_array[i])) {
                 min = Integer.parseInt(DOWN_array[i]) - Integer.parseInt(curMinute)-1;
                 Arrival_R1 = viewGroup.findViewById(R.id.Detail_RTime_Text);
                 Arrival_R1.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
@@ -469,25 +467,23 @@ public class Fragment_Detail_line4 extends Fragment {
                     Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
                     Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
                     break;
-                } else {
-                    DOWN_cursor.moveToFirst();
-                    for (int j = 0; j < UP_count; j++) {
-                        DOWN_nlist = DOWN_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
-                        DOWN_cursor.moveToNext();
-                    }
-                    DOWN_nlist = DOWN_nlist.replaceAll("\\s+", " ");
-                    DOWN_array = DOWN_nlist.split(" ");
-                    min = Integer.parseInt(DOWN_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
-
-                    Arrival_R2 = viewGroup.findViewById(R.id.Detail_RTime_Text);
-                    Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
+//                } else {
+//                    DOWN_cursor.moveToFirst();
+//                    for (int j = 0; j < DOWN_count; j++) {
+//                        DOWN_nlist = DOWN_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
+//                        DOWN_cursor.moveToNext();
+//                    }
+//                    DOWN_nlist = DOWN_nlist.replaceAll("\\s+", " ");
+//                    DOWN_array = DOWN_nlist.split(" ");
+//                    min = Integer.parseInt(DOWN_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
+//
+//                    Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
+//                    Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
+//                    break;
                 }
-                break;
-            }
-
-            if (i == DOWN_array.length && min == -1) {
+            } else if (i == DOWN_array.length) { //minute < Integer.parseInt(DOWN_array[i] 추가 해야할지도?
                 DOWN_cursor.moveToFirst();
-                for (int j = 0; j < UP_count; j++) {
+                for (int j = 0; j < DOWN_count; j++) {
                     DOWN_nlist = DOWN_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
                     DOWN_cursor.moveToNext();
                 }
@@ -499,7 +495,7 @@ public class Fragment_Detail_line4 extends Fragment {
                 Arrival_R1.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초\n" + minute + "\n" + DOWN_array[0]);
 
                 min = Integer.parseInt(DOWN_array[1]) + 60 - Integer.parseInt(curMinute) - 1;
-                Arrival_R2 = viewGroup.findViewById(R.id.Detail_RTime_Text);
+                Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
                 Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
                 break;
             }

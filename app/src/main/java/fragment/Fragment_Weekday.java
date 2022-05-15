@@ -18,6 +18,11 @@ import org.starmine.station_inside_navigation.R;
 import org.starmine.station_inside_navigation.Schedule;
 import org.starmine.station_inside_navigation.ScheduleAdapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class Fragment_Weekday extends Fragment {
     ViewGroup viewGroup;
     static String UP_schedule = "";
@@ -49,6 +54,17 @@ public class Fragment_Weekday extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        //현재 시간으로 스크롤 이동
+        LinearLayoutManager recyclerManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+        long curTime = System.currentTimeMillis();
+        Date date = new Date(curTime);
+        TimeZone timezone;
+        timezone = TimeZone.getTimeZone("Asia/Seoul");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("k", Locale.KOREAN);
+        dateFormat.setTimeZone(timezone);
+        String curHour = dateFormat.format(date);
+        recyclerManager.scrollToPositionWithOffset(Integer.parseInt(curHour)-4,0);
+
 
 
 
@@ -78,7 +94,7 @@ public class Fragment_Weekday extends Fragment {
         Helper.onCreate(sqlDB);
 
         //상행
-        String sqlCode = "select * from schedule4 where NAME = " +"\""+ curStation +"\""+"and TYPE=0";
+        String sqlCode = "select * from schedule where NAME = " +"\""+ curStation +"\""+"and TYPE=0";
         Cursor UP_cursor = sqlDB.rawQuery(sqlCode,null);
 
 
@@ -115,6 +131,9 @@ public class Fragment_Weekday extends Fragment {
 
         //텍스트 세팅할 String 만들기
         for(int i=0;i<UP_array.length;i++){
+            if(UP_text[i + 1].equals("없음")){
+                UP_schedule = UP_text[i+1] + "\n\n";
+            }else
             UP_schedule = UP_schedule + setTime + " : " +  UP_array[i]+ " " + UP_text[i+1] + "\n\n";
         }
     }
@@ -134,7 +153,7 @@ public class Fragment_Weekday extends Fragment {
         Helper.onCreate(sqlDB);
 
         //하행
-        String sqlCode = "select * from schedule4 where NAME = " +"\""+ curStation +"\""+"and TYPE=1";
+        String sqlCode = "select * from schedule where NAME = " +"\""+ curStation +"\""+"and TYPE=1";
         Cursor DOWN_cursor = sqlDB.rawQuery(sqlCode,null);
 
         DOWN_count = DOWN_cursor.getCount();
@@ -168,7 +187,10 @@ public class Fragment_Weekday extends Fragment {
 
         //텍스트 세팅할 String 만들기
         for(int i=0;i<DOWN_array.length;i++){
-            DOWN_schedule = DOWN_schedule + setTime + " : " +  DOWN_array[i]+ " " + DOWN_text[i+1] + "\n\n";
+            if(DOWN_text[i + 1].equals("없음")){
+                DOWN_schedule = DOWN_text[i+1] + "\n\n";
+            }else
+                DOWN_schedule = DOWN_schedule + setTime + " : " +  DOWN_array[i]+ " " + DOWN_text[i+1] + "\n\n";
         }
     }
 }
