@@ -18,6 +18,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.starmine.station_inside_navigation.DBHelper;
+import org.starmine.station_inside_navigation.DatabaseHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
 import org.starmine.station_inside_navigation.Inside_Navigation;
 import org.starmine.station_inside_navigation.R;
@@ -31,6 +32,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import piruincopy.quickaction.ActionItem;
+
 public class Fragment_Detail_line4 extends Fragment {
     //
     static ViewGroup viewGroup;
@@ -42,6 +45,7 @@ public class Fragment_Detail_line4 extends Fragment {
     private static String curStation;
     Cursor cursor_code;
     static String sqlCode;
+    DatabaseHelper db;
 
     //현재역 코드 저장
     static int code;
@@ -54,6 +58,8 @@ public class Fragment_Detail_line4 extends Fragment {
         if(curstation != null){
             curStation = curstation.getString("station");
         }
+
+        db = new DatabaseHelper(getActivity());
 
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
@@ -204,6 +210,10 @@ public class Fragment_Detail_line4 extends Fragment {
         Button Detail_Route_Btn = viewGroup.findViewById(R.id.Detail_Route_Btn);
         Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Bundle curstation = getArguments();
+                if(curstation != null){
+                    curStation = curstation.getString("station");
+                }
                 Intent intent = new Intent(getActivity(), Subway_Route.class);
                 intent.putExtra("station", curStation);
                 startActivity(intent);
@@ -233,7 +243,49 @@ public class Fragment_Detail_line4 extends Fragment {
                 startActivity(intent);
             }
         });
-        
+
+        Button Detail_Bookmark_Btn = viewGroup.findViewById(R.id.Detail_Bookmark_Btn);
+        Cursor cursor = db.BookmarkviewData();
+        int count = cursor.getCount();
+
+        for(int i = 0; i < count; i++){
+            cursor.moveToNext();
+            //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0), Toast.LENGTH_SHORT).show();
+            if(curStation.equals(cursor.getString(0))){
+                //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
+                Detail_Bookmark_Btn.setBackgroundResource(R.drawable.yellow_star);
+                break;
+            }
+            else if (!curStation.equals(cursor.getString(0))){
+                //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
+                Detail_Bookmark_Btn.setBackgroundResource(R.drawable.empty_star);
+            }
+        }
+
+
+        Detail_Bookmark_Btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                /*Bundle curstation = getArguments();
+                if(curstation != null){
+                    curStation = curstation.getString("station");
+                }
+
+                if (num == 1) {
+                    db.deleteBookmark(curStation);
+                    db.insertData(curStation);
+
+                    Detail_Bookmark_Btn.setBackgroundResource(R.drawable.empty_star);
+                }
+
+                if (num == 0) {
+                    db.insertBookmark(curStation);
+                    db.deleteData(curStation);
+
+                    Detail_Bookmark_Btn.setBackgroundResource(R.drawable.yellow_star);
+                }*/
+            }
+        });
+
         //문의하기 버튼
         Button Detail_Inquire_Btn = viewGroup.findViewById(R.id.Detail_Inquire_Btn);
         Detail_Inquire_Btn.setOnClickListener(new View.OnClickListener() {

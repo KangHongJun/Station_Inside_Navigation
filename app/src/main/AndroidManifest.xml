@@ -33,6 +33,8 @@
         <activity android:name=".Options"/>
         <activity android:name=".Inside_Navigation"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".Start_Subway_Search"/>
+        <activity android:name=".Arrival_Subway_Search"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="ae013cba2d59b75e684532d3c53bd6f1"/>
     </application>
 
