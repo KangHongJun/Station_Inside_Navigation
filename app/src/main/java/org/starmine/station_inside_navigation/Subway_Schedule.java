@@ -110,7 +110,7 @@ public class Subway_Schedule extends AppCompatActivity {
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
 
-        String sqlCode = "select DIR from line4 where NAME = " +"\""+ curStation +"\"";
+        String sqlCode = "select DIR from schedule where NAME = " +"\""+ curStation +"\"";
         Cursor UPDIR_cursor = sqlDB.rawQuery(sqlCode,null);
 
         int count = UPDIR_cursor.getCount();

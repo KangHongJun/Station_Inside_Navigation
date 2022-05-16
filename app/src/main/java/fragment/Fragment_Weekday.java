@@ -63,7 +63,7 @@ public class Fragment_Weekday extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("k", Locale.KOREAN);
         dateFormat.setTimeZone(timezone);
         String curHour = dateFormat.format(date);
-        recyclerManager.scrollToPositionWithOffset(Integer.parseInt(curHour)-4,0);
+        recyclerManager.scrollToPositionWithOffset(Integer.parseInt(curHour)-5,0);
 
 
 

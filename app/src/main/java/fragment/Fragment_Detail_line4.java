@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class Fragment_Detail_line4 extends Fragment {
+    //
     static ViewGroup viewGroup;
     TextView Arrival_L1;
     TextView Arrival_L2;
@@ -53,8 +54,6 @@ public class Fragment_Detail_line4 extends Fragment {
         if(curstation != null){
             curStation = curstation.getString("station");
         }
-
-
 
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
@@ -120,12 +119,6 @@ public class Fragment_Detail_line4 extends Fragment {
                 }
             }
         }.start();
-
-
-
-       // Arrival_R1 = viewGroup.findViewById(R.id.Detail_RTime_Text);
-
-
 
 
         //다음역 버튼
@@ -208,8 +201,6 @@ public class Fragment_Detail_line4 extends Fragment {
             }
         });
 
-
-
         Button Detail_Route_Btn = viewGroup.findViewById(R.id.Detail_Route_Btn);
         Detail_Route_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -219,7 +210,6 @@ public class Fragment_Detail_line4 extends Fragment {
             }
         });
 
-
         Button Detail_Inner_Btn = viewGroup.findViewById(R.id.Detail_Inner_Btn);
         Detail_Inner_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -227,7 +217,6 @@ public class Fragment_Detail_line4 extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         // 시간표 버튼
         Button Detail_Schedule_Btn = viewGroup.findViewById(R.id.Deatil_Schedule_Btn);
@@ -255,7 +244,6 @@ public class Fragment_Detail_line4 extends Fragment {
         });
         return viewGroup;
     }
-
 
     //도착정보 시간표 기준
     //상행 도착 ㅎ정보
@@ -298,9 +286,9 @@ public class Fragment_Detail_line4 extends Fragment {
         sqlDB = Helper.getReadableDatabase();
         Helper.onCreate(sqlDB);
 
-        curStation = "사당4";
+        //curStation = "사당4";
 
-        String sqlCode = "select * from line4 where NAME = " +"\""+ curStation +"\""+"and TYPE=0";
+        String sqlCode = "select * from schedule where NAME = " +"\""+ curStation +"\""+"and TYPE=0";
         Cursor UP_cursor = sqlDB.rawQuery(sqlCode,null);
 
         int UP_count = UP_cursor.getCount();
@@ -348,19 +336,19 @@ public class Fragment_Detail_line4 extends Fragment {
                     Arrival_L2 = viewGroup.findViewById(R.id.Detail_LNextTime_Text);
                     Arrival_L2.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
                     break;
-//                    } else {
-//                        UP_cursor.moveToFirst();
-//                        for (int j = 0; j < UP_count; j++) {
-//                            UP_nlist = UP_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
-//                            UP_cursor.moveToNext();
-//                        }
-//                        UP_nlist = UP_nlist.replaceAll("\\s+", " ");
-//                        UP_array = UP_nlist.split(" ");
-//                        min = Integer.parseInt(UP_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
-//
-//                        Arrival_L2 = viewGroup.findViewById(R.id.Detail_LTime_Text);
-//                        Arrival_L2.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
-//                    break;
+                    } else {
+                        UP_cursor.moveToFirst();
+                        for (int j = 0; j < UP_count; j++) {
+                            UP_nlist = UP_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
+                            UP_cursor.moveToNext();
+                        }
+                        UP_nlist = UP_nlist.replaceAll("\\s+", " ");
+                        UP_array = UP_nlist.split(" ");
+                        min = Integer.parseInt(UP_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
+
+                        Arrival_L2 = viewGroup.findViewById(R.id.Detail_LTime_Text);
+                        Arrival_L2.setText(UP_text[i + 1] + "행 " + min + "분 " + second + "초");
+                    break;
                     }
                 }else if (i == UP_array.length && min == -1) {
                     UP_cursor.moveToFirst();
@@ -467,19 +455,19 @@ public class Fragment_Detail_line4 extends Fragment {
                     Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
                     Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
                     break;
-//                } else {
-//                    DOWN_cursor.moveToFirst();
-//                    for (int j = 0; j < DOWN_count; j++) {
-//                        DOWN_nlist = DOWN_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
-//                        DOWN_cursor.moveToNext();
-//                    }
-//                    DOWN_nlist = DOWN_nlist.replaceAll("\\s+", " ");
-//                    DOWN_array = DOWN_nlist.split(" ");
-//                    min = Integer.parseInt(DOWN_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
-//
-//                    Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
-//                    Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
-//                    break;
+                } else {
+                    DOWN_cursor.moveToFirst();
+                    for (int j = 0; j < DOWN_count; j++) {
+                        DOWN_nlist = DOWN_cursor.getString(time + 1).replaceAll("[^0-9]", " ");
+                        DOWN_cursor.moveToNext();
+                    }
+                    DOWN_nlist = DOWN_nlist.replaceAll("\\s+", " ");
+                    DOWN_array = DOWN_nlist.split(" ");
+                    min = Integer.parseInt(DOWN_array[0]) + 60 - Integer.parseInt(curMinute) - 1;
+
+                    Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
+                    Arrival_R2.setText(DOWN_text[i + 1] + "행 " + min + "분 " + second + "초");
+                    break;
                 }
             } else if (i == DOWN_array.length) { //minute < Integer.parseInt(DOWN_array[i] 추가 해야할지도?
                 DOWN_cursor.moveToFirst();
