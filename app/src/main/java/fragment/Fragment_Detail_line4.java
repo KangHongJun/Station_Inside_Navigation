@@ -246,7 +246,7 @@ public class Fragment_Detail_line4 extends Fragment {
     }
 
     //도착정보 시간표 기준
-    //상행 도착 ㅎ정보
+    //상행 도착 정보
     private void setUPArrivalTime(){
         int min = -1 ;
 

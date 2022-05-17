@@ -89,7 +89,7 @@ public class Fragment_Detail_line1 extends Fragment {
         setDOWNArrivalTime();
 
         Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
-        next_btn.setBackgroundResource(R.drawable.station2_sub);
+
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
