@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import piruincopy.quickaction.ActionItem;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Search.db";
@@ -118,5 +120,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String deleteHistory = "delete from " + DB_TABLE;
         db.execSQL(deleteHistory);
         db.execSQL(deleteBookmark);
+    }
+
+    public int BookmarkBtn(String curStation){
+        String countQuery = "select * from " + BOOKMARK_TABLE
+                + " where " + NAME + "= '"+ curStation + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int num = 0;
+
+        if (cursor.getCount() > 0)
+            num = 1;
+        else if (cursor.getCount() == 0)
+            num = 0;
+
+        return num;
     }
 }
