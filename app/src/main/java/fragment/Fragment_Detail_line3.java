@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import org.starmine.station_inside_navigation.Bookmark;
 import org.starmine.station_inside_navigation.DBHelper;
+import org.starmine.station_inside_navigation.DatabaseHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
 import org.starmine.station_inside_navigation.Inside_Navigation;
 import org.starmine.station_inside_navigation.R;
@@ -24,13 +25,15 @@ import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
 public class Fragment_Detail_line3 extends Fragment {
+    static ViewGroup viewGroup;
     private static String curStation;
     Cursor cursor_code;
     static String sqlCode;
     static int code;
+    DatabaseHelper db;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
+        viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
 
 
         //해당 역 번들 데이터 얻기
@@ -39,6 +42,7 @@ public class Fragment_Detail_line3 extends Fragment {
             curStation = curstation.getString("station");
         }
 
+        db = new DatabaseHelper(getActivity());
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
 
@@ -179,6 +183,36 @@ public class Fragment_Detail_line3 extends Fragment {
             }
         });
 
+        //즐겨찾기 버튼
+        Button Detail_Bookmark_Btn = viewGroup.findViewById(R.id.Detail_Bookmark_Btn);
+        Bookmarkbtnimage(curStation);
+
+        Detail_Bookmark_Btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int num = 0;
+                Bundle curstation = getArguments();
+                if(curstation != null){
+                    curStation = curstation.getString("station");
+                }
+
+                num = db.BookmarkBtn(curStation);
+
+                if (num == 1) {
+                    db.deleteBookmark(curStation);
+                    db.insertData(curStation);
+
+                    Bookmarkbtnimage(curStation);
+                }
+
+                if (num == 0) {
+                    db.insertBookmark(curStation);
+                    db.deleteData(curStation);
+
+                    Bookmarkbtnimage(curStation);
+                }
+            }
+        });
+
 
 
         //문의하기 버튼
@@ -190,5 +224,18 @@ public class Fragment_Detail_line3 extends Fragment {
             }
         });
         return viewGroup;
+    }
+
+    private void Bookmarkbtnimage(String curStation){
+        Button Detail_Bookmark_Btn = viewGroup.findViewById(R.id.Detail_Bookmark_Btn);
+        int num = db.BookmarkBtn(curStation);
+
+        if (num == 1){
+            Detail_Bookmark_Btn.setBackgroundResource(R.drawable.yellow_star);
+        }
+
+        if (num == 0){
+            Detail_Bookmark_Btn.setBackgroundResource(R.drawable.empty_star);
+        }
     }
 }
