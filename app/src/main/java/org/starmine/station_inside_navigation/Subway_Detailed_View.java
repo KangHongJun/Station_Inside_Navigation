@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -31,7 +30,7 @@ import fragment.Fragment_Detail_line8;
 import fragment.Fragment_Detail_line9;
 
 
-public class Subway_Detailed_View extends AppCompatActivity {
+public class Subway_Detailed_View extends AppCompatActivity{
 
     Fragment_Detail detailed_view;
     Fragment_Detail_line1 detailed_view1;
@@ -49,6 +48,9 @@ public class Subway_Detailed_View extends AppCompatActivity {
     private static String curStation;
     //public변경하기
     public TabLayout tabs;
+
+    //선택된 탭
+    static int tab_position;
 
     //해당 역 호선 수
     static int count;
@@ -179,6 +181,9 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
         //프라그먼트 첫번째 화면 지정
         int line = Integer.parseInt(Staionline[0]);
+        //선택 탭 번호 tab_position에 저장
+        tab_position = Integer.parseInt(Staionline[0]);
+
         //Toast.makeText(getApplicationContext(),""+line,Toast.LENGTH_SHORT).show();
         switch (line) {
             case 1:
@@ -224,22 +229,31 @@ public class Subway_Detailed_View extends AppCompatActivity {
 
                 if (position == 0) {
                     selected = detailed_view1;
+                    tab_position = 1;
                 } else if (position == 1) {
                     selected = detailed_view2;
+                    tab_position = 2;
                 } else if (position == 2) {
                     selected = detailed_view3;
+                    tab_position = 3;
                 } else if (position == 3) {
                     selected = detailed_view4;
+                    tab_position = 4;
                 } else if (position == 4) {
                     selected = detailed_view5;
+                    tab_position = 5;
                 } else if (position == 5) {
                     selected = detailed_view6;
+                    tab_position = 6;
                 } else if (position == 6) {
                     selected = detailed_view7;
+                    tab_position = 7;
                 } else if (position == 7) {
                     selected = detailed_view8;
+                    tab_position = 8;
                 } else if (position == 8) {
                     selected = detailed_view9;
+                    tab_position = 9;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.Subway_Detail_Container, selected).commit();
             }
@@ -331,7 +345,8 @@ public class Subway_Detailed_View extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("station", station);
 
-        Toast.makeText(getApplicationContext(),station,Toast.LENGTH_SHORT).show();
+        //역이름 출력
+        //Toast.makeText(getApplicationContext(),station,Toast.LENGTH_SHORT).show();
 
         for (int i = 0; i < count; i++) {
             int line = Integer.parseInt(Staionline[i]);
@@ -393,6 +408,19 @@ public class Subway_Detailed_View extends AppCompatActivity {
         int curId = item.getItemId();
         switch (curId) {
             case R.id.menu_refresh:
+
+                //tab_position 값에 따라 새로고침 프라그먼트 설정
+                switch (tab_position){
+                    case 1:
+                        Fragment_Detail_line1 line1 = (Fragment_Detail_line1) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
+                line1.setDOWNArrivalTime();
+                line1.setUPArrivalTime();
+
+
+                }
+//                Fragment_Detail_line4 line4 = (Fragment_Detail_line4) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
+//                line4.setDOWNArrivalTime();
+//                line4.setUPArrivalTime();
                 break;
             default:
                 break;

@@ -258,7 +258,7 @@ public class Fragment_Detail_line2 extends Fragment {
     }
     //도착정보 시간표 기준
     //상행 도착 ㅎ정보
-    private void setUPArrivalTime(){
+    public void setUPArrivalTime(){
         int min = -1 ;
 
         Bundle curstation = getArguments();
@@ -379,7 +379,7 @@ public class Fragment_Detail_line2 extends Fragment {
     }
 
     //하행 도착정보
-    private void setDOWNArrivalTime(){
+    public void setDOWNArrivalTime(){
         int min = -1 ;
 
         Bundle curstation = getArguments();

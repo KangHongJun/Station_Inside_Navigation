@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.starmine.station_inside_navigation.Bookmark;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
 import org.starmine.station_inside_navigation.Inside_Navigation;
@@ -27,6 +26,7 @@ public class Fragment_Detail_line3 extends Fragment {
     private static String curStation;
     Cursor cursor_code;
     static String sqlCode;
+
     static int code;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

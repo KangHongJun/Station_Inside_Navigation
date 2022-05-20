@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.starmine.station_inside_navigation.Bookmark;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.DatabaseHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
@@ -28,8 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import piruincopy.quickaction.ActionItem;
 
 public class Fragment_Detail_line1 extends Fragment {
     static ViewGroup viewGroup;
@@ -256,8 +253,8 @@ public class Fragment_Detail_line1 extends Fragment {
         return viewGroup;
     }
     //도착정보 시간표 기준
-    //상행 도착 ㅎ정보
-    private void setUPArrivalTime(){
+    //상행 도착 정보
+    public void setUPArrivalTime(){
         int min = -1 ;
 
         Bundle curstation = getArguments();
@@ -382,7 +379,7 @@ public class Fragment_Detail_line1 extends Fragment {
     }
 
     //하행 도착정보
-    private void setDOWNArrivalTime(){
+    public void setDOWNArrivalTime(){
         int min = -1 ;
 
         Bundle curstation = getArguments();

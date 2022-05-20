@@ -32,8 +32,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import piruincopy.quickaction.ActionItem;
-
 public class Fragment_Detail_line4 extends Fragment {
     //
     static ViewGroup viewGroup;
@@ -58,6 +56,8 @@ public class Fragment_Detail_line4 extends Fragment {
         if(curstation != null){
             curStation = curstation.getString("station");
         }
+
+
 
         db = new DatabaseHelper(getActivity());
 
@@ -101,7 +101,6 @@ public class Fragment_Detail_line4 extends Fragment {
         setUPArrivalTime();
         setDOWNArrivalTime();
 
-
         //실시간 도착정보 크롤링
          new Thread(){
             @Override
@@ -116,8 +115,8 @@ public class Fragment_Detail_line4 extends Fragment {
                     Elements dir = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(1) > span.time_box > span");
 
 
-                    //String test = dir.get(0).text() + "행 "+minute.get(0).text();
-                    //System.out.println(test);
+                    String test = dir.get(0).text() + "행 "+minute.get(0).text();
+                    System.out.println(test);
 
 
                 }catch (IOException e){
@@ -299,7 +298,7 @@ public class Fragment_Detail_line4 extends Fragment {
 
     //도착정보 시간표 기준
     //상행 도착 정보
-    private void setUPArrivalTime(){
+    public void setUPArrivalTime(){
         int min = -1 ;
 
         Bundle curstation = getArguments();
@@ -420,7 +419,7 @@ public class Fragment_Detail_line4 extends Fragment {
     }
 
     //하행 도착정보
-    private void setDOWNArrivalTime(){
+    public void setDOWNArrivalTime(){
         int min = -1 ;
 
         Bundle curstation = getArguments();
