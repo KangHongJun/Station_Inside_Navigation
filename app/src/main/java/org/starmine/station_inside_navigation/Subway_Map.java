@@ -115,7 +115,7 @@ public class Subway_Map extends AppCompatActivity {
                 PointF sCoord = imageView.viewToSourceCoord(event.getX(), event.getY());
                 int x_cor = (int) sCoord.x;
                 int y_cor = (int) sCoord.y;
-                //TileScale = 1;
+                //TileScale = 3;
 
                 if (cursor_coor.moveToFirst()){
                     do{
