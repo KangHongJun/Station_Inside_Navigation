@@ -208,36 +208,32 @@ public class Fragment_Detail_line1 extends Fragment {
             }
         });
 
+        //즐겨찾기 버튼
         Button Detail_Bookmark_Btn = viewGroup.findViewById(R.id.Detail_Bookmark_Btn);
-        int num = db.BookmarkBtn(curStation);
-
-        if (num == 1){
-            Detail_Bookmark_Btn.setBackgroundResource(R.drawable.yellow_star);
-        }
-
-        if (num == 0){
-            Detail_Bookmark_Btn.setBackgroundResource(R.drawable.empty_star);
-        }
+        Bookmarkbtnimage(curStation);
 
         Detail_Bookmark_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                int num = 0;
                 Bundle curstation = getArguments();
                 if(curstation != null){
                     curStation = curstation.getString("station");
                 }
 
+                num = db.BookmarkBtn(curStation);
+
                 if (num == 1) {
                     db.deleteBookmark(curStation);
                     db.insertData(curStation);
 
-                    Detail_Bookmark_Btn.setBackgroundResource(R.drawable.empty_star);
+                    Bookmarkbtnimage(curStation);
                 }
 
                 if (num == 0) {
                     db.insertBookmark(curStation);
                     db.deleteData(curStation);
 
-                    Detail_Bookmark_Btn.setBackgroundResource(R.drawable.yellow_star);
+                    Bookmarkbtnimage(curStation);
                 }
             }
         });
@@ -499,6 +495,17 @@ public class Fragment_Detail_line1 extends Fragment {
                 break;
             }
         }
+    }
+    private void Bookmarkbtnimage(String curStation){
+        Button Detail_Bookmark_Btn = viewGroup.findViewById(R.id.Detail_Bookmark_Btn);
+        int num = db.BookmarkBtn(curStation);
 
+        if (num == 1){
+            Detail_Bookmark_Btn.setBackgroundResource(R.drawable.yellow_star);
+        }
+
+        if (num == 0){
+            Detail_Bookmark_Btn.setBackgroundResource(R.drawable.empty_star);
+        }
     }
 }
