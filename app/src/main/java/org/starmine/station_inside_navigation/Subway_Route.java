@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,12 +18,17 @@ import androidx.appcompat.widget.Toolbar;
 public class Subway_Route extends AppCompatActivity {
     private static String curStation;
 
+    Button search_btn;
+    EditText start_station, arrival_station;
+    String start, arrival;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_route);
-        EditText start_station = (EditText)findViewById(R.id.Route_Start_Edit);
-        EditText arrival_station = (EditText)findViewById(R.id.Route_Arrival_Edit);
+        start_station = (EditText)findViewById(R.id.Route_Start_Edit);
+        arrival_station = (EditText)findViewById(R.id.Route_Arrival_Edit);
+        search_btn = findViewById(R.id.Route_Search_Btn);
 
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
@@ -37,6 +44,23 @@ public class Subway_Route extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+
+        //루트 검색
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                start = String.valueOf(start_station.getText());
+                arrival = String.valueOf(arrival_station.getText());
+                Toast.makeText(getApplicationContext(),start+arrival,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+
+
     }
 
     //메뉴 적용
