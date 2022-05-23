@@ -77,11 +77,10 @@ public class Subway_Search extends AppCompatActivity {
         listView_search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String name = adapterView.getItemAtPosition(i).toString();
-                db.insertData(name);
+                String curStation = adapterView.getItemAtPosition(i).toString();
+                db.insertData(curStation);
                 historyList.clear();
                 viewData();
-                curStation = name;
                 Intent intent = new Intent(Subway_Search.this,Subway_Detailed_View.class);
                 intent.putExtra("station",curStation);
                 startActivity(intent);
@@ -168,8 +167,7 @@ public class Subway_Search extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
-                        String name = viewHolder.title.getText().toString();
-                        curStation = name;
+                        String curStation = viewHolder.title.getText().toString();
                         Intent intent = new Intent(Subway_Search.this,Subway_Detailed_View.class);
                         intent.putExtra("station",curStation);
                         startActivity(intent);
@@ -180,8 +178,8 @@ public class Subway_Search extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
-                        String name = viewHolder.title.getText().toString();
-                        Insert_Bookmark(name);
+                        String curStation = viewHolder.title.getText().toString();
+                        Insert_Bookmark(curStation);
                     }
                 });
                 convertView.setTag(viewHolder);
@@ -217,8 +215,7 @@ public class Subway_Search extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
-                        String name = viewHolder.title.getText().toString();
-                        curStation = name;
+                        String curStation = viewHolder.title.getText().toString();
                         Intent intent = new Intent(Subway_Search.this,Subway_Detailed_View.class);
                         intent.putExtra("station",curStation);
                         startActivity(intent);
@@ -229,8 +226,8 @@ public class Subway_Search extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Toast.makeText(getContext(), "북마크 버튼 눌림", Toast.LENGTH_LONG).show();
-                        String name = viewHolder.title.getText().toString();
-                        Delete_Bookmark(name);
+                        String curStation = viewHolder.title.getText().toString();
+                        Delete_Bookmark(curStation);
                     }
                 });
                 convertView.setTag(viewHolder);

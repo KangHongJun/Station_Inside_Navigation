@@ -1,22 +1,35 @@
 package org.starmine.station_inside_navigation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.Button;
+=======
+>>>>>>> 5f554215e7067cb8a96c96dca803384575e11a39
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import static java.sql.Types.NULL;
+
 public class Subway_Route extends AppCompatActivity {
     private static String curStation;
+    TextView start_station;
+    TextView arrival_station;
 
     Button search_btn;
     EditText start_station, arrival_station;
@@ -26,9 +39,14 @@ public class Subway_Route extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_route);
+<<<<<<< HEAD
         start_station = (EditText)findViewById(R.id.Route_Start_Edit);
         arrival_station = (EditText)findViewById(R.id.Route_Arrival_Edit);
         search_btn = findViewById(R.id.Route_Search_Btn);
+=======
+        start_station = (TextView) findViewById(R.id.Route_Start_Edit);
+        arrival_station = (TextView) findViewById(R.id.Route_Arrival_Edit);
+>>>>>>> 5f554215e7067cb8a96c96dca803384575e11a39
 
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
@@ -45,6 +63,7 @@ public class Subway_Route extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
+<<<<<<< HEAD
         //루트 검색
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +80,52 @@ public class Subway_Route extends AppCompatActivity {
 
 
 
+=======
+        start_station.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext() , Start_Subway_Search.class);
+
+                start_launcher.launch(intent);
+            }
+        });
+
+        arrival_station.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Arrival_Subway_Search.class);
+
+                arrival_launcher.launch(intent);
+            }
+        });
+>>>>>>> 5f554215e7067cb8a96c96dca803384575e11a39
     }
+
+    ActivityResultLauncher<Intent> start_launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult data) {
+                    if (data.getResultCode() == Activity.RESULT_OK){
+                        Intent intent = data.getData();
+                        String result = intent.getStringExtra("result");
+
+                        start_station.setText(result);
+                    }
+                }
+            });
+
+    ActivityResultLauncher<Intent> arrival_launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult data) {
+                    if (data.getResultCode() == Activity.RESULT_OK){
+                        Intent intent = data.getData();
+                        String result = intent.getStringExtra("result");
+
+                        arrival_station.setText(result);
+                    }
+                }
+            });
 
     //메뉴 적용
     @Override
@@ -81,14 +145,15 @@ public class Subway_Route extends AppCompatActivity {
                 finish();
                 return true;
             }
-        }
-        int curId = item.getItemId();
-        switch (curId){
-            case R.id.menu_change:
-                Toast.makeText(this,"설정메뉴",Toast.LENGTH_LONG).show();
+
+            case R.id.menu_change: {
+                String temp;
+                temp = start_station.getText().toString();
+                //Toast.makeText(Subway_Route.this, temp , Toast.LENGTH_LONG).show();
+                start_station.setText(arrival_station.getText().toString());
+                arrival_station.setText(temp);
                 break;
-            default:
-                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
