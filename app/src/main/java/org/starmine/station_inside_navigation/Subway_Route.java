@@ -1,27 +1,38 @@
 package org.starmine.station_inside_navigation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import static java.sql.Types.NULL;
+
 public class Subway_Route extends AppCompatActivity {
     private static String curStation;
+    TextView start_station;
+    TextView arrival_station;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_route);
-        EditText start_station = (EditText)findViewById(R.id.Route_Start_Edit);
-        EditText arrival_station = (EditText)findViewById(R.id.Route_Arrival_Edit);
+        start_station = (TextView) findViewById(R.id.Route_Start_Edit);
+        arrival_station = (TextView) findViewById(R.id.Route_Arrival_Edit);
 
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
@@ -37,7 +48,51 @@ public class Subway_Route extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+
+        start_station.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext() , Start_Subway_Search.class);
+
+                start_launcher.launch(intent);
+            }
+        });
+
+        arrival_station.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Arrival_Subway_Search.class);
+
+                arrival_launcher.launch(intent);
+            }
+        });
     }
+
+    ActivityResultLauncher<Intent> start_launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult data) {
+                    if (data.getResultCode() == Activity.RESULT_OK){
+                        Intent intent = data.getData();
+                        String result = intent.getStringExtra("result");
+
+                        start_station.setText(result);
+                    }
+                }
+            });
+
+    ActivityResultLauncher<Intent> arrival_launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult data) {
+                    if (data.getResultCode() == Activity.RESULT_OK){
+                        Intent intent = data.getData();
+                        String result = intent.getStringExtra("result");
+
+                        arrival_station.setText(result);
+                    }
+                }
+            });
 
     //메뉴 적용
     @Override
@@ -57,14 +112,15 @@ public class Subway_Route extends AppCompatActivity {
                 finish();
                 return true;
             }
-        }
-        int curId = item.getItemId();
-        switch (curId){
-            case R.id.menu_change:
-                Toast.makeText(this,"설정메뉴",Toast.LENGTH_LONG).show();
+
+            case R.id.menu_change: {
+                String temp;
+                temp = start_station.getText().toString();
+                //Toast.makeText(Subway_Route.this, temp , Toast.LENGTH_LONG).show();
+                start_station.setText(arrival_station.getText().toString());
+                arrival_station.setText(temp);
                 break;
-            default:
-                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
