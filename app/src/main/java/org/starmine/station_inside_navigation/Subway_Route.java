@@ -7,11 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-<<<<<<< HEAD
 import android.widget.Button;
-=======
->>>>>>> 5f554215e7067cb8a96c96dca803384575e11a39
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,29 +20,23 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import static java.sql.Types.NULL;
-
 public class Subway_Route extends AppCompatActivity {
     private static String curStation;
     TextView start_station;
     TextView arrival_station;
 
     Button search_btn;
-    EditText start_station, arrival_station;
+    //EditText start_station, arrival_station;
     String start, arrival;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_route);
-<<<<<<< HEAD
-        start_station = (EditText)findViewById(R.id.Route_Start_Edit);
-        arrival_station = (EditText)findViewById(R.id.Route_Arrival_Edit);
-        search_btn = findViewById(R.id.Route_Search_Btn);
-=======
+
         start_station = (TextView) findViewById(R.id.Route_Start_Edit);
         arrival_station = (TextView) findViewById(R.id.Route_Arrival_Edit);
->>>>>>> 5f554215e7067cb8a96c96dca803384575e11a39
+
 
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
@@ -63,7 +53,6 @@ public class Subway_Route extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
-<<<<<<< HEAD
         //루트 검색
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,13 +63,7 @@ public class Subway_Route extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-=======
+        
         start_station.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +81,6 @@ public class Subway_Route extends AppCompatActivity {
                 arrival_launcher.launch(intent);
             }
         });
->>>>>>> 5f554215e7067cb8a96c96dca803384575e11a39
     }
 
     ActivityResultLauncher<Intent> start_launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
