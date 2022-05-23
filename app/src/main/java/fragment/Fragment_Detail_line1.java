@@ -1,28 +1,19 @@
 package fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.DatabaseHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
@@ -32,7 +23,6 @@ import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -55,10 +45,6 @@ public class Fragment_Detail_line1 extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
-        Arrival_L1 = viewGroup.findViewById(R.id.Detail_LTime_Text);
-        Arrival_L2 = viewGroup.findViewById(R.id.Detail_LNextTime_Text);
-        Arrival_R1 = viewGroup.findViewById(R.id.Detail_RTime_Text);
-        Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
 
         //해당 역 번들 데이터 얻기
         Bundle curstation = getArguments();
@@ -102,7 +88,8 @@ public class Fragment_Detail_line1 extends Fragment {
         nextSt.setText(cursor_code.getString(0));
 
         //도착정보 세팅
-        setArrivalTime();
+        setUPArrivalTime();
+        setDOWNArrivalTime();
 
         Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
 
@@ -138,7 +125,8 @@ public class Fragment_Detail_line1 extends Fragment {
                 beforeSt.setText(befroe);
 
                 //도착정보 세팅
-                setArrivalTime();
+                setUPArrivalTime();
+                setDOWNArrivalTime();
             }
         });
 
@@ -177,7 +165,8 @@ public class Fragment_Detail_line1 extends Fragment {
                 beforeSt.setText(befroe);
 
                 //도착정보 세팅
-                setArrivalTime();
+                setUPArrivalTime();
+                setDOWNArrivalTime();
             }
         });
 
@@ -259,105 +248,6 @@ public class Fragment_Detail_line1 extends Fragment {
         });
         return viewGroup;
     }
-    //도착정보 갱신
-    public void setArrivalTime(){
-        //인터넷 체크
-        ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-        boolean isConnect = (networkInfo != null && networkInfo.isConnectedOrConnecting());
-
-        if(isConnect){
-            //실시간 도착정보
-            setArrivalRealTime();
-            Toast.makeText(getContext(),"실시간",Toast.LENGTH_SHORT).show();
-
-        }else if (!isConnect){
-            //시간표 기준 도착정보
-            setUPArrivalTime();
-            setDOWNArrivalTime();
-            Toast.makeText(getContext(),"시간표",Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    //실시간 도착 정보
-    public void setArrivalRealTime(){
-
-        Bundle curstation = getArguments();
-        if(curstation != null){
-            curStation = curstation.getString("station");
-        }
-
-        //실시간 도착정보 크롤링
-        new Thread(){
-            @Override
-            public void run() {
-
-                try {
-                    String URL = "https://m.search.naver.com/search.naver?sm=tab_hty.top&where=m&query="+curStation+"1호선";
-
-                    System.out.println(URL);
-                    Document doc;
-                    doc = Jsoup.connect(URL).get();
-                    //상행1
-                    Elements up_minute1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(1) > span.count > em");
-
-                    Elements up_dir1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(1) > span.time_box > span");
-                    //상행2
-                    Elements up_minute2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(2) > span.count > em");
-
-                    Elements up_dir2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(2) > span.time_box > span");
-
-                    //하행1
-                    Elements down_minute1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(1) > span.count > em");
-
-                    Elements down_dir1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(1) > span.time_box > span");
-
-                    //하행2
-                    Elements down_minute2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(2) > span.count > em");
-
-                    Elements down_dir2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(2) > span.time_box > span");
-
-                    String realTime1 = up_dir1.get(0).text()+ "행 " + up_minute1.get(0).text() + "분";
-                    String realTime2 = up_dir2.get(0).text()+ "행 " + up_minute2.get(0).text() + "분";
-                    String realTime3 = down_dir1.get(0).text()+ "행 " + down_minute1.get(0).text() + "분";
-                    String realTime4 = down_dir2.get(0).text()+ "행 " + down_minute2.get(0).text() + "분";
-
-                    String realTime = realTime1+"/"+realTime2+"/"+realTime3+"/"+realTime4;
-
-                    Message message = Message.obtain();
-                    message.obj = realTime;
-                    handler.sendMessage(message);
-
-
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-
-    }
-
-    //스레드 핸들러 - 실시간 도착정보 세팅
-    Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message message) {
-            String time = (String) message.obj;
-            String UP_array[] = time.split("/");
-            Arrival_L1.setText(UP_array[0]);
-            Arrival_L2.setText(UP_array[1]);
-            Arrival_R1.setText(UP_array[2]);
-            Arrival_R2.setText(UP_array[3]);
-
-
-            return true;
-        }
-    });
-
-
-
-
-
     //도착정보 시간표 기준
     //상행 도착 정보
     public void setUPArrivalTime(){

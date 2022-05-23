@@ -413,44 +413,8 @@ public class Subway_Detailed_View extends AppCompatActivity{
                 switch (tab_position){
                     case 1:
                         Fragment_Detail_line1 line1 = (Fragment_Detail_line1) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-               line1.setArrivalTime();
-               break;
-                    case 2:
-                        Fragment_Detail_line2 line2 = (Fragment_Detail_line2) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-                        line2.setArrivalTime();
-                        break;
-                    case 3:
-                        Fragment_Detail_line3 line3 = (Fragment_Detail_line3) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-                        line3.setArrivalTime();
-                        break;
-                    case 4:
-                        Fragment_Detail_line4 line4 = (Fragment_Detail_line4) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-                        line4.setArrivalTime();
-                        break;
-                    case 5:
-                        Fragment_Detail_line5 line5 = (Fragment_Detail_line5) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-                        line5.setArrivalTime();
-                        break;
-                    case 6:
-                        Fragment_Detail_line6 line6 = (Fragment_Detail_line6) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-                        line6.setArrivalTime();
-                        break;
-                    case 7:
-                        Fragment_Detail_line7 line7 = (Fragment_Detail_line7) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-                        line7.setArrivalTime();
-                        break;
-                    case 8:
-                        Fragment_Detail_line8 line8 = (Fragment_Detail_line8) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-                        line8.setArrivalTime();
-                        break;
-                    case 9:
-                        Fragment_Detail_line9 line9 = (Fragment_Detail_line9) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-                        line9.setArrivalTime();
-                        break;
-                    default:
-                        break;
-
-
+                line1.setDOWNArrivalTime();
+                line1.setUPArrivalTime();
 
 
                 }
