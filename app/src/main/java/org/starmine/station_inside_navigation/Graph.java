@@ -34,7 +34,6 @@ public class Graph {
             }
         }
 
-
         for(int a=0;a<n-1;a++){
             //원래는 모든 노드가 true될때까지 인데
             //노드가 n개 있을 때 다익스트라를 위해서 반복수는 n-1번이면 된다.
@@ -51,6 +50,7 @@ public class Graph {
                     }
                 }
             }
+            System.out.print("a는"+a);
 
             check[min_index] = true;
             for(int i=1;i<n+1;i++){
@@ -60,7 +60,6 @@ public class Graph {
                     }
                 }
             }
-
         }
 
         //결과값 출력

@@ -55,6 +55,7 @@ public class Fragment_Detail_line2 extends Fragment {
 
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
+        curSt.setBackgroundResource(R.drawable.station2_main);
 
         //DB읽기
         DBHelper Helper;
@@ -82,21 +83,22 @@ public class Fragment_Detail_line2 extends Fragment {
         cursor_code = sqlDB.rawQuery(beforeStation,null);
         cursor_code.moveToNext();
 
-        TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
-        beforeSt.setText(cursor_code.getString(0));
+        Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
+        back_Btn.setText(cursor_code.getString(0));
+        back_Btn.setBackgroundResource(R.drawable.station2_sub);
 
         String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
         cursor_code = sqlDB.rawQuery(nextStation,null);
         cursor_code.moveToNext();
-
-        TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
-        nextSt.setText(cursor_code.getString(0));
 
         //도착정보 세팅
         setUPArrivalTime();
         setDOWNArrivalTime();
 
         Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
+        next_btn.setText(cursor_code.getString(0));
+        next_btn.setBackgroundResource(R.drawable.station2_sub);
+
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +139,7 @@ public class Fragment_Detail_line2 extends Fragment {
 
 
 
-        Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
+
         back_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
