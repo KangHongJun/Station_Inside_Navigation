@@ -44,7 +44,7 @@ public class Subway_Map extends AppCompatActivity {
 
     private static int Bookmark_Code;
 
-    private static Cursor cursor_coor;
+    static Cursor cursor_coor;
     private static Cursor bookmark_coor;
 
 
