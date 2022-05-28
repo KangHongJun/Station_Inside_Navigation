@@ -38,8 +38,8 @@ public class Subway_Route extends AppCompatActivity {
 
         start_station = (TextView) findViewById(R.id.Route_Start_Edit);
         arrival_station = (TextView) findViewById(R.id.Route_Arrival_Edit);
-        search_btn = findViewById(R.id.Route_Search_Btn);
 
+        search_btn = findViewById(R.id.Route_Search_Btn);
 
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
