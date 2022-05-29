@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Helper.onCreate(sqlDB);
 
 
-        Cursor cursor_time = sqlDB.rawQuery("select * from subway_time",null);
+        Cursor cursor_time = sqlDB.rawQuery("select * from subway_time2",null);
         //그래프 생성 및 입력
         g = new Graph(420);
         while (cursor_time.moveToNext()){

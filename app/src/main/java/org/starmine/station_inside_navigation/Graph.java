@@ -6,6 +6,8 @@ class RoutePair{
 }
 
 public class Graph {
+    static int route[];
+
     private int n;           //노드들의 수
     private int maps[][];
 
@@ -21,7 +23,9 @@ public class Graph {
         maps[j][i] = w;
     }
 
-    public void dijkstra(int start, int end){
+    public int dijkstra(int start, int end){
+        route = new int[n];
+
         System.out.println("알고리즘 시작");
 
         int distance[] = new int[n]; //         //최단 거리를 저장할 변수
@@ -97,16 +101,13 @@ public class Graph {
 
         System.out.println("경로 체크");
 
-        //임시
-        //start = 118
-        //end = 37;
-
         //경로확인 https://develop-dream.tistory.com/89
         int routeStack[] = new int[n];
         int routeCount = 0;
         routeStack[routeCount] = end; //끝 위치 대입
         int now = end; //끝 노드 임시
 
+        int i =0;
         while(true){
             if (routePair[now-1].ParentV == start){
                 routeStack[routeCount] = start;
@@ -114,29 +115,15 @@ public class Graph {
             }
             now = routePair[now].ParentV;
             routeStack[routeCount] = now;
-            System.out.println(now + "값");
+
+            route[i]=now;
+            i++;
         }
 
-//        for (int i = routeCount-1;i>=0;i--){
-//            if(i==routeCount-1){
-//                System.out.println(routeStack[i] + "시작");
-//            }else if(i == 1){
-//                System.out.println(routeStack[i] + "도착");
-//            }else{
-//                System.out.println(routeStack[i] + "방문");
-//            }
-//        }
 
 
+        //System.out.print("소요시간 : "+distance[end]);
 
-
-        System.out.print(distance[37]+" ");
-
-        //결과값 출력
-//        for(int i=1;i<n+1;i++){
-//            System.out.print(distance[i]+" ");
-//        }
-        System.out.println("");
-
+        return distance[end];
     }
 }

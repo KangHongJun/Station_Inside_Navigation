@@ -21,20 +21,30 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import fragment.Fragment_Route;
+
 public class Subway_Route extends AppCompatActivity {
     private static String curStation;
     TextView start_station;
     TextView arrival_station;
+    Fragment_Route fragment_route;
 
     Button search_btn;
     //EditText start_station, arrival_station;
     String start, arrival;
     static int startV, endV;
+    public static String[] subway_route;
+    static String route_str;
+    static int visit_station;
+
+    static int route_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.subway_route);
+
+        fragment_route = new Fragment_Route();
 
         start_station = (TextView) findViewById(R.id.Route_Start_Edit);
         arrival_station = (TextView) findViewById(R.id.Route_Arrival_Edit);
@@ -60,29 +70,73 @@ public class Subway_Route extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                subway_route = new String[100];
+                visit_station = 0;
+
                 //시작 도착역 텍스트 가져오기
                 start = String.valueOf(start_station.getText());
                 arrival = String.valueOf(arrival_station.getText());
                 //Toast.makeText(getApplicationContext(),start+arrival,Toast.LENGTH_SHORT).show();
 
-                //subway_coordinate 기반으로 출발역 이름 가져오기
+                //subway_coordinate 역이름에 해당하는 코드번호 가져오기
                 Cursor route_name = Subway_Map.cursor_coor;
                 route_name.moveToFirst();
                 while (route_name.moveToNext()){
                     if(start.equals(route_name.getString(1))){
-                        System.out.println("start : "+route_name.getInt(0));
+                        int line = route_name.getInt(0)/100;
+                        System.out.println(start+"start : "+route_name.getInt(0)+line);
 
-                        startV=118;
+                        //start, arrival 코드값 조정
+                        if(line==1){
+                            startV = route_name.getInt(0)-100;
+                        }else if(line==2){
+                            startV = route_name.getInt(0)-124;
+                        }else if(line==3){
+                            startV = route_name.getInt(0)-181;
+                        }else if(line==4){
+                            startV = route_name.getInt(0)-237;
+                        }else if(line==5){
+                            startV = route_name.getInt(0)-285;
+                        }else if(line==6){
+                            startV = route_name.getInt(0)-330;
+                        }else if(line==7){
+                            startV = route_name.getInt(0)-391;
+                        }else if(line==8){
+                            startV = route_name.getInt(0)-437;
+                        }else if(line==9){
+                            startV = route_name.getInt(0)-519;
+                        }
                         break;
                     }
                 }
-                //subway_coordinate 기반으로 도착역 이름 가져오기
+
+                //
                 route_name.moveToFirst();
                 while (route_name.moveToNext()){
                     if(arrival.equals(route_name.getString(1))){
-                        System.out.println("end : "+route_name.getInt(0));
+                        int line = route_name.getInt(0)/100;
+                        System.out.println(arrival+"end : "+route_name.getInt(0)+line);
 
-                        endV=37;
+                        //start, arrival 코드값 조정
+                        if(line==1){
+                            endV = route_name.getInt(0)-100;
+                        }else if(line==2){
+                            endV = route_name.getInt(0)-124;
+                        }else if(line==3){
+                            endV = route_name.getInt(0)-181;
+                        }else if(line==4){
+                            endV = route_name.getInt(0)-237;
+                        }else if(line==5){
+                            endV = route_name.getInt(0)-285;
+                        }else if(line==6){
+                            endV = route_name.getInt(0)-330;
+                        }else if(line==7){
+                            endV = route_name.getInt(0)-391;
+                        }else if(line==8){
+                            endV = route_name.getInt(0)-437;
+                        }else if(line==9){
+                            endV = route_name.getInt(0)-519;
+                        }
                         break;
                     }
                 }
@@ -92,21 +146,60 @@ public class Subway_Route extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(),route_name.getString(0)+"",Toast.LENGTH_SHORT).show();
 
 
-
-
                 //MainActivity에서 그래프 미리 생성해두고 검색하기
                 if(startV != endV){
-                    MainActivity.g.dijkstra(startV,endV);//start, arrival 코드값 조정하여 넣기
+
+                    route_time = MainActivity.g.dijkstra(startV,endV);
+
+
+                    int visit = 0;
+
+                    for (int j=0;j<Graph.route.length-1;j++){
+                        if (Graph.route[j]==0){
+                            break;
+                        }else if(Graph.route[j]<=76){
+                            visit =Graph.route[j]+100;
+                        }else if(Graph.route[j]>=77 && Graph.route[j]<=119){
+                            visit =Graph.route[j]+124;
+                        }else if(Graph.route[j]>=120 && Graph.route[j]<=163){
+                            visit =Graph.route[j]+181;
+                        }else if(Graph.route[j]>=164 && Graph.route[j]<=214){
+                            visit =Graph.route[j]+237;
+                        }else if(Graph.route[j]>=215 && Graph.route[j]<=270){
+                            visit =Graph.route[j]+285;
+                        }else if(Graph.route[j]>=271 && Graph.route[j]<=309){
+                            visit =Graph.route[j]+330;
+                        }else if(Graph.route[j]>=310 && Graph.route[j]<=363){
+                            visit =Graph.route[j]+391;
+                        }else if(Graph.route[j]>=364 && Graph.route[j]<=381){
+                            visit =Graph.route[j]+437;
+                        }else if(Graph.route[j]>=382 && Graph.route[j]<=419){
+                            visit =Graph.route[j]+519;
+                        }
+
+                        route_name.moveToFirst();
+                        while (route_name.moveToNext()){
+                            if(visit==route_name.getInt(0)){
+                                subway_route[visit_station]=route_name.getString(1);
+                                System.out.println(route_name.getString(1) + "방문");
+                                visit_station++;
+                            }
+                        }
+                    }
                 }else{
                     Toast.makeText(getApplicationContext(), "같은 역 입력됨", Toast.LENGTH_SHORT).show();
                 }
+                //루트 정보, 프라그먼트 설정
+                Bundle route_bundle = new Bundle();
+                route_bundle.putStringArray("subway_route", subway_route);
+                route_bundle.putInt("time", route_time);
+                fragment_route.setArguments(route_bundle);
 
 
 
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.Route_Container,fragment_route).commit();
             }
         });
-
 
         start_station.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +218,9 @@ public class Subway_Route extends AppCompatActivity {
                 arrival_launcher.launch(intent);
             }
         });
+    }
+    private void setFragment(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.Route_Container,fragment_route).commit();
     }
 
     ActivityResultLauncher<Intent> start_launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
