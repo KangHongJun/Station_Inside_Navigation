@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="5dp"
-                    android:text="환승 0회"
+                    android:text=""
                     android:textSize="17sp" />
             </LinearLayout>
 

@@ -1,19 +1,28 @@
 package fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.DatabaseHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
@@ -23,6 +32,7 @@ import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
 import org.starmine.station_inside_navigation.Subway_Schedule;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -42,7 +52,12 @@ public class Fragment_Detail_line2 extends Fragment {
     DatabaseHelper db;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);//
+        viewGroup = (ViewGroup)inflater.inflate(R.layout.subway_detail,container,false);
+
+        Arrival_L1 = viewGroup.findViewById(R.id.Detail_LTime_Text);
+        Arrival_L2 = viewGroup.findViewById(R.id.Detail_LNextTime_Text);
+        Arrival_R1 = viewGroup.findViewById(R.id.Detail_RTime_Text);
+        Arrival_R2 = viewGroup.findViewById(R.id.Detail_RNextTime_Text);
 
 
         //해당 역 번들 데이터 얻기
@@ -132,8 +147,7 @@ public class Fragment_Detail_line2 extends Fragment {
 
 
                 //도착정보 세팅
-                setUPArrivalTime();
-                setDOWNArrivalTime();
+                setArrivalTime();
             }
         });
 
@@ -173,8 +187,7 @@ public class Fragment_Detail_line2 extends Fragment {
 
 
                 //도착정보 세팅
-                setUPArrivalTime();
-                setDOWNArrivalTime();
+                setArrivalTime();
             }
         });
 
@@ -255,7 +268,7 @@ public class Fragment_Detail_line2 extends Fragment {
         return viewGroup;
     }
     //도착정보 시간표 기준
-    //상행 도착 ㅎ정보
+    //상행 도착 정보
     public void setUPArrivalTime(){
         int min = -1 ;
 
