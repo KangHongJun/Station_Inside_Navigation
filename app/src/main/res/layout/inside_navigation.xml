@@ -32,6 +32,29 @@
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
+                    android:text="현재 역"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/Inside_Station"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:background="@color/white"
+                    android:textSize="20sp"  />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
                     android:text="현재위치"
                     android:textAlignment="center"
                     android:textSize="20sp" />
@@ -75,7 +98,7 @@
         <Button
             android:id="@+id/Inside_Search_Btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="탐색" />
     </LinearLayout>
