@@ -29,12 +29,17 @@ public class Subway_Route extends AppCompatActivity {
     TextView arrival_station;
     Fragment_Route fragment_route;
 
+    static int Fragment = 0;
+
     Button search_btn;
     //EditText start_station, arrival_station;
     String start, arrival;
     static int startV, endV;
-    public static String[] subway_route;
-    static String route_str;
+    static int startL, endL;
+    static String[] subway_route;
+    static int[] subway_route_line;
+
+
     static int visit_station;
 
     static int route_time;
@@ -71,7 +76,9 @@ public class Subway_Route extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 subway_route = new String[100];
-                visit_station = 0;
+                subway_route_line = new int[100];
+
+                visit_station = 1;
 
                 //시작 도착역 텍스트 가져오기
                 start = String.valueOf(start_station.getText());
@@ -83,27 +90,27 @@ public class Subway_Route extends AppCompatActivity {
                 route_name.moveToFirst();
                 while (route_name.moveToNext()){
                     if(start.equals(route_name.getString(1))){
-                        int line = route_name.getInt(0)/100;
-                        System.out.println(start+"start : "+route_name.getInt(0)+line);
+                        startL = route_name.getInt(0)/100;
+                        System.out.println(start+"start : "+route_name.getInt(0)+startL);
 
                         //start, arrival 코드값 조정
-                        if(line==1){
+                        if(startL==1){
                             startV = route_name.getInt(0)-100;
-                        }else if(line==2){
+                        }else if(startL==2){
                             startV = route_name.getInt(0)-124;
-                        }else if(line==3){
+                        }else if(startL==3){
                             startV = route_name.getInt(0)-181;
-                        }else if(line==4){
+                        }else if(startL==4){
                             startV = route_name.getInt(0)-237;
-                        }else if(line==5){
+                        }else if(startL==5){
                             startV = route_name.getInt(0)-285;
-                        }else if(line==6){
+                        }else if(startL==6){
                             startV = route_name.getInt(0)-330;
-                        }else if(line==7){
+                        }else if(startL==7){
                             startV = route_name.getInt(0)-391;
-                        }else if(line==8){
+                        }else if(startL==8){
                             startV = route_name.getInt(0)-437;
-                        }else if(line==9){
+                        }else if(startL==9){
                             startV = route_name.getInt(0)-519;
                         }
                         break;
@@ -114,27 +121,27 @@ public class Subway_Route extends AppCompatActivity {
                 route_name.moveToFirst();
                 while (route_name.moveToNext()){
                     if(arrival.equals(route_name.getString(1))){
-                        int line = route_name.getInt(0)/100;
-                        System.out.println(arrival+"end : "+route_name.getInt(0)+line);
+                       endL = route_name.getInt(0)/100;
+                        System.out.println(arrival+"end : "+route_name.getInt(0)+endL);
 
                         //start, arrival 코드값 조정
-                        if(line==1){
+                        if(endL==1){
                             endV = route_name.getInt(0)-100;
-                        }else if(line==2){
+                        }else if(endL==2){
                             endV = route_name.getInt(0)-124;
-                        }else if(line==3){
+                        }else if(endL==3){
                             endV = route_name.getInt(0)-181;
-                        }else if(line==4){
+                        }else if(endL==4){
                             endV = route_name.getInt(0)-237;
-                        }else if(line==5){
+                        }else if(endL==5){
                             endV = route_name.getInt(0)-285;
-                        }else if(line==6){
+                        }else if(endL==6){
                             endV = route_name.getInt(0)-330;
-                        }else if(line==7){
+                        }else if(endL==7){
                             endV = route_name.getInt(0)-391;
-                        }else if(line==8){
+                        }else if(endL==8){
                             endV = route_name.getInt(0)-437;
-                        }else if(line==9){
+                        }else if(endL==9){
                             endV = route_name.getInt(0)-519;
                         }
                         break;
@@ -148,7 +155,7 @@ public class Subway_Route extends AppCompatActivity {
 
                 //MainActivity에서 그래프 미리 생성해두고 검색하기
                 if(startV != endV){
-
+                    System.out.println(startV+"알고리즘"+endV);
                     route_time = MainActivity.g.dijkstra(startV,endV);
 
 
@@ -177,27 +184,38 @@ public class Subway_Route extends AppCompatActivity {
                             visit =Graph.route[j]+519;
                         }
 
+                        subway_route[0] = start;
+                        subway_route_line[0] = startL;
                         route_name.moveToFirst();
                         while (route_name.moveToNext()){
                             if(visit==route_name.getInt(0)){
+                                subway_route_line[visit_station]=route_name.getInt(0)/100;
                                 subway_route[visit_station]=route_name.getString(1);
+
                                 System.out.println(route_name.getString(1) + "방문");
                                 visit_station++;
                             }
                         }
                     }
+                    subway_route[visit_station+1] = arrival;
+                    subway_route_line[visit_station+1] = endL;
                 }else{
                     Toast.makeText(getApplicationContext(), "같은 역 입력됨", Toast.LENGTH_SHORT).show();
                 }
                 //루트 정보, 프라그먼트 설정
                 Bundle route_bundle = new Bundle();
                 route_bundle.putStringArray("subway_route", subway_route);
+                route_bundle.putIntArray("subway_route_line", subway_route_line);
                 route_bundle.putInt("time", route_time);
                 fragment_route.setArguments(route_bundle);
 
-
-
+                if(Fragment==1){ //이미 프래그먼트가 생성된 경우 루트 갱신
+                    Fragment_Route fragment_route = (Fragment_Route)getSupportFragmentManager().findFragmentById(R.id.Route_Container);
+                    fragment_route.setRoute();
+                }
                 getSupportFragmentManager().beginTransaction().replace(R.id.Route_Container,fragment_route).commit();
+                Fragment=1;
+
             }
         });
 

@@ -269,12 +269,20 @@ public class Fragment_Detail_line4 extends Fragment {
 
     //도착정보 갱신
     public void setArrivalTime(){
+
+        long curTime = System.currentTimeMillis();
+        Date date = new Date(curTime);
+        TimeZone timezone;
+        timezone = TimeZone.getTimeZone("Asia/Seoul");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("k", Locale.KOREAN);
+        dateFormat.setTimeZone(timezone);
+        int curHour = Integer.parseInt(dateFormat.format(date));
         //인터넷 체크
         ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isConnect = (networkInfo != null && networkInfo.isConnectedOrConnecting());
 
-        if(isConnect){
+        if(isConnect && curHour<11){
             //실시간 도착정보
             setArrivalRealTime();
             Toast.makeText(getContext(),"실시간",Toast.LENGTH_SHORT).show();

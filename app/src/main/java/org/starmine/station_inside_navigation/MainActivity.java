@@ -26,13 +26,28 @@ public class MainActivity extends AppCompatActivity {
         sqlDB = Helper.getReadableDatabase();
         Helper.onCreate(sqlDB);
 
-
         Cursor cursor_time = sqlDB.rawQuery("select * from subway_time2",null);
         //그래프 생성 및 입력
         g = new Graph(420);
         while (cursor_time.moveToNext()){
             g.input(cursor_time.getInt(0),cursor_time.getInt(1),cursor_time.getInt(2));
         }
+
+        //환승
+        DBHelper Helper2;
+        SQLiteDatabase sqlDB2;
+        Helper2 = new DBHelper(MainActivity.this,"subway_info.db",null,1);
+        sqlDB2 = Helper2.getReadableDatabase();
+        Helper2.onCreate(sqlDB2);
+
+        Cursor cursor_trans = sqlDB.rawQuery("select * from subway_transfer",null);
+        //그래프 생성 및 입력
+        while (cursor_trans.moveToNext()){
+            g.input(cursor_trans.getInt(0),cursor_trans.getInt(1),cursor_trans.getInt(2));
+        }
+
+
+
         //g.dijkstra(118,37);
 
 

@@ -100,6 +100,7 @@ public class Graph {
 
 
         System.out.println("경로 체크");
+        System.out.println("소요시간 : "+distance[end]);
 
         //경로확인 https://develop-dream.tistory.com/89
         int routeStack[] = new int[n];
@@ -107,23 +108,24 @@ public class Graph {
         routeStack[routeCount] = end; //끝 위치 대입
         int now = end; //끝 노드 임시
 
+
         int i =0;
+
         while(true){
             if (routePair[now-1].ParentV == start){
                 routeStack[routeCount] = start;
                 break;
             }
-            now = routePair[now].ParentV;
-            routeStack[routeCount] = now;
 
+            now = routePair[now].ParentV;
+            if(now==0){ //바로 다음역이거나 환승역의 바로 다음역일 경우 0이 나오면서 에러가 나기 때문에 처리
+                break;
+            }
+            routeStack[routeCount] = now;
+            //System.out.println(now+"진행중");
             route[i]=now;
             i++;
         }
-
-
-
-        //System.out.print("소요시간 : "+distance[end]);
-
         return distance[end];
     }
 }
