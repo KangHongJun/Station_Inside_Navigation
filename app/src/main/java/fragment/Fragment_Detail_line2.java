@@ -206,7 +206,12 @@ public class Fragment_Detail_line2 extends Fragment {
         Button Detail_Inner_Btn = viewGroup.findViewById(R.id.Detail_Inner_Btn);
         Detail_Inner_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Bundle curstation = getArguments();
+                if(curstation != null){
+                    curStation = curstation.getString("station");
+                }
                 Intent intent = new Intent(getActivity(), Inside_Navigation.class);
+                intent.putExtra("station", curStation);
                 startActivity(intent);
             }
         });
