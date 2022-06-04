@@ -205,6 +205,7 @@ public class Subway_Route extends AppCompatActivity {
                 //루트 정보, 프라그먼트 설정
                 Bundle route_bundle = new Bundle();
                 route_bundle.putStringArray("subway_route", subway_route);
+                route_bundle.putInt("route_count", visit_station);
                 route_bundle.putIntArray("subway_route_line", subway_route_line);
                 route_bundle.putInt("time", route_time);
                 fragment_route.setArguments(route_bundle);

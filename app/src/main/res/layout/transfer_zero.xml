@@ -7,18 +7,18 @@
 
 
     <ImageView
-        android:id="@+id/TransOne_img1"
+        android:id="@+id/TransZero_img1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="50dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/line4" />
+        android:src="@drawable/img_line1" />
 
 
     <ImageView
-        android:id="@+id/TransOne_stick1"
+        android:id="@+id/TransZero_stick1"
         android:layout_width="15dp"
         android:layout_height="70dp"
         android:layout_alignParentStart="true"
@@ -28,36 +28,17 @@
         android:src="@drawable/line_stick" />
 
     <ImageView
-        android:id="@+id/TransOne_stick2"
-        android:layout_width="15dp"
-        android:layout_height="70dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="185dp"
-        android:src="@drawable/line_stick"/>
-
-    <ImageView
+        android:id="@+id/TransZero_img2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="50dp"
         android:layout_marginTop="135dp"
-        android:src="@drawable/img_transfer" />
-
-    <ImageView
-        android:id="@+id/TransOne_img2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="255dp"
-        android:src="@drawable/line4" />
+        android:src="@drawable/img_line1" />
 
     <TextView
-        android:id="@+id/TransOne_Text1"
+        android:id="@+id/TransZero_Text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -69,37 +50,15 @@
         android:text="TextView" />
 
     <TextView
+        android:id="@+id/TransZero_Text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="137dp"
-        android:text="환승"
-        android:textSize="17sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/TransOne_Text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="148dp"
         android:text="TextView"
         android:textSize="17sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/TransOne_Text3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="270dp"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:text="TextView" />
 </RelativeLayout>

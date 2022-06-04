@@ -15,15 +15,19 @@ import org.starmine.station_inside_navigation.R;
 public class Fragment_Route extends Fragment {
     ViewGroup viewGroup;
     TextView route_time;
-    TextView subway_route;
+    TextView route_count;
+
+    Fragment_Transfer_Zero fragment_transfer0;
     Fragment_Transfer_One fragment_transfer1;
     Fragment_Transfer_Two fragment_transfer2;
 
-    static int Fragment_sub = 0;
+
+    static int Fragment_sub = -1;
 
     String Time;
     String[] route;
     int[] route_line;
+    int Count;
     int transfer_Count = 0;
 
     @Nullable
@@ -31,11 +35,12 @@ public class Fragment_Route extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewGroup = (ViewGroup)inflater.inflate(R.layout.route,container,false);
 
+        fragment_transfer0 = new Fragment_Transfer_Zero();
         fragment_transfer1 = new Fragment_Transfer_One();
         fragment_transfer2 = new Fragment_Transfer_Two();
 
         route_time = viewGroup.findViewById(R.id.Route_Time_Text);
-        //subway_route = viewGroup.findViewById(R.id.Route_Text);
+        route_count = viewGroup.findViewById(R.id.Route_Count_Text);
 
         setRoute();
 
@@ -50,6 +55,10 @@ public class Fragment_Route extends Fragment {
         route_time.setText(Time+"분");
 
 
+        Count = bundle.getInt("route_count");
+
+
+
         route = bundle.getStringArray("subway_route");
         route_line = bundle.getIntArray("subway_route_line");
 
@@ -62,18 +71,34 @@ public class Fragment_Route extends Fragment {
                     route11 = route11 + route[i] + route_line[i]+ "환승->" + route[i+1] + route_line[i+1] + "i값"+i+"\n";
                     i = i+1;
                     transfer_Count++;
+                    Count--;
                 }else{
                     route11 = route11 + route[i] + route_line[i] + "i값"+i+"\n";
                 }
             }
         }
 
+        route_count.setText("("+Count+"정거장)");
         System.out.println("경로수정"+route11);
 
-        //System.out.println("환승 횟수: "+transfer_Count);
+
+        System.out.println("환승 횟수: "+transfer_Count);
 
 
-        if(transfer_Count==1){
+        if(transfer_Count==0){
+            Bundle route_bundle = new Bundle();
+            route_bundle.putStringArray("subway_route", route);
+            route_bundle.putIntArray("subway_route_line", route_line);
+            fragment_transfer0.setArguments(route_bundle);
+
+            if(Fragment_sub==0){
+                fragment_transfer0.setRouteTransfer();
+            }else{
+                getChildFragmentManager().beginTransaction().replace(R.id.Transfer_Container,fragment_transfer0).commit();
+                Fragment_sub=0;
+            }
+
+        }else if(transfer_Count==1){
             Bundle route_bundle = new Bundle();
             route_bundle.putStringArray("subway_route", route);
             route_bundle.putIntArray("subway_route_line", route_line);
