@@ -158,6 +158,8 @@ public class Subway_Route extends AppCompatActivity {
                     System.out.println(startV+"알고리즘"+endV);
                     route_time = MainActivity.g.dijkstra(startV,endV);
 
+                    //  0~n
+
 
                     int visit = 0;
 
@@ -237,9 +239,6 @@ public class Subway_Route extends AppCompatActivity {
                 arrival_launcher.launch(intent);
             }
         });
-    }
-    private void setFragment(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.Route_Container,fragment_route).commit();
     }
 
     ActivityResultLauncher<Intent> start_launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),

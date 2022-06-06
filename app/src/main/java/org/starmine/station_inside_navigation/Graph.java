@@ -24,7 +24,7 @@ public class Graph {
     }
 
     public int dijkstra(int start, int end){
-        route = new int[n];
+
 
         System.out.println("알고리즘 시작");
 
@@ -99,6 +99,7 @@ public class Graph {
         }
 
 
+        route = new int[routePair.length];
         System.out.println("경로 체크");
         System.out.println("소요시간 : "+distance[end]);
 

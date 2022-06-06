@@ -42,7 +42,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:background="@color/white"
-                    android:textSize="20sp"  />
+                    android:textSize="20sp"
+                    android:text="남태령"/>
 
             </LinearLayout>
 
@@ -106,25 +107,13 @@
     <ImageView
         android:id="@+id/InsideMap_Img"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_height="269dp"
+        android:src="@drawable/namtest" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/Inside_Route_Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="TextView" />
 
-        <Button
-            android:id="@+id/Inside_Previous_Btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="이전"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/Inside_Next_Btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="다음"
-            android:layout_weight="1"/>
-    </LinearLayout>
 </LinearLayout>
