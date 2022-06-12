@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent" >
 
         <ScrollView
             android:id="@+id/Detail_Scroll"
@@ -26,24 +26,22 @@
 
                     <Button
                         android:id="@+id/Detail_Next_Btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_width="135dp"
+                        android:layout_height="35dp"
                         android:text="다음역" />
 
                     <TextView
                         android:id="@+id/Detail_Current_Text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:textSize="15dp"
                         android:gravity="center"
                         android:text="현재역" />
 
                     <Button
                         android:id="@+id/Detail_Back_Btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_width="135dp"
+                        android:layout_height="35dp"
                         android:text="이전역" />
 
                 </LinearLayout>
@@ -103,13 +101,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="경로" />
+                        android:text="경로"
+                        android:background="@drawable/black_border"/>
 
                     <Button
                         android:id="@+id/Detail_Inner_Btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/black_border"
                         android:text="역 내부 안내" />
 
                     <Button
@@ -117,6 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/black_border"
                         android:text="시간표" />
 
                     <Button
@@ -125,6 +126,7 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
+
                         android:scaleType="fitCenter"/>
                 </LinearLayout>
 
@@ -157,19 +159,21 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="시설정보" />
+                        android:text="" />
 
                     <TextView
                         android:id="@+id/Detail_Facility_Text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="a,b,c,d" />
+                        android:text="" />
 
                     <Button
                         android:id="@+id/Detail_Inquire_Btn"
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:background="@drawable/black_border"
                         android:text="문의하기" />
 
                 </LinearLayout>

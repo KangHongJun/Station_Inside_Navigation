@@ -188,22 +188,26 @@ public class Subway_Map extends AppCompatActivity {
     public void makeQuickAction(){
         ActionItem searchItem = new ActionItem(ID_SEARCH, "경로", R.drawable.ic_search);
         ActionItem infoItem = new ActionItem(ID_INFO, "상세보기", R.drawable.ic_info);
-        ActionItem inner = new ActionItem(5,"역 내부 안내", R.drawable.ic_info);
+        ActionItem inner = new ActionItem(5,"역 내부 안내", R.drawable.ic_navigation);
         ActionItem name = new ActionItem(4, curStation);
-        ActionItem bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.empty_star);
+
+        //ActionItem bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.empty_star);
 
 
+
+        //즐겨찾기 x
+        
         //즐겨찾기 체크하고 별 이미지 바꾸기
-        DBHelper Helper;
-        SQLiteDatabase sqlDB;
-        Helper = new DBHelper(Subway_Map.this,"subway_info.db",null,1);
-        sqlDB = Helper.getReadableDatabase();
-        Helper.onCreate(sqlDB);
-        bookmark_coor = sqlDB.rawQuery("select * from subway_bookmark",null);
-
-
-
-        int count = bookmark_coor.getCount();
+//        DBHelper Helper;
+//        SQLiteDatabase sqlDB;
+//        Helper = new DBHelper(Subway_Map.this,"subway_info.db",null,1);
+//        sqlDB = Helper.getReadableDatabase();
+//        Helper.onCreate(sqlDB);
+//        bookmark_coor = sqlDB.rawQuery("select * from subway_bookmark",null);
+//
+//
+//
+//        int count = bookmark_coor.getCount();
 
         //bookmark_coor.moveToFirst();
 //        for (int i = 0; i < count; i++) {
@@ -212,21 +216,23 @@ public class Subway_Map extends AppCompatActivity {
 //        }
 
 
-        for(int i = 0; i < count; i++){
-            bookmark_coor.moveToNext();
-            //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0), Toast.LENGTH_SHORT).show();
-            if(curStation.equals(bookmark_coor.getString(0))){
-                //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
-                bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.yellow_star);
-                Bookmark_Code = 0;
-                break;
-            }
-            else if (!curStation.equals(bookmark_coor.getString(0))){
-                //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
-                bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.empty_star);
-                Bookmark_Code = 1;
-            }
-        }
+        //즐겨찾기
+//        for(int i = 0; i < count; i++){
+//            bookmark_coor.moveToNext();
+//            //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0), Toast.LENGTH_SHORT).show();
+//            if(curStation.equals(bookmark_coor.getString(0))){
+//                //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
+//                bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.yellow_star);
+//                Bookmark_Code = 0;
+//                break;
+//            }
+//            else if (!curStation.equals(bookmark_coor.getString(0))){
+//                //Toast.makeText(getApplicationContext(), "/"+bookmark_coor.getString(0) + "/"+ i, Toast.LENGTH_SHORT).show();
+//                bookmark = new ActionItem(ID_OK, "즐겨찾기",R.drawable.empty_star);
+//                Bookmark_Code = 1;
+//            }
+//        }
+        ////즐겨찾기 x/
 
 
 
@@ -241,7 +247,7 @@ public class Subway_Map extends AppCompatActivity {
         quickAction.addActionItem(infoItem);
         quickAction.addActionItem(searchItem);
         quickAction.addActionItem(inner);
-        quickAction.addActionItem(bookmark);
+        //quickAction.addActionItem(bookmark);
 
         //퀵 액션 클릭 리스너
         quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
@@ -268,12 +274,12 @@ public class Subway_Map extends AppCompatActivity {
                         startActivity(intent2);
                         //Toast.makeText(getApplicationContext(), cursor_line, Toast.LENGTH_LONG).show();
                         break;
-                    case "즐겨찾기":
-                        if(Bookmark_Code ==1){
-                            Insert_Bookmark();
-                        }else if (Bookmark_Code ==0){
-                            Delete_Bookmark();
-                        }
+//                    case "즐겨찾기":
+//                        if(Bookmark_Code ==1){
+//                            Insert_Bookmark();
+//                        }else if (Bookmark_Code ==0){
+//                            Delete_Bookmark();
+//                        }
                         //Toast.makeText(getApplicationContext(), ""+Bookmark_Code, Toast.LENGTH_LONG).show();
                     default:
                         //Toast.makeText(Subway_Map.this, title+" selected", Toast.LENGTH_SHORT).show();

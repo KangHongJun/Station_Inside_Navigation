@@ -60,7 +60,9 @@ public class Inside_Navigation extends AppCompatActivity {
 
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
-        inside_station.setText(curStation);
+        //inside_station.setText(curStation);
+
+        inside_station.setText("남태령"); //임시
 
         Toolbar toolbar = findViewById(R.id.Inside_Toolbar);
         setSupportActionBar(toolbar);
@@ -122,9 +124,6 @@ public class Inside_Navigation extends AppCompatActivity {
                 }
             });
 
-//4번 계단까지 약 n미터 이동하여 2층으로 이동
-//6번 계단까지 약n미터 이동하여 3층으로 이동
-//출구 1번까지 약 n미터 이동
     //메뉴 적용
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

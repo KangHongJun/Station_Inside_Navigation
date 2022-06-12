@@ -450,13 +450,7 @@ public class Subway_Detailed_View extends AppCompatActivity{
                     default:
                         break;
 
-
-
-
                 }
-//                Fragment_Detail_line4 line4 = (Fragment_Detail_line4) getSupportFragmentManager().findFragmentById(R.id.Subway_Detail_Container);
-//                line4.setDOWNArrivalTime();
-//                line4.setUPArrivalTime();
                 break;
             default:
                 break;

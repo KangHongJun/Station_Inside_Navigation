@@ -155,31 +155,41 @@ public class Fragment_Transfer_Two extends Fragment {
 
         switch (route_line[transfer[0]]){
             case 1:
+                System.out.println("된가인ㄴ가?");
                 Trans_stick3.setBackgroundResource(R.color.line1);
+                Trans_img2.setImageResource(R.drawable.img_line1);
                 break;
             case 2:
                 Trans_stick3.setBackgroundResource(R.color.line2);
+                Trans_img2.setImageResource(R.drawable.img_line2);
                 break;
             case 3:
                 Trans_stick3.setBackgroundResource(R.color.line3);
+                Trans_img2.setImageResource(R.drawable.img_line3);
                 break;
             case 4:
                 Trans_stick3.setBackgroundResource(R.color.line4);
+                Trans_img2.setImageResource(R.drawable.img_line4);
                 break;
             case 5:
                 Trans_stick3.setBackgroundResource(R.color.line5);
+                Trans_img2.setImageResource(R.drawable.img_line5);
                 break;
             case 6:
                 Trans_stick3.setBackgroundResource(R.color.line6);
+                Trans_img2.setImageResource(R.drawable.img_line6);
                 break;
             case 7:
                 Trans_stick3.setBackgroundResource(R.color.line7);
+                Trans_img2.setImageResource(R.drawable.img_line7);
                 break;
             case 8:
                 Trans_stick3.setBackgroundResource(R.color.line8);
+                Trans_img2.setImageResource(R.drawable.img_line8);
                 break;
             case 9:
                 Trans_stick3.setBackgroundResource(R.color.line9);
+                Trans_img2.setImageResource(R.drawable.img_line9);
                 break;
             default:
                 break;

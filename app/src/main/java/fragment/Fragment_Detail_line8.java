@@ -68,6 +68,7 @@ public class Fragment_Detail_line8 extends Fragment {
         db = new DatabaseHelper(getActivity());
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
+        curSt.setBackgroundResource(R.drawable.station8_main);
 
         //DB읽기
         DBHelper Helper;
@@ -106,6 +107,7 @@ public class Fragment_Detail_line8 extends Fragment {
         setArrivalTime();
 
         Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
+        next_btn.setBackgroundResource(R.drawable.station8_sub);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +147,8 @@ public class Fragment_Detail_line8 extends Fragment {
 
 
         Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
+        back_Btn.setBackgroundResource(R.drawable.station8_sub);
+
         back_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

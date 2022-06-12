@@ -68,6 +68,7 @@ public class Fragment_Detail_line1 extends Fragment {
 
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
+        curSt.setBackgroundResource(R.drawable.station1_main);
         db = new DatabaseHelper(getActivity());
 
         //DB읽기
@@ -94,17 +95,20 @@ public class Fragment_Detail_line1 extends Fragment {
         TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
         beforeSt.setText(cursor_code.getString(0));
 
+
         String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
         cursor_code = sqlDB.rawQuery(nextStation,null);
         cursor_code.moveToNext();
 
         TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
         nextSt.setText(cursor_code.getString(0));
+        nextSt.setBackgroundResource(R.drawable.station1_sub);
 
         //도착정보 세팅
         setArrivalTime();
 
         Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
+
 
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +149,8 @@ public class Fragment_Detail_line1 extends Fragment {
 
 
         Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
+        back_Btn.setBackgroundResource(R.drawable.station1_sub);
+
         back_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

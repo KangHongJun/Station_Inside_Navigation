@@ -283,12 +283,15 @@ public class Fragment_Detail_line2 extends Fragment {
         dateFormat.setTimeZone(timezone);
         int curHour = Integer.parseInt(dateFormat.format(date));
 
+        System.out.println("시간체크");
+
         //인터넷 체크
         ConnectivityManager manager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isConnect = (networkInfo != null && networkInfo.isConnectedOrConnecting());
 
-        if(isConnect && curHour<11){
+
+        if(isConnect && curHour<24){
             //실시간 도착정보
             setArrivalRealTime();
             Toast.makeText(getContext(),"실시간",Toast.LENGTH_SHORT).show();
@@ -304,7 +307,6 @@ public class Fragment_Detail_line2 extends Fragment {
 
     //실시간 도착 정보
     public void setArrivalRealTime(){
-
 
         Bundle curstation = getArguments();
         if(curstation != null){

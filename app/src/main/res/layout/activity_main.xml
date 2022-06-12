@@ -9,6 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="경로 찾기"
+        android:background="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
         android:layout_weight="1"/>
 
     <Button
@@ -16,6 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="역 내부 안내"
+        android:background="@color/teal_200"
+        android:textSize="30dp"
+        android:textStyle="bold"
         android:layout_weight="1"/>
 
 </LinearLayout>

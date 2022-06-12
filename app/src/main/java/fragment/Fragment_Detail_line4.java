@@ -77,7 +77,7 @@ public class Fragment_Detail_line4 extends Fragment {
 
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
-        //curSt.setBackgroundResource(R.drawable.station4_main);
+        curSt.setBackgroundResource(R.drawable.station4_main);
 
         //DB읽기
         DBHelper Helper;
@@ -113,9 +113,11 @@ public class Fragment_Detail_line4 extends Fragment {
 
 
 
+
         //다음역 버튼
-       Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
-        //next_btn.setBackgroundResource(R.drawable.station4_sub);
+        Button next_btn = viewGroup.findViewById(R.id.Detail_Next_Btn);
+        next_btn.setBackgroundResource(R.drawable.station4_sub);
+
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +155,8 @@ public class Fragment_Detail_line4 extends Fragment {
 
         //이전역 버튼
         Button back_Btn = viewGroup.findViewById(R.id.Detail_Back_Btn);
-        //back_Btn.setBackgroundResource(R.drawable.station4_sub);
+        back_Btn.setBackgroundResource(R.drawable.station4_sub);
+
         back_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -287,7 +290,7 @@ public class Fragment_Detail_line4 extends Fragment {
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isConnect = (networkInfo != null && networkInfo.isConnectedOrConnecting());
 
-        if(isConnect && curHour<11){
+        if(isConnect && curHour<24){
             //실시간 도착정보
             setArrivalRealTime();
             Toast.makeText(getContext(),"실시간",Toast.LENGTH_SHORT).show();
