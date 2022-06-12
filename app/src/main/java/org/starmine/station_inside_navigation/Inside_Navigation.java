@@ -148,6 +148,7 @@ public class Inside_Navigation extends AppCompatActivity {
             }
             case R.id.menu_detail:{
                 Intent intent = new Intent(Inside_Navigation.this,Subway_Detailed_View.class);
+                intent.putExtra("station",inside_station.getText().toString());
                 startActivity(intent);
                 break;
             }
