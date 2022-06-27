@@ -344,7 +344,6 @@ public class Subway_Detailed_View extends AppCompatActivity{
 
         Bundle bundle = new Bundle();
         bundle.putString("station", station);
-
         //역이름 출력
         //Toast.makeText(getApplicationContext(),station,Toast.LENGTH_SHORT).show();
 

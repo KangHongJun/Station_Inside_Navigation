@@ -32,6 +32,7 @@
         <activity android:name=".Subway_Search"/>
         <activity android:name=".Options"/>
         <activity android:name=".Inside_Navigation"/>
+        <activity android:name=".Inside_Navigation_test"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".Start_Subway_Search"/>
         <activity android:name=".Arrival_Subway_Search"/>

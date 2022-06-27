@@ -56,7 +56,7 @@ public class Inside_Navigation extends AppCompatActivity {
 
         inside_start = findViewById(R.id.Inside_Start_Edit);
         inside_arrival = findViewById(R.id.Inside_Arrival_Edit);
-        inside_search = findViewById(R.id.Inside_Search_Btn);
+        inside_search = findViewById(R.id.inside_Search_Btn);
 
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");

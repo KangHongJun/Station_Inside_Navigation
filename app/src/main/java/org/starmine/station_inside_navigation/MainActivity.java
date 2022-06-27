@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
         Button Main_Guide_Btn = (Button) findViewById(R.id.Main_Guide_Btn);
         Main_Guide_Btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Inside_Navigation.class);
+                //잠시 테스트로
+                Intent intent = new Intent(getApplicationContext(), Inside_Navigation_test.class);
                 startActivity(intent);
             }
         });

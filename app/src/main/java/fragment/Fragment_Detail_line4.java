@@ -293,7 +293,7 @@ public class Fragment_Detail_line4 extends Fragment {
         if(isConnect && curHour<24){
             //실시간 도착정보
             setArrivalRealTime();
-            Toast.makeText(getContext(),"실시간",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(),"실시간",Toast.LENGTH_SHORT).show();
 
         }else if (!isConnect){
             //시간표 기준 도착정보
