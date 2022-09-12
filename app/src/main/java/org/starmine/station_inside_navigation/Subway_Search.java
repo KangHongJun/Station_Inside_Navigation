@@ -3,7 +3,6 @@ package org.starmine.station_inside_navigation;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,10 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,14 +68,16 @@ public class Subway_Search extends AppCompatActivity {
 
         BookmarkviewData();
         viewData();
+        //검색
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, subwayList);
-        listView_search.setAdapter(arrayAdapter);
+       listView_search.setAdapter(arrayAdapter);
 
         listView_search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String curStation = adapterView.getItemAtPosition(i).toString();
                 db.insertData(curStation);
+
                 historyList.clear();
                 viewData();
                 Intent intent = new Intent(Subway_Search.this,Subway_Detailed_View.class);

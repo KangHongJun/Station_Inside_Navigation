@@ -19,12 +19,12 @@
         android:id="@+id/list_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxHeight="35dp"
-        android:maxWidth="35dp"
         android:layout_weight="1"
-        android:background="@color/white"
-        android:src="@drawable/empty_star"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"/>
+        android:background="@color/white"
+        android:maxWidth="35dp"
+        android:maxHeight="35dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/empty_star" />
 
 </LinearLayout>

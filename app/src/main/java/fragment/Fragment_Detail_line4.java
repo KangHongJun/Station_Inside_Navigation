@@ -292,7 +292,9 @@ public class Fragment_Detail_line4 extends Fragment {
 
         if(isConnect && curHour<24){
             //실시간 도착정보
-            setArrivalRealTime();
+            //setArrivalRealTime();
+            setUPArrivalTime();
+            setDOWNArrivalTime();
             //Toast.makeText(getContext(),"실시간",Toast.LENGTH_SHORT).show();
 
         }else if (!isConnect){
@@ -323,31 +325,38 @@ public class Fragment_Detail_line4 extends Fragment {
                     System.out.println(URL);
                     Document doc;
                     doc = Jsoup.connect(URL).get();
+                    Document doc2;
+                    doc2 = Jsoup.parse(URL);
                     //상행1
-                    Elements up_minute1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(1) > span.count > em");
+                    Elements up_minute1 = doc.select("#div");
+                    Elements up_minute123 = doc2.select("#div");
 
-                    Elements up_dir1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(1) > span.time_box > span");
-                    //상행2
-                    Elements up_minute2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(2) > span.count > em");
+                    System.out.println("QWe123"+up_minute1);
+                    System.out.println("123123"+up_minute123);
 
-                    Elements up_dir2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(2) > span.time_box > span");
+                    Elements up_dir1 = doc.select(".direction");
+                    System.out.println("QWewqe"+up_dir1);
+//                    //상행2
+//                    Elements up_minute2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(2) > span.count > em");
+//
+//                    Elements up_dir2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(1) > ul > li:nth-child(2) > span.time_box > span");
+//
+//                    //하행1
+//                    Elements down_minute1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(1) > span.count > em");
+//
+//                    Elements down_dir1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(1) > span.time_box > span");
+//
+//                    //하행2
+//                    Elements down_minute2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(2) > span.count > em");
+//
+//                    Elements down_dir2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(2) > span.time_box > span");
 
-                    //하행1
-                    Elements down_minute1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(1) > span.count > em");
+                    //String realTime1 = up_dir1.get(0).text()+ "행 " + up_minute1.get(0).text() + "분";
+//                    String realTime2 = up_dir2.get(0).text()+ "행 " + up_minute2.get(0).text() + "분";
+//                    String realTime3 = down_dir1.get(0).text()+ "행 " + down_minute1.get(0).text() + "분";
+//                    String realTime4 = down_dir2.get(0).text()+ "행 " + down_minute2.get(0).text() + "분";
 
-                    Elements down_dir1 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(1) > span.time_box > span");
-
-                    //하행2
-                    Elements down_minute2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(2) > span.count > em");
-
-                    Elements down_dir2 = doc.select("#ct > section.sc._sc_subway.mcs_subway > div.api_subject_bx > div.subway > div.station_info_top > div.arrive_area._arrive_area > div > div:nth-child(2) > ul > li:nth-child(2) > span.time_box > span");
-
-                    String realTime1 = up_dir1.get(0).text()+ "행 " + up_minute1.get(0).text() + "분";
-                    String realTime2 = up_dir2.get(0).text()+ "행 " + up_minute2.get(0).text() + "분";
-                    String realTime3 = down_dir1.get(0).text()+ "행 " + down_minute1.get(0).text() + "분";
-                    String realTime4 = down_dir2.get(0).text()+ "행 " + down_minute2.get(0).text() + "분";
-
-                    String realTime = realTime1+"/"+realTime2+"/"+realTime3+"/"+realTime4;
+                    String realTime = "/"; //realTime1++realTime2+"/"+realTime3+"/"+realTime4;
 
                     Message message = Message.obtain();
                     message.obj = realTime;

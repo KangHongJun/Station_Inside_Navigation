@@ -275,7 +275,9 @@ public class Fragment_Detail_line6 extends Fragment {
 
         if(isConnect){
             //실시간 도착정보
-            setArrivalRealTime();
+            //setArrivalRealTime();
+            setUPArrivalTime();
+            setDOWNArrivalTime();
             //Toast.makeText(getContext(),"실시간",Toast.LENGTH_SHORT).show();
 
         }else if (!isConnect){

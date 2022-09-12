@@ -17,7 +17,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -63,13 +62,13 @@ public class Subway_Route extends AppCompatActivity {
         //start_station.setOnClickListener();
         //툴바 세팅
         Toolbar toolbar = findViewById(R.id.Route_Toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("");
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
         //루트 검색
         search_btn.setOnClickListener(new View.OnClickListener() {
