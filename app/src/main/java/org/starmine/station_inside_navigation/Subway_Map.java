@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,8 +61,7 @@ public class Subway_Map extends AppCompatActivity {
 
         //이미지 뷰 특정위치로 이동 및 확대 - 이벤트로는 가능하지만, 시작시 안됨
         //imageView.setScaleAndCenter(1.1f,new PointF(3900, 3120));
-
-        //Toast.makeText(getApplicationContext(),""+TileScale,Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),""+TileScale, Toast.LENGTH_LONG).show();
       
 
         DBHelper Helper;
@@ -125,7 +125,7 @@ public class Subway_Map extends AppCompatActivity {
                             makeQuickAction();
                             quickAction.show(imageView,1,1);
 
-                            //Toast.makeText(getApplicationContext(), x_cor + "/"+ y_cor + "\n" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), curStation+x_cor + "/"+ y_cor + "\n" , Toast.LENGTH_LONG).show();
 
                         }
                     } while (cursor_coor.moveToNext());
