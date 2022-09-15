@@ -11,6 +11,7 @@ Subway Information & Subway Station inside Navigation android APP
 * 마지막 역 시간표 체크(DB에 dummy 데이터 or 예외처리)
 * UI개선
 * 역 내부 지도 개선
+* 팝업창 개선
 
 
 # 리펙토링
