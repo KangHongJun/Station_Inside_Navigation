@@ -52,7 +52,7 @@ public class Fragment_Detail extends Fragment {
         cursor_code = sqlDB.rawQuery(sqlCode,null);
         cursor_code.moveToNext();
 
-        //현재역 code값으로 다음, 이전역 코드 얻기
+        //현재역 code값으로 다음, 이전역 코드 얻기 *마지막역의 예외처리 필요
         int code = cursor_code.getInt(0);
         int nextCode = code+1;
         int beforeCode = code-1;
