@@ -8,12 +8,11 @@ Subway Information & Subway Station inside Navigation android APP
  <https://www.indooratlas.com>
 
 # 개선사항&에러
-* 실시간 도착정보 API사용 or 크롤링코드  
-* 호선 데이터 추가
-* 카카오 지도API
+* UI개선 - 역 내부 지도 개선
 * 마지막 역 시간표 체크(DB에 dummy 데이터 or 예외처리)
-* UI개선
-* 역 내부 지도 개선
+* 호선 데이터 추가
+* 실시간 도착정보
+* 카카오 지도API
 * 팝업창 개선
 
 
