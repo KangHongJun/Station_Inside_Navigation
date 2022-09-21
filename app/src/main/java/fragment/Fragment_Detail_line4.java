@@ -50,7 +50,9 @@ public class Fragment_Detail_line4 extends Fragment {
 
     private static String curStation;
     Cursor cursor_code;
-    static String sqlCode;
+    static String sqlCode; /체크
+    static char LastStation = "N";
+    
     DatabaseHelper db;
 
     //현재역 코드 저장
@@ -96,7 +98,7 @@ public class Fragment_Detail_line4 extends Fragment {
         int nextCode = code-1;
         int beforeCode = code+1;
 
-
+        //try catch문으로 catch setText("-"), LastStation = "UP/DOWN"하여 시간설정
         String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
         cursor_code = sqlDB.rawQuery(beforeStation,null);
         cursor_code.moveToNext();
@@ -299,6 +301,10 @@ public class Fragment_Detail_line4 extends Fragment {
 
         }else if (!isConnect){
             //시간표 기준 도착정보
+            //null체크
+            //if(LastStation.isequals("N")) 이어서 작성
+                
+            
             setUPArrivalTime();
             setDOWNArrivalTime();
             Toast.makeText(getContext(),"시간표",Toast.LENGTH_SHORT).show();
@@ -319,7 +325,8 @@ public class Fragment_Detail_line4 extends Fragment {
             @Override
             public void run() {
 
-                try {
+                
+                {
                     String URL = "https://m.search.naver.com/search.naver?sm=tab_hty.top&where=m&query="+curStation+"4호선";
 
                     System.out.println(URL);
@@ -393,6 +400,8 @@ public class Fragment_Detail_line4 extends Fragment {
     //시간표 기준 도착정보
     //상행 도착 정보
     public void setUPArrivalTime(){
+        
+        
         int min = -1 ;
 
         Bundle curstation = getArguments();
