@@ -9,7 +9,7 @@ Subway Information & Subway Station inside Navigation android APP
 
 # 개선사항&에러
 * UI개선 - 역 내부 지도 개선
-* 마지막 역 시간표 체크(DB에 dummy 데이터 or 예외처리)
+
 * 호선 데이터 추가
 * 실시간 도착정보
 * 카카오 지도API
@@ -17,8 +17,9 @@ Subway Information & Subway Station inside Navigation android APP
 
 
 # 리펙토링
-* line fragment 객체화
+* static 남용 수정
 * line code구하는 class생성 - null일때 예외처리
 * DB참조 class생성
+
 * 시간표 코드 개선(다른 방법 찾아보기)
 * 시간표기준 도착정보 코드 개선
