@@ -50,8 +50,8 @@ public class Fragment_Detail_line4 extends Fragment {
 
     private static String curStation;
     Cursor cursor_code;
-    static String sqlCode; /체크
-    static char LastStation = "N";
+    static String sqlCode; //체크
+    static String LastStation = "N";
     
     DatabaseHelper db;
 
@@ -99,19 +99,45 @@ public class Fragment_Detail_line4 extends Fragment {
         int beforeCode = code+1;
 
         //try catch문으로 catch setText("-"), LastStation = "UP/DOWN"하여 시간설정
-        String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
-        cursor_code = sqlDB.rawQuery(beforeStation,null);
-        cursor_code.moveToNext();
 
-        TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
-        beforeSt.setText(cursor_code.getString(0));
 
-        String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
-        cursor_code = sqlDB.rawQuery(nextStation,null);
-        cursor_code.moveToNext();
+        try{
+            String beforeStation = "select NAME from subway_line where CODE = " + beforeCode +"";
+            cursor_code = sqlDB.rawQuery(beforeStation,null);
+            cursor_code.moveToNext();
+            TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
+            beforeSt.setText(cursor_code.getString(0));
 
-        TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
-        nextSt.setText(cursor_code.getString(0));
+        }catch (Exception e){
+            LastStation = "UP";
+            Toast.makeText(getContext(),LastStation,Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            String nextStation = "select NAME from subway_line where CODE = " + nextCode +"";
+            cursor_code = sqlDB.rawQuery(nextStation,null);
+            cursor_code.moveToNext();
+
+            TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
+            nextSt.setText(cursor_code.getString(0));
+        }catch (Exception e){
+            LastStation = "DOWN";
+            Toast.makeText(getContext(),LastStation,Toast.LENGTH_SHORT).show();
+        }
+
+        //없는 역 빈칸으로
+        if(LastStation.equals("UP")){
+            TextView beforeSt = viewGroup.findViewById(R.id.Detail_Back_Btn);
+            beforeSt.setText(" ");
+        }else if (LastStation.equals("DOWN")){
+            TextView nextSt = viewGroup.findViewById(R.id.Detail_Next_Btn);
+            nextSt.setText(" ");
+        }
+
+
+
+
+
 
 
 
@@ -302,12 +328,20 @@ public class Fragment_Detail_line4 extends Fragment {
         }else if (!isConnect){
             //시간표 기준 도착정보
             //null체크
-            //if(LastStation.isequals("N")) 이어서 작성
-                
-            
-            setUPArrivalTime();
-            setDOWNArrivalTime();
-            Toast.makeText(getContext(),"시간표",Toast.LENGTH_SHORT).show();
+            switch (LastStation) {
+                case "N":
+                    setUPArrivalTime();
+                    setDOWNArrivalTime();
+                    break;
+                case "UP":
+                    setDOWNArrivalTime();
+                    break;
+                case "DOWN":
+                    setUPArrivalTime();
+                    break;
+            }
+
+            //Toast.makeText(getContext(),"시간표",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -330,8 +364,12 @@ public class Fragment_Detail_line4 extends Fragment {
                     String URL = "https://m.search.naver.com/search.naver?sm=tab_hty.top&where=m&query="+curStation+"4호선";
 
                     System.out.println(URL);
-                    Document doc;
-                    doc = Jsoup.connect(URL).get();
+                    Document doc = null;
+                    try {
+                        doc = Jsoup.connect(URL).get();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Document doc2;
                     doc2 = Jsoup.parse(URL);
                     //상행1
@@ -370,8 +408,6 @@ public class Fragment_Detail_line4 extends Fragment {
                     handler.sendMessage(message);
 
 
-                }catch (IOException e){
-                    e.printStackTrace();
                 }
             }
         }.start();
