@@ -17,6 +17,7 @@ Subway Information & Subway Station inside Navigation android APP
 
 
 # 리펙토링
+*line fragment 하나로 생성하여 번들 데이터로 각각 보내기
 * static 남용 수정
 * line code구하는 class생성 - null일때 예외처리
 * DB참조 class생성
