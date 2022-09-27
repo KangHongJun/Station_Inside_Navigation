@@ -34,7 +34,7 @@ public class Subway_Detailed_View extends AppCompatActivity{
 
     Fragment_Detail detailed_view;
     
-    //프라그먼트 
+    //프라그먼트 **하나로 수정해보기
     Fragment_Detail_line1 detailed_view1;
     Fragment_Detail_line2 detailed_view2;
     Fragment_Detail_line3 detailed_view3;
@@ -96,7 +96,7 @@ public class Subway_Detailed_View extends AppCompatActivity{
             //Toast.makeText(getApplicationContext(), ""+Staionline[i], Toast.LENGTH_LONG).show();
         }
 
-        //프라그먼트 객체생성 - 매개변수 호선
+        //프라그먼트 객체생성 - 매개변수 호선 **하나로 수정해보기
         detailed_view = new Fragment_Detail();
         detailed_view1 = new Fragment_Detail_line1();
         detailed_view2 = new Fragment_Detail_line2();
