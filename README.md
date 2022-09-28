@@ -8,7 +8,8 @@ Subway Information & Subway Station inside Navigation android APP
  <https://www.indooratlas.com>
 
 # 개선사항&에러
-* UI개선 - 역 내부 지도 개선
+* 역 내부 지도 개선 - 가는 방향 점선/화살표 형태로 알려주기 
+ 1. 각 좌표값 기준으로 화살표 긋고, 화살표에 대한 변곡점 구하여 화살표 만들기(다른 객체의 좌표와 겹치면 조정하기)
 
 * 호선 데이터 추가
 * 실시간 도착정보
