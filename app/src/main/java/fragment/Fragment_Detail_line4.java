@@ -477,7 +477,8 @@ public class Fragment_Detail_line4 extends Fragment {
         Helper.onCreate(sqlDB);
 
         //curStation = "사당4";
-
+       
+        //try - catch사용하기
         String sqlCode = "select * from schedule where NAME = " +"\""+ curStation +"\""+"and TYPE=0";
         Cursor UP_cursor = sqlDB.rawQuery(sqlCode,null);
 
