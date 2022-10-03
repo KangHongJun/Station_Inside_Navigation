@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/insideMap_Img"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/sadang_1floor_2" />
+
+    <ImageView
+        android:id="@+id/B1S1"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="243dp"
+        android:layout_marginEnd="188dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="121dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="241dp"
+        android:src="@drawable/stairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="290dp"
+        android:layout_marginEnd="383dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="191dp"
+        android:layout_marginEnd="380dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="125dp"
+        android:layout_marginEnd="233dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="313dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="288dp"
+        android:layout_marginEnd="100dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="106dp"
+        android:layout_marginEnd="67dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="174dp"
+        android:layout_marginEnd="67dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="354dp"
+        android:layout_marginEnd="100dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="3dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="290dp"
+        android:layout_marginEnd="182dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="356dp"
+        android:layout_marginEnd="182dp"
+        android:src="@drawable/rstairs" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="233dp"
+        android:src="@drawable/escalator" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="289dp"
+        android:layout_marginEnd="314dp"
+        android:src="@drawable/escalator" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="188dp"
+        android:layout_marginEnd="122dp"
+        android:src="@drawable/escalator" />
+
+    <Button
+        android:id="@+id/Arrival7"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="213dp"
+        android:layout_marginTop="338dp"
+        android:background="@drawable/circle"
+        android:text="7" />
+
+    <Button
+        android:id="@+id/Arrival8"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="213dp"
+        android:layout_marginTop="306dp"
+        android:background="@drawable/circle"
+        android:text="8" />
+
+    <Button
+        android:id="@+id/Arrival6"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="293dp"
+        android:layout_marginTop="336dp"
+        android:background="@drawable/circle"
+        android:text="6" />
+
+    <Button
+        android:id="@+id/Arrival5"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="294dp"
+        android:layout_marginTop="305dp"
+        android:background="@drawable/circle"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/Arrival4"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="392dp"
+        android:layout_marginTop="238dp"
+        android:background="@drawable/circle"
+        android:text="4" />
+
+    <Button
+        android:id="@+id/Arrival1"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="327dp"
+        android:layout_marginTop="124dp"
+        android:background="@drawable/circle"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/Arrival2"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="328dp"
+        android:layout_marginTop="154dp"
+        android:layout_marginEnd="68dp"
+        android:background="@drawable/circle"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/Arrival3"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="391dp"
+        android:layout_marginTop="207dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/circle"
+        android:text="3" />
+
+
+    <Button
+        android:id="@+id/Arrival9"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="288dp"
+        android:layout_marginEnd="332dp"
+        android:background="@drawable/circle"
+        android:text="9" />
+
+    <Button
+        android:id="@+id/Arrival10"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="288dp"
+        android:layout_marginEnd="366dp"
+        android:background="@drawable/circle"
+        android:text="10" />
+
+    <Button
+        android:id="@+id/Arrival11"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="191dp"
+        android:layout_marginEnd="365dp"
+        android:background="@drawable/circle"
+        android:text="11" />
+
+    <Button
+        android:id="@+id/Arrival12"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="191dp"
+        android:layout_marginEnd="331dp"
+        android:background="@drawable/circle"
+        android:text="12" />
+
+    <Button
+        android:id="@+id/Arrival13"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="234dp"
+        android:background="@drawable/circle"
+        android:text="13" />
+
+    <Button
+        android:id="@+id/Arrival14"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="233dp"
+        android:background="@drawable/circle"
+        android:text="14" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="267dp"
+        android:layout_marginEnd="169dp"
+        android:src="@drawable/escalator" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="258dp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/escalator" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="145dp"
+        android:layout_marginEnd="207dp"
+        android:src="@drawable/escalator" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="278dp"
+        android:layout_marginEnd="128dp"
+        android:src="@drawable/turnstile_1" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="166dp"
+        android:layout_marginEnd="198dp"
+        android:src="@drawable/turnstile_1" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="227dp"
+        android:layout_marginEnd="104dp"
+        android:src="@drawable/turnstile_1" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="301dp"
+        android:src="@drawable/turnstile_1" />
+
+    <ImageView
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="301dp"
+        android:src="@drawable/turnstile_1" />
+
+
+</RelativeLayout>

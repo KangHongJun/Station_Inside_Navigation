@@ -19,6 +19,98 @@
         android:layout_marginEnd="138dp"
         android:src="@drawable/rstairs" />
 
+    <ImageView
+        android:id="@+id/route10"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="138dp"
+        android:src="@drawable/circle4" />
+    <ImageView
+        android:id="@+id/route11"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="138dp"
+        android:src="@drawable/circle4" />
+
+    <ImageView
+        android:id="@+id/route12"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="125dp"
+        android:src="@drawable/circle4" />
+    <ImageView
+        android:id="@+id/route13"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="112dp"
+        android:src="@drawable/circle4" />
+    <ImageView
+        android:id="@+id/route14"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="99dp"
+        android:src="@drawable/circle4" />
+    <ImageView
+        android:id="@+id/route15"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="86dp"
+        android:src="@drawable/circle4" />
+    <ImageView
+        android:id="@+id/route16"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="73dp"
+        android:src="@drawable/circle4" />
+    <ImageView
+        android:id="@+id/route17"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="60dp"
+        android:src="@drawable/circle4" />
+    <ImageView
+        android:id="@+id/route18"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="47dp"
+        android:src="@drawable/circle4" />
+    <ImageView
+        android:id="@+id/route19"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="34dp"
+        android:src="@drawable/circle4" />
+
     <Button
         android:id="@+id/Arrival7"
         android:layout_width="14dp"

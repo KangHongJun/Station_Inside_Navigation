@@ -21,9 +21,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import fragment.Beomgyeb1;
 import fragment.Beomgyeb2;
+import fragment.Sadangb1;
+import fragment.Sadangb3;
 
 public class Inside_Navigation_test extends AppCompatActivity {
     TextView inside_station;
+    static String curStation;
     Button inside_btn;
     Button B2, B1;
 
@@ -34,6 +37,8 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
     Beomgyeb2 BeomgyeB2;
     Beomgyeb1 BeomgyeB1;
+    Sadangb1 sadangb1;
+    Sadangb3 sadangb3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,9 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
         BeomgyeB2 = new Beomgyeb2();
         BeomgyeB1 = new Beomgyeb1();
+        sadangb1 = new Sadangb1();
+        sadangb3 = new Sadangb3();
+
 
         Toolbar toolbar = findViewById(R.id.Inside_Toolbar);
         setSupportActionBar(toolbar);
@@ -75,20 +83,34 @@ public class Inside_Navigation_test extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), Arrival_Subway_Search.class);
 
                 inside_launcher.launch(intent);
+
             }
         });
+
+
 
         inside_btn.setText("다음");
         inside_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //스탭으로 구분
+                //현재역 기준으로 이미지&버튼 세팅
+                //클래스 생성하여 curStation보내기
 
+
+               //스탭으로 구분
                 if(Step==0){
                     if (inside_station.length()==0){
                         Toast.makeText(getApplicationContext(),"역 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else{
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                        try{
+                            if (curStation.equals("범계"))
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                            else if (curStation.equals("사당"))
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest, sadangb3).commit();
+                        }catch (Exception e){
+                            Toast.makeText(getApplicationContext(),"다른 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
+                        }
+
 
                         Step = 1;
                         Toast.makeText(getApplicationContext(),"현재 위치를 입력해주세요",Toast.LENGTH_SHORT).show();
@@ -97,7 +119,16 @@ public class Inside_Navigation_test extends AppCompatActivity {
                 }else if(Step ==1){
                     if(!(inside_start.length()==0|inside_startSub.length()==0)){
                         Step = 2;
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB1).commit();
+
+                        try{
+                            if (curStation.equals("범계"))
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB1).commit();
+                            else if (curStation.equals("사당"))
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest, sadangb1).commit();
+                        }catch (Exception e){
+                            Toast.makeText(getApplicationContext(),"다른 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
+                        }
+
                         Toast.makeText(getApplicationContext(),"목적지를 입력해주세요",Toast.LENGTH_SHORT).show();
                         inside_btn.setText("탐색");
                     }else{
@@ -138,7 +169,17 @@ public class Inside_Navigation_test extends AppCompatActivity {
         B2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                try {
+                    if (curStation.equals("범계"))
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                    else if (curStation.equals("사당")){
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,sadangb1).commit();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(),"다른역을 입력 해주세요",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
@@ -150,7 +191,16 @@ public class Inside_Navigation_test extends AppCompatActivity {
                 bundle.putInt("stationnum", stationnum);
                 BeomgyeB1.setArguments(bundle);
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB1).commit();
+                try {
+                    if (curStation.equals("범계"))
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                    else if (curStation.equals("사당")){
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,sadangb1).commit();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(),"다른역을 입력 해주세요",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -165,7 +215,10 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Intent intent = data.getData();
                         String result = intent.getStringExtra("result");
 
+                        curStation = result;
                         inside_station.setText(result);
+
+
                     }
                 }
             });
