@@ -22,6 +22,7 @@ import org.starmine.station_inside_navigation.R;
 public class Beomgyeb1 extends Fragment {
     ViewGroup viewGroup;
     ImageView insideMap_Img,insideMap_Img2;
+    Canvas canvas;
 
     int stationnum;
 
@@ -37,24 +38,40 @@ public class Beomgyeb1 extends Fragment {
         BitmapDrawable bitmapDrawable = (BitmapDrawable)resources.getDrawable(R.drawable.beomgye_b1);
 
         Bitmap bitmap = bitmapDrawable.getBitmap().copy(Bitmap.Config.ARGB_8888,true);
+        insideMap_Img.setImageBitmap(bitmap);
 
         //지하철
-        Canvas canvas = new Canvas(bitmap);
+        canvas = new Canvas(bitmap);
         canvas.drawBitmap(bitmap,new Matrix(),null);
 
-        //위에 그림
-        Bitmap overlay = Bitmap.createBitmap(100,100, Bitmap.Config.ARGB_8888);
-        Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
-        paint.setColor(Color.GREEN);
-        paint.setStrokeWidth(4f);
+        Bundle curstation = getArguments();
+        if(curstation != null){
+            stationnum = curstation.getInt("stationnum");
+        }
 
-        canvas.drawLine(0,0,100,100,paint);
-        canvas.drawBitmap(overlay,100,100,paint);
+        if (stationnum==1){
+            setstairColor(bitmap);
+        }
 
-        insideMap_Img.setImageBitmap(bitmap);
-        System.out.println(insideMap_Img.getWidth()+"/"+insideMap_Img.getHeight());
 
 
         return viewGroup;
+    }
+
+    public void setstairColor(Bitmap bitmap){
+        //이미지 위에 선 그리기
+        //위에 그림
+        Bitmap overlay = Bitmap.createBitmap(100,100, Bitmap.Config.ARGB_8888);
+        Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
+        paint.setColor(Color.BLUE);
+        paint.setStrokeWidth(10f);
+
+        canvas.drawLine(765,190,765,230,paint);
+        canvas.drawLine(765,230,1080,230,paint);
+        canvas.drawBitmap(overlay,100,100,paint);
+
+        insideMap_Img.setImageBitmap(bitmap);
+        System.out.println(canvas.getWidth()+"/"+canvas.getHeight());
+
     }
 }

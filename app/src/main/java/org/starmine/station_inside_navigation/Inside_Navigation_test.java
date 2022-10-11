@@ -156,12 +156,6 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
 
 
-
-
-                        Beomgyeb1 b1 = (Beomgyeb1) getSupportFragmentManager().findFragmentById(R.id.container_insidetest);
-                        //b1.setstairColor2();
-
-
                     }
                 }
             }
