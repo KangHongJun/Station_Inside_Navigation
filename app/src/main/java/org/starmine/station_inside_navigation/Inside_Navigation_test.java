@@ -139,6 +139,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
                     if(inside_arrival.length()==0){
                         Toast.makeText(getApplicationContext(),"목적지를 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else{
+                        //위에서 목적지까지 입력하면 보이게
                         B2.setVisibility(View.VISIBLE);
                         B1.setVisibility(View.VISIBLE);
                         Toast.makeText(getApplicationContext(),"아래의 버튼으로 층마다의 경로를 확인할수 있습니다.",Toast.LENGTH_SHORT).show();
