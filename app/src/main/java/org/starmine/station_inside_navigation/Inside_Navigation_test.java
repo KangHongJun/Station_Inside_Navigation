@@ -173,7 +173,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
                     if (curStation.equals("범계"))
                         getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
                     else if (curStation.equals("사당")){
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,sadangb1).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,sadangb3).commit();
                     }
                 }catch (Exception e){
                     Toast.makeText(getApplicationContext(),"다른역을 입력 해주세요",Toast.LENGTH_SHORT).show();
@@ -193,7 +193,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
                 try {
                     if (curStation.equals("범계"))
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB1).commit();
                     else if (curStation.equals("사당")){
                         getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,sadangb1).commit();
                     }
