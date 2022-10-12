@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import org.starmine.station_inside_navigation.R;
-
+//새로 만들어서 받은 값에따라 drawable세팅하기 - 이미지 설정은 db에 이름을 넣어서 하거나..
 public class Beomgyeb1 extends Fragment {
     ViewGroup viewGroup;
     ImageView insideMap_Img,insideMap_Img2;
