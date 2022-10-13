@@ -47,6 +47,11 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
         inside_station = (TextView) findViewById(R.id.Inside_Station);
 
+        Intent get_intent = getIntent();
+        curStation = get_intent.getStringExtra("station");
+        //Toast.makeText(Inside_Navigation_test.this, curStation, Toast.LENGTH_SHORT).show();
+        inside_station.setText(curStation);
+
         inside_start = findViewById(R.id.Inside_Start_Edit);
         inside_startSub = findViewById(R.id.Inside_StartSub_Edit);
 

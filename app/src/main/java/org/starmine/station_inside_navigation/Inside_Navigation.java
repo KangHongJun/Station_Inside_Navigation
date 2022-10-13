@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -60,9 +61,10 @@ public class Inside_Navigation extends AppCompatActivity {
 
         Intent get_intent = getIntent();
         curStation = get_intent.getStringExtra("station");
-        //inside_station.setText(curStation);
+        //Toast.makeText(Inside_Navigation.this, curStation, Toast.LENGTH_SHORT).show();
+        inside_station.setText(curStation);
 
-        inside_station.setText("남태령"); //임시
+        //inside_station.setText("남태령"); //임시
 
         Toolbar toolbar = findViewById(R.id.Inside_Toolbar);
         setSupportActionBar(toolbar);
