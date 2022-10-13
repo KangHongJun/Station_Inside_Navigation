@@ -8,6 +8,8 @@ Subway Information & Subway Station inside Navigation android APP
 # 개선사항&에러
 * 역 내부 지도 개선 - 가는 방향 점선/화살표 형태로 알려주기 
  1. 각 지점 좌표값 지정해주고, 좌표값 기준으로 선긋기
+  - 시작 지점에 canvas로 위치 표시 or 이미지 배치
+  - 끝 지점에 canvas로 화살표 그리기(마지막 좌표간의 이동방향에 따라서 조절,ex)draw(765,190,765,230) : 동쪽 ) or 이미지 배치
 
 * 호선 데이터 추가
 * 실시간 도착정보
