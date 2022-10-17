@@ -119,6 +119,29 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
                         Step = 1;
                         Toast.makeText(getApplicationContext(),"현재 위치를 입력해주세요",Toast.LENGTH_SHORT).show();
+                        
+                        //노드값 입력
+                        DBHelper Helper;
+                        SQLiteDatabase sqlDB;
+                        Helper = new DBHelper(Inside_Navigation.this,"subway_info.db",null,1);//db변경**
+                        sqlDB = Helper.getReadableDatabase();
+                        Helper.onCreate(sqlDB);
+
+
+                        //층수를 구별해야 하므로 전체조회 및 층수 저장
+                        Cursor cursor_inside = sqlDB.rawQuery("select * from b1",null);//db변경**
+                        while (cursor_inside.moveToNext()){
+                            insideG.input(cursor_inside.getInt(0),cursor_inside.getInt(1),cursor_inside.getInt(2));//insideG가 아닌 다른 배열에 저장
+                        }
+
+                        //층수만큼 반복하여 층수*100으로 나눠서 각각 b1 b2 b3...에 저장후 각 길이를 구하고
+
+                        //그래프
+                        insideG = new Graph(11);//전체길이로 그래프 생성 후 전체길이 만큼 반복하여 insideG에 값을 넣는다.
+
+
+                        //insideG에 경로가 리턴되므로(노드 번호) 구간별로 나눈 후 아래의 단계에서 좌표값을 번들 데이터로 보내주던지 한다.
+                        
                     }
 
                 }else if(Step ==1){
