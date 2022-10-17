@@ -48,24 +48,28 @@ public class Beomgyeb1 extends Fragment {
         if(curstation != null){
             stationnum = curstation.getInt("stationnum");
         }
-
+        
+        
+        //inside navigation에서 매개변수로 좌표값을 받으면 setstairColor에 넣어 그림을 그린다. 아래에서 번들데이터를 불러서 반복하는게 나아보인다.
         if (stationnum==1){
             setstairColor(bitmap);
         }
-
+        
+       
 
 
         return viewGroup;
     }
 
-    public void setstairColor(Bitmap bitmap){
+    public void setstairColor(Bitmap bitmap){  //매개변수 추가
         //이미지 위에 선 그리기
         //위에 그림
         Bitmap overlay = Bitmap.createBitmap(100,100, Bitmap.Config.ARGB_8888);
         Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
         paint.setColor(Color.BLUE);
         paint.setStrokeWidth(10f);
-
+                                             
+        //시작지점에 원 추가 panint2 생성해서 다른 형태지정
         canvas.drawLine(765,190,765,230,paint);
         canvas.drawLine(765,230,1080,230,paint);
         canvas.drawBitmap(overlay,100,100,paint);
