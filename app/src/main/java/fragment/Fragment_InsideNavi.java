@@ -93,7 +93,10 @@ public class Fragment_InsideNavi extends Fragment {
             navigation.input(cursor_test.getInt(0),cursor_test.getInt(1),cursor_test.getInt(2));
         }
 
-        int route_time = navigation.dijkstra(10,12);
+
+        //큰값보다는 작은값에서 시작하는 것이 잘되기 때문에 그부분을 조정한다
+        //1. start,end값 비교하여 셋, 어차피 선으로 그려지기 때문에 상관없음
+        navigation.dijkstra(5,13);
         int[] a = navigation.getRoute();
         //System.out.println(route_time+"프라그먼트"+a[0]);
 
