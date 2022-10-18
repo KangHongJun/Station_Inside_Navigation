@@ -35,8 +35,8 @@ public class Beomgyeb1 extends Fragment {
 
 
         Resources resources = getResources();
+         //수정 후 번들데이터로 이미지이름 저장하여 가능한지 체크
         BitmapDrawable bitmapDrawable = (BitmapDrawable)resources.getDrawable(R.drawable.beomgye_b1);
-
         Bitmap bitmap = bitmapDrawable.getBitmap().copy(Bitmap.Config.ARGB_8888,true);
         insideMap_Img.setImageBitmap(bitmap);
 
