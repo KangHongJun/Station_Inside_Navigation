@@ -86,8 +86,8 @@ public class Inside_Navigation_test extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), Arrival_Subway_Search.class);
-
                 inside_launcher.launch(intent);
+                Step = 0;//역 이름 다시입력하기위한 초기화 테스트
 
             }
         });
@@ -107,7 +107,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
                     if (inside_station.length()==0){
                         Toast.makeText(getApplicationContext(),"역 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else{
-                        try{
+                        try{//이 부분을 역 이름이 아닌 입력된 역에대해 탐색 후 프라그먼트 설정(번들로 이미지 이름 보내주던지 할듯)
                             if (curStation.equals("범계"))
                                 getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
                             else if (curStation.equals("사당"))
@@ -173,7 +173,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"아래의 버튼으로 층마다의 경로를 확인할수 있습니다.",Toast.LENGTH_SHORT).show();
                         stationnum=1;
 
-                        if(stationnum==1){
+                        if(stationnum==1){//프라그먼트에서 지도를 띄우기 위한 작업, 위에서 보낸 번들데이터를 여기에서 보내는게 
                             Bundle bundle = new Bundle();
                             bundle.putInt("stationnum", stationnum);
                             BeomgyeB2.setArguments(bundle);
