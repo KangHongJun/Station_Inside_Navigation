@@ -24,8 +24,6 @@ public class Graph {
     }
 
     public int dijkstra(int start, int end){
-
-
         System.out.println("알고리즘 시작");
 
         int distance[] = new int[n]; //         //최단 거리를 저장할 변수
@@ -123,10 +121,13 @@ public class Graph {
                 break;
             }
             routeStack[routeCount] = now;
-            //System.out.println(now+"진행중");
+            System.out.println(now+"진행중");
             route[i]=now;
             i++;
         }
         return distance[end];
+    }
+    static public int[] getRoute(){
+        return route;
     }
 }

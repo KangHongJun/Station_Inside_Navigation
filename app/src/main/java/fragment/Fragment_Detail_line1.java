@@ -69,9 +69,9 @@ public class Fragment_Detail_line1 extends Fragment {
         TextView curSt = viewGroup.findViewById(R.id.Detail_Current_Text);
         curSt.setText(curStation);
         curSt.setBackgroundResource(R.drawable.station1_main);
-        db = new DatabaseHelper(getActivity());
 
         //DB읽기
+        db = new DatabaseHelper(getActivity());
         DBHelper Helper;
         SQLiteDatabase sqlDB;
         Helper = new DBHelper(getActivity(),"subway_info.db",null,1);

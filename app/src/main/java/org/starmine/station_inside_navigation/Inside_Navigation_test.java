@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import fragment.Beomgyeb1;
 import fragment.Beomgyeb2;
+import fragment.Fragment_InsideNavi;
 import fragment.Sadangb1;
 import fragment.Sadangb3;
 
@@ -39,6 +40,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
     Beomgyeb1 BeomgyeB1;
     Sadangb1 sadangb1;
     Sadangb3 sadangb3;
+    Fragment_InsideNavi InsideB4,InsideB3,InsideB2,InsideB1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,11 @@ public class Inside_Navigation_test extends AppCompatActivity {
         BeomgyeB1 = new Beomgyeb1();
         sadangb1 = new Sadangb1();
         sadangb3 = new Sadangb3();
+        //지도 프라그먼트
+        InsideB1 = new Fragment_InsideNavi();
+        InsideB2 = new Fragment_InsideNavi();
+        InsideB3 = new Fragment_InsideNavi();
+        InsideB4 = new Fragment_InsideNavi();
 
 
         Toolbar toolbar = findViewById(R.id.Inside_Toolbar);
@@ -108,8 +115,12 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"역 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else{
                         try{//이 부분을 역 이름이 아닌 입력된 역에대해 탐색 후 프라그먼트 설정(번들로 이미지 이름 보내주던지 할듯)
-                            if (curStation.equals("범계"))
-                                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                            if (curStation.equals("범계")){
+                                Bundle bundle = new Bundle();
+                                bundle.putString("floor", "범계B2");
+                                InsideB2.setArguments(bundle);
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,InsideB2).commit();
+                            }
                             else if (curStation.equals("사당"))
                                 getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest, sadangb3).commit();
                         }catch (Exception e){
@@ -120,24 +131,20 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Step = 1;
                         Toast.makeText(getApplicationContext(),"현재 위치를 입력해주세요",Toast.LENGTH_SHORT).show();
                         
-                        //노드값 입력
-                        DBHelper Helper;
-                        SQLiteDatabase sqlDB;
-                        Helper = new DBHelper(Inside_Navigation.this,"subway_info.db",null,1);//db변경**
-                        sqlDB = Helper.getReadableDatabase();
-                        Helper.onCreate(sqlDB);
+                      //DB참조
 
 
                         //층수를 구별해야 하므로 전체조회 및 층수 저장
-                        Cursor cursor_inside = sqlDB.rawQuery("select * from b1",null);//db변경**
-                        while (cursor_inside.moveToNext()){
-                            insideG.input(cursor_inside.getInt(0),cursor_inside.getInt(1),cursor_inside.getInt(2));//insideG가 아닌 다른 배열에 저장
-                        }
+                       // Cursor cursor_inside = sqlDB.rawQuery("select * from b1",null);//db변경**
+//                        while (cursor_inside.moveToNext()){
+//                            insideG.input(cursor_inside.getInt(0),cursor_inside.getInt(1),cursor_inside.getInt(2));
+//              insideG가 아닌 다른 배열에 저장
+//                        }
 
                         //층수만큼 반복하여 층수*100으로 나눠서 각각 b1 b2 b3...에 저장후 각 길이를 구하고
 
                         //그래프
-                        insideG = new Graph(11);//전체길이로 그래프 생성 후 전체길이 만큼 반복하여 insideG에 값을 넣는다.
+                        //insideG = new Graph(11);//전체길이로 그래프 생성 후 전체길이 만큼 반복하여 insideG에 값을 넣는다.
 
 
                         //insideG에 경로가 리턴되므로(노드 번호) 구간별로 나눈 후 아래의 단계에서 좌표값을 번들 데이터로 보내주던지 한다.
@@ -148,9 +155,14 @@ public class Inside_Navigation_test extends AppCompatActivity {
                     if(!(inside_start.length()==0|inside_startSub.length()==0)){
                         Step = 2;
 
-                        try{
-                            if (curStation.equals("범계"))
-                                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB1).commit();
+                        try{//일단 범계만 예시로
+                            if (curStation.equals("범계")){
+                                Bundle bundle = new Bundle();
+                                bundle.putString("floor", "범계B1");
+                                InsideB1.setArguments(bundle);
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,InsideB1).commit();
+                            }
+
                             else if (curStation.equals("사당"))
                                 getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest, sadangb1).commit();
                         }catch (Exception e){
@@ -173,13 +185,16 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"아래의 버튼으로 층마다의 경로를 확인할수 있습니다.",Toast.LENGTH_SHORT).show();
                         stationnum=1;
 
-                        if(stationnum==1){//프라그먼트에서 지도를 띄우기 위한 작업, 위에서 보낸 번들데이터를 여기에서 보내는게 
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("stationnum", stationnum);
-                            BeomgyeB2.setArguments(bundle);
+                        if(stationnum==1){//프라그먼트에서 지도를 띄우기 위한 작업, 위에서 보낸 번들데이터를 여기에서 보내는게
+
+
+                            Bundle bundle_last = new Bundle();
+                            bundle_last.putInt("stationnum", stationnum);
+                            bundle_last.putString("floor", "범계B2");
+                            InsideB2.setArguments(bundle_last);
                         }
 
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,InsideB2).commit();
 
 
 
@@ -194,7 +209,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     if (curStation.equals("범계"))
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB2).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,InsideB2).commit();
                     else if (curStation.equals("사당")){
                         getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,sadangb3).commit();
                     }
