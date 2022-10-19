@@ -1,9 +1,16 @@
 # Station_Inside_Navigation
-Subway Information & Subway Station inside Navigation android APP
+Subway Information & Subway Station inside Navigation android APP in Korea
+[java file](https://github.com/KangHongJun/Station_Inside_Navigation/tree/main/app/src/main/java/org/starmine/station_inside_navigation)
+
+
 
 * implementing subway route with Dijkstra
 
-[java file](https://github.com/KangHongJun/Station_Inside_Navigation/tree/main/app/src/main/java/org/starmine/station_inside_navigation)
+# 추가작업
+* 역내부 안내
+ 1. inside navigation 한층 기준은 test완료, 여러층 합쳐서 진행
+ (방식은 subway route과 같다)
+ 2. 길찾기 return값 기준으로 그림 그리기, 배열 추가 및, 반복a[i],a[i+1] ==(A B or B A)
 
 # 개선사항&에러
 * 역 내부 지도 개선 - 경로 안내 표시
@@ -17,8 +24,7 @@ Subway Information & Subway Station inside Navigation android APP
 
 
 # 리팩토링
-*line fragment 하나로 생성하여 번들 데이터로 각각 보내기
-* static 남용 수정
+* line fragment 하나로 생성하여 번들 데이터로 각각 보내기
 * line code구하는 class생성 - null일때 예외처리
 * DB참조 class생성
 
