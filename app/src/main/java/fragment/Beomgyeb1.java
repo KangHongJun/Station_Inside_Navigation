@@ -70,8 +70,7 @@ public class Beomgyeb1 extends Fragment {
         paint.setStrokeWidth(10f);
                                              
         //시작지점에 원 추가 panint2 생성해서 다른 형태지정
-        canvas.drawLine(765,190,765,230,paint);
-        canvas.drawLine(765,230,1080,230,paint);
+
         canvas.drawBitmap(overlay,100,100,paint);
 
         insideMap_Img.setImageBitmap(bitmap);

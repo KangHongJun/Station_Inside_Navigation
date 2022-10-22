@@ -34,7 +34,7 @@ public class Fragment_InsideNavi extends Fragment {
     String curdata;
     DatabaseHelper db;
 
-    int StartL, EndL, FloorCount;
+    int StartL, EndL, FloorCount,Mnode;
     BitmapDrawable bitmapDrawable;//지도 이미지 비트맵 변환,저장
 
     @Nullable
@@ -54,30 +54,46 @@ public class Fragment_InsideNavi extends Fragment {
 
         if (curdata.equals("범계B1")){
             bitmapDrawable = (BitmapDrawable)resources.getDrawable(R.drawable.beomgye_b1);
+            Bitmap bitmap = bitmapDrawable.getBitmap().copy(Bitmap.Config.ARGB_8888,true);
+            insideMap_Img.setImageBitmap(bitmap);
+
+            //지하철
+            canvas = new Canvas(bitmap);
+            canvas.drawBitmap(bitmap,new Matrix(),null);
+
+            Bundle curstation = getArguments();
+            if(curstation != null){
+                stationnum = curstation.getInt("stationnum");
+            }
+            System.out.println(stationnum+"B1");
+            if (stationnum==1){
+                setstairColor(bitmap,1);
+            }
         }else if (curdata.equals("범계B2")){
             bitmapDrawable = (BitmapDrawable)resources.getDrawable(R.drawable.beomgye_b2);
+            Bitmap bitmap = bitmapDrawable.getBitmap().copy(Bitmap.Config.ARGB_8888,true);
+            insideMap_Img.setImageBitmap(bitmap);
+
+            //지하철
+            canvas = new Canvas(bitmap);
+            canvas.drawBitmap(bitmap,new Matrix(),null);
+
+            Bundle curstation = getArguments();
+            if(curstation != null){
+                stationnum = curstation.getInt("stationnum");
+            }
+            System.out.println(stationnum+"B2");
+            if (stationnum==1){
+                setstairColor(bitmap,2);
+            }
         }
 
-        Bitmap bitmap = bitmapDrawable.getBitmap().copy(Bitmap.Config.ARGB_8888,true);
-        insideMap_Img.setImageBitmap(bitmap);
 
-        //지하철
-        canvas = new Canvas(bitmap);
-        canvas.drawBitmap(bitmap,new Matrix(),null);
-
-        Bundle curstation = getArguments();
-        if(curstation != null){
-            stationnum = curstation.getInt("stationnum");
-        }
-
-        if (stationnum==1){
-            setstairColor(bitmap);
-        }
 
         return viewGroup;
     }
 
-    public void setstairColor(Bitmap bitmap){
+    public void setstairColor(Bitmap bitmap,int Curfloor){
         //이미지 위에 선 그리기
         //위에 그림
         db = new DatabaseHelper(getActivity());
@@ -88,43 +104,47 @@ public class Fragment_InsideNavi extends Fragment {
         Helper.onCreate(sqlDB);
 
         Cursor cursor_all = sqlDB.rawQuery("select * from BeomB2_test2;",null);
+        int NodeCount = cursor_all.getCount();
+
         Cursor cursor_get_node = sqlDB.rawQuery("select max(B/100) from BeomB2_test2;",null);
 
         cursor_get_node.moveToFirst();
         FloorCount = cursor_get_node.getInt(0);
-        int NodeCount = cursor_all.getCount();
+
 
 
         //경로찾기 알고리즘
         Graph navigation;
-        navigation = new Graph(NodeCount);
+        navigation = new Graph(NodeCount+1);
         ArrayList<Integer> floorNodeCount = new ArrayList<>();
         floorNodeCount.add(0);
 
         for(int i=1;i<FloorCount+1;i++){
             String SQl = "select * from BeomB2_test2 where A/100=" +i;
-
             Cursor cursor_test = sqlDB.rawQuery(SQl,null);
 
             String SQl_count = "select max(B) from BeomB2_test2 where B/100=" +i;
             Cursor nodeCount = sqlDB.rawQuery(SQl_count,null);
 
             nodeCount.moveToFirst();
-            floorNodeCount.add(nodeCount.getInt(0));
+            floorNodeCount.add(floorNodeCount.get(i-1) + nodeCount.getInt(0)-100*i+1);
+            System.out.println(floorNodeCount+"floorNodeCount");
+            Mnode = 100*(i)-floorNodeCount.get(i-1);
+            System.out.println(Mnode+"Mnode");
 
-            int testfllor = nodeCount.getInt(0);
-            System.out.println(testfllor);
+
             cursor_test.moveToFirst();
-            while (true){
-                try{
-                    int Mnode = 100*i-floorNodeCount.get(i - 1);
+            for (int j=0;j<cursor_test.getCount();j++){
+
+                if (cursor_test.getInt(1)>=(i+1)*100){
+                    int Mnode2 = 100*(i+1)-floorNodeCount.get(i);
+
+                    navigation.input(cursor_test.getInt(0)-Mnode,cursor_test.getInt(1)-Mnode2,cursor_test.getInt(2));
+                }else {
                     navigation.input(cursor_test.getInt(0)-Mnode,cursor_test.getInt(1)-Mnode,cursor_test.getInt(2));
-                    cursor_test.moveToNext();
-                }catch (Exception e){
-                    break;
+
                 }
-
-
+                cursor_test.moveToNext();
             }
         }
 
@@ -146,40 +166,60 @@ public class Fragment_InsideNavi extends Fragment {
 //            navigation.dijkstra(EndL,StartL);
 //        }
 
-        navigation.dijkstra(0,6);
+        navigation.dijkstra(2,32);
 
         ArrayList route_list = navigation.getRoute_list();
 
+        //노드값 조정
+        ArrayList<Integer> result_list = new ArrayList<>();
         for(int i=0;i<route_list.size();i++){
             System.out.println(route_list.get(i));
+            int route_list_value = (int) route_list.get(i);
+            if (route_list_value>floorNodeCount.get(FloorCount-Curfloor) && route_list_value<floorNodeCount.get(FloorCount-Curfloor+1)){
+                    int result = (int)route_list.get(i)-floorNodeCount.get(FloorCount-Curfloor)+100*(FloorCount-Curfloor+1);
+                    result_list.add(result);
+
+
+
+//            for(int j=0;j<floorNodeCount.size()-1;j++){
+//                if (route_list_value>floorNodeCount.get(j) && route_list_value<floorNodeCount.get(j+1)){
+//                    int result = (int)route_list.get(i)-floorNodeCount.get(j)+100*(j+1);
+//                    result_list.add(result);
+//                }
+//
+            }
         }
+
+        System.out.println(result_list);
 
         Bitmap overlay = Bitmap.createBitmap(100,100, Bitmap.Config.ARGB_8888);
         Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
         paint.setColor(Color.BLUE);
         paint.setStrokeWidth(10f);
 
-        //위에서 각 구간별로 input은 했으니 나머지 고민해보기
-//        for(int i=0;i<route_list.size();i++){
-//           //System.out.println(route_list.get(i) +"포문 노드");
-//            cursor_test.moveToFirst();
-//            while (true){
-//                try{
-//                    int A = cursor_test.getInt(0);
-//                    int B = cursor_test.getInt(1);
-//                    if (route_list.get(i).equals(A) && route_list.get(i + 1).equals(B)){
-//                        canvas.drawLine(cursor_test.getInt(3),cursor_test.getInt(4),
-//                                cursor_test.getInt(5),cursor_test.getInt(6),paint);
-//                    }else if(route_list.get(i).equals(B) && route_list.get(i + 1).equals(A)){
-//                        canvas.drawLine(cursor_test.getInt(3),cursor_test.getInt(4),
-//                                cursor_test.getInt(5),cursor_test.getInt(6),paint);
-//                    }
-//                    cursor_test.moveToNext();
-//                }catch (Exception e){
-//                    break;
-//                }
-//            }
-//        }
+
+
+        //그림그리기, 각 층별로 구분해야함
+        for(int i=0;i<result_list.size();i++){
+           //System.out.println(route_list.get(i) +"포문 노드");
+            cursor_all.moveToFirst();
+            while (true){
+                try{
+                    int A = cursor_all.getInt(0);
+                    int B = cursor_all.getInt(1);
+                    if (result_list.get(i).equals(A) && result_list.get(i + 1).equals(B)){
+                        canvas.drawLine(cursor_all.getInt(3),cursor_all.getInt(4),
+                                cursor_all.getInt(5),cursor_all.getInt(6),paint);
+                    }else if(result_list.get(i).equals(B) && result_list.get(i + 1).equals(A)){
+                        canvas.drawLine(cursor_all.getInt(3),cursor_all.getInt(4),
+                                cursor_all.getInt(5),cursor_all.getInt(6),paint);
+                    }
+                    cursor_all.moveToNext();
+                }catch (Exception e){
+                    break;
+                }
+            }
+        }
 
         //시작지점에 원 추가 panint2 생성해서 다른 형태지정 하기위해서는 따로 값 지정 해놔야함
         //화살표는 나중에
@@ -187,7 +227,5 @@ public class Fragment_InsideNavi extends Fragment {
         canvas.drawBitmap(overlay,100,100,paint);
 
         insideMap_Img.setImageBitmap(bitmap);
-        System.out.println(canvas.getWidth()+"/"+canvas.getHeight());
-
     }
 }

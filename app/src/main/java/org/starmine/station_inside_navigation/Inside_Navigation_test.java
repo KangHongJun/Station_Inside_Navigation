@@ -19,8 +19,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import fragment.Beomgyeb1;
-import fragment.Beomgyeb2;
 import fragment.Fragment_InsideNavi;
 import fragment.Sadangb1;
 import fragment.Sadangb3;
@@ -36,8 +34,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
     TextView inside_start,inside_startSub,inside_arrival;
 
-    Beomgyeb2 BeomgyeB2;
-    Beomgyeb1 BeomgyeB1;
+
     Sadangb1 sadangb1;
     Sadangb3 sadangb3;
     Fragment_InsideNavi InsideB4,InsideB3,InsideB2,InsideB1;
@@ -70,8 +67,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
 
 
-        BeomgyeB2 = new Beomgyeb2();
-        BeomgyeB1 = new Beomgyeb1();
+
         sadangb1 = new Sadangb1();
         sadangb3 = new Sadangb3();
         //지도 프라그먼트
@@ -207,6 +203,12 @@ public class Inside_Navigation_test extends AppCompatActivity {
         B2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stationnum = 1;
+                Bundle bundle = new Bundle();
+                bundle.putInt("stationnum", stationnum);
+                bundle.putString("floor", "범계B2");
+
+                InsideB2.setArguments(bundle);
                 try {
                     if (curStation.equals("범계"))
                         getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,InsideB2).commit();
@@ -227,11 +229,12 @@ public class Inside_Navigation_test extends AppCompatActivity {
                 stationnum = 1;
                 Bundle bundle = new Bundle();
                 bundle.putInt("stationnum", stationnum);
-                BeomgyeB1.setArguments(bundle);
+                bundle.putString("floor", "범계B1");
+                InsideB1.setArguments(bundle);
 
                 try {
                     if (curStation.equals("범계"))
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,BeomgyeB1).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,InsideB1).commit();
                     else if (curStation.equals("사당")){
                         getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,sadangb1).commit();
                     }
