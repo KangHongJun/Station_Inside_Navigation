@@ -24,6 +24,8 @@ import org.starmine.station_inside_navigation.DatabaseHelper;
 import org.starmine.station_inside_navigation.Graph;
 import org.starmine.station_inside_navigation.R;
 
+import java.util.ArrayList;
+
 public class Fragment_InsideNavi extends Fragment {
     ViewGroup viewGroup;
     ImageView insideMap_Img;
@@ -32,6 +34,7 @@ public class Fragment_InsideNavi extends Fragment {
     String curdata;
     DatabaseHelper db;
 
+    int StartL, EndL, FloorCount;
     BitmapDrawable bitmapDrawable;//지도 이미지 비트맵 변환,저장
 
     @Nullable
@@ -74,8 +77,7 @@ public class Fragment_InsideNavi extends Fragment {
         return viewGroup;
     }
 
-    public void setstairColor(Bitmap bitmap){  //매개변수 추가
-        System.out.println("we");
+    public void setstairColor(Bitmap bitmap){
         //이미지 위에 선 그리기
         //위에 그림
         db = new DatabaseHelper(getActivity());
@@ -84,41 +86,104 @@ public class Fragment_InsideNavi extends Fragment {
         Helper = new DBHelper(getActivity(),"test.db",null,1);
         sqlDB = Helper.getReadableDatabase();
         Helper.onCreate(sqlDB);
-        Cursor cursor_test = sqlDB.rawQuery("select * from BeomB2_test",null);
+
+        Cursor cursor_all = sqlDB.rawQuery("select * from BeomB2_test2;",null);
+        Cursor cursor_get_node = sqlDB.rawQuery("select max(B/100) from BeomB2_test2;",null);
+
+        cursor_get_node.moveToFirst();
+        FloorCount = cursor_get_node.getInt(0);
+        int NodeCount = cursor_all.getCount();
 
 
+        //경로찾기 알고리즘
         Graph navigation;
-        navigation = new Graph(14);
-        while (cursor_test.moveToNext()){
-            navigation.input(cursor_test.getInt(0),cursor_test.getInt(1),cursor_test.getInt(2));
+        navigation = new Graph(NodeCount);
+        ArrayList<Integer> floorNodeCount = new ArrayList<>();
+        floorNodeCount.add(0);
+
+        for(int i=1;i<FloorCount+1;i++){
+            String SQl = "select * from BeomB2_test2 where A/100=" +i;
+
+            Cursor cursor_test = sqlDB.rawQuery(SQl,null);
+
+            String SQl_count = "select max(B) from BeomB2_test2 where B/100=" +i;
+            Cursor nodeCount = sqlDB.rawQuery(SQl_count,null);
+
+            nodeCount.moveToFirst();
+            floorNodeCount.add(nodeCount.getInt(0));
+
+            int testfllor = nodeCount.getInt(0);
+            System.out.println(testfllor);
+            cursor_test.moveToFirst();
+            while (true){
+                try{
+                    int Mnode = 100*i-floorNodeCount.get(i - 1);
+                    navigation.input(cursor_test.getInt(0)-Mnode,cursor_test.getInt(1)-Mnode,cursor_test.getInt(2));
+                    cursor_test.moveToNext();
+                }catch (Exception e){
+                    break;
+                }
+
+
+            }
         }
 
 
-        //큰값보다는 작은값에서 시작하는 것이 잘되기 때문에 그부분을 조정한다
-        //1. start,end값 비교하여 셋, 어차피 선으로 그려지기 때문에 상관없음
-        navigation.dijkstra(5,13);
-        int[] a = navigation.getRoute();
-        //System.out.println(route_time+"프라그먼트"+a[0]);
 
+
+
+
+
+        //루트 반환 및 지도 그리기
+
+        //시작 및 도착지점도 번들 데이터로 받아야한다
+        StartL = 5;
+        EndL=13;
+        //큰값보다는 작은값에서 시작하는 것이 잘되기 값 조정
+//        if (StartL>EndL){
+//            navigation.dijkstra(StartL,EndL);
+//        }else if(StartL<EndL){
+//            navigation.dijkstra(EndL,StartL);
+//        }
+
+        navigation.dijkstra(0,6);
+
+        ArrayList route_list = navigation.getRoute_list();
+
+        for(int i=0;i<route_list.size();i++){
+            System.out.println(route_list.get(i));
+        }
 
         Bitmap overlay = Bitmap.createBitmap(100,100, Bitmap.Config.ARGB_8888);
         Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
         paint.setColor(Color.BLUE);
         paint.setStrokeWidth(10f);
 
-        //a배열에 시작점 끝점을 양 끝에 추가하고, 그것과 A B위치가 둘다 같은걸 찾아서 진행
-        cursor_test.moveToFirst();
-        for(int i=0;i<a.length-1;i++){
-            System.out.println(a[i]+"노드번호");
-            while (cursor_test.moveToNext()){
-                int A = cursor_test.getInt(0);
-                int B = cursor_test.getInt(1);
-            }
-        }
+        //위에서 각 구간별로 input은 했으니 나머지 고민해보기
+//        for(int i=0;i<route_list.size();i++){
+//           //System.out.println(route_list.get(i) +"포문 노드");
+//            cursor_test.moveToFirst();
+//            while (true){
+//                try{
+//                    int A = cursor_test.getInt(0);
+//                    int B = cursor_test.getInt(1);
+//                    if (route_list.get(i).equals(A) && route_list.get(i + 1).equals(B)){
+//                        canvas.drawLine(cursor_test.getInt(3),cursor_test.getInt(4),
+//                                cursor_test.getInt(5),cursor_test.getInt(6),paint);
+//                    }else if(route_list.get(i).equals(B) && route_list.get(i + 1).equals(A)){
+//                        canvas.drawLine(cursor_test.getInt(3),cursor_test.getInt(4),
+//                                cursor_test.getInt(5),cursor_test.getInt(6),paint);
+//                    }
+//                    cursor_test.moveToNext();
+//                }catch (Exception e){
+//                    break;
+//                }
+//            }
+//        }
 
-        //시작지점에 원 추가 panint2 생성해서 다른 형태지정
-        canvas.drawLine(765,190,765,230,paint);
-        canvas.drawLine(765,230,1080,230,paint);
+        //시작지점에 원 추가 panint2 생성해서 다른 형태지정 하기위해서는 따로 값 지정 해놔야함
+        //화살표는 나중에
+
         canvas.drawBitmap(overlay,100,100,paint);
 
         insideMap_Img.setImageBitmap(bitmap);

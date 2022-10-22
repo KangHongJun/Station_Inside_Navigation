@@ -1,11 +1,14 @@
 package org.starmine.station_inside_navigation;
 
+import java.util.ArrayList;
+
 class RoutePair{
     int ParentV; //시작 위치
     int ChildV; //끝 위치
 }
 
 public class Graph {
+    ArrayList<Integer> route_list = new ArrayList<>();
     static int route[];
 
     private int n;           //노드들의 수
@@ -97,7 +100,10 @@ public class Graph {
         }
 
 
-        route = new int[routePair.length];
+        route = new int[routePair.length]; //999같은 적당하 값으로 초기화 해두기
+        route[0] = end;
+        route_list.add(end);
+
         System.out.println("경로 체크");
         System.out.println("소요시간 : "+distance[end]);
 
@@ -108,7 +114,7 @@ public class Graph {
         int now = end; //끝 노드 임시
 
 
-        int i =0;
+        int i =1;
 
         while(true){
             if (routePair[now-1].ParentV == start){
@@ -123,11 +129,19 @@ public class Graph {
             routeStack[routeCount] = now;
             System.out.println(now+"진행중");
             route[i]=now;
+            route_list.add(now);
             i++;
         }
+
+        route[i]=start;
+        route_list.add(start);
         return distance[end];
     }
     static public int[] getRoute(){
         return route;
+    }
+
+    public ArrayList getRoute_list(){
+        return route_list;
     }
 }
