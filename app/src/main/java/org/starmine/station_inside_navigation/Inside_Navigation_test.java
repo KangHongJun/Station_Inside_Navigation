@@ -94,23 +94,17 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
             }
         });
-
-
-
         inside_btn.setText("다음");
         inside_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //현재역 기준으로 이미지&버튼 세팅
-                //클래스 생성하여 curStation보내기
-
-
                //스탭으로 구분
                 if(Step==0){
                     if (inside_station.length()==0){
                         Toast.makeText(getApplicationContext(),"역 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else{
-                        try{//이 부분을 역 이름이 아닌 입력된 역에대해 탐색 후 프라그먼트 설정(번들로 이미지 이름 보내주던지 할듯)
+                        try{
                             if (curStation.equals("범계")){
                                 Bundle bundle = new Bundle();
                                 bundle.putString("floor", "범계B2");
@@ -122,8 +116,6 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         }catch (Exception e){
                             Toast.makeText(getApplicationContext(),"다른 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
                         }
-
-
                         Step = 1;
                         Toast.makeText(getApplicationContext(),"현재 위치를 입력해주세요",Toast.LENGTH_SHORT).show();
                         

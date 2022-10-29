@@ -76,13 +76,10 @@ public class Subway_Route extends AppCompatActivity {
             public void onClick(View view) {
                 subway_route = new String[100];
                 subway_route_line = new int[100];
-
                 visit_station = 1;
-
                 //시작 도착역 텍스트 가져오기
                 start = String.valueOf(start_station.getText());
                 arrival = String.valueOf(arrival_station.getText());
-                //Toast.makeText(getApplicationContext(),start+arrival,Toast.LENGTH_SHORT).show();
 
                 //subway_coordinate 역이름에 해당하는 코드번호 가져오기
                 Cursor route_name = Subway_Map.cursor_coor;
@@ -90,7 +87,6 @@ public class Subway_Route extends AppCompatActivity {
                 while (route_name.moveToNext()){
                     if(start.equals(route_name.getString(1))){
                         startL = route_name.getInt(0)/100;
-                        System.out.println(start+"start : "+route_name.getInt(0)+startL);
 
                         //start, arrival 코드값 조정
                         if(startL==1){
@@ -147,11 +143,6 @@ public class Subway_Route extends AppCompatActivity {
                     }
                 }
 
-
-
-                //Toast.makeText(getApplicationContext(),route_name.getString(0)+"",Toast.LENGTH_SHORT).show();
-
-
                 //MainActivity에서 그래프 미리 생성해두고 검색하기
                 if(startV != endV){
                     System.out.println(startV+"알고리즘"+endV);
@@ -192,7 +183,6 @@ public class Subway_Route extends AppCompatActivity {
                             if(visit==route_name.getInt(0)){
                                 subway_route_line[visit_station]=route_name.getInt(0)/100;
                                 subway_route[visit_station]=route_name.getString(1);
-
                                 System.out.println(route_name.getString(1) + "방문");
                                 visit_station++;
                             }

@@ -387,8 +387,6 @@ public class Fragment_Detail_line1 extends Fragment {
 
         TimeZone timezone;
         timezone = TimeZone.getTimeZone("Asia/Seoul");
-
-
         //현재 시
         SimpleDateFormat dateFormat = new SimpleDateFormat("k", Locale.KOREAN);
         dateFormat.setTimeZone(timezone);
@@ -401,7 +399,6 @@ public class Fragment_Detail_line1 extends Fragment {
         SimpleDateFormat dateFormat_SS = new SimpleDateFormat("ss", Locale.KOREAN);
         dateFormat_SS.setTimeZone(timezone);
         String curSecond = dateFormat_SS.format(date);
-
 
         SimpleDateFormat dateFormat_QQ = new SimpleDateFormat("k:mm:ss", Locale.KOREAN);
         dateFormat_QQ.setTimeZone(timezone);

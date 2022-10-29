@@ -227,9 +227,7 @@ public class Subway_Detailed_View extends AppCompatActivity{
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
-
                 Fragment selected = null;
-
                 if (position == 0) {
                     selected = detailed_view1;
                     tab_position = 1;
@@ -290,11 +288,9 @@ public class Subway_Detailed_View extends AppCompatActivity{
         for (int i = 0; i < tab_count; i++) {
             ((LinearLayout) tabs.getTabAt(i).view).setVisibility(View.GONE);
         }
-        //tabs.selectTab(tabs.getTabAt(4));
 
         //해당하는 역의 호선 탭 활성화
         for (int i = 0; i < count; i++) {
-            //Toast.makeText(getApplicationContext(), "test" + Staionline[i], Toast.LENGTH_LONG).show();
             int line = Integer.parseInt(Staionline[i]);
             ((LinearLayout) tabs.getTabAt(line - 1).view).setVisibility(View.VISIBLE);
         }
@@ -451,7 +447,6 @@ public class Subway_Detailed_View extends AppCompatActivity{
                         break;
                     default:
                         break;
-
                 }
                 break;
             default:

@@ -115,24 +115,20 @@ public class Subway_Map extends AppCompatActivity {
                 PointF sCoord = imageView.viewToSourceCoord(event.getX(), event.getY());
                 int x_cor = (int) sCoord.x;
                 int y_cor = (int) sCoord.y;
-                //TileScale = 1;
+                TileScale = imageView.getMaxScale();;
 
                 if (cursor_coor.moveToFirst()){
                     do{
-                        if ((x_cor > cursor_coor.getInt(2)*TileScale) && (x_cor < cursor_coor.getInt(4)*TileScale) && (y_cor > cursor_coor.getInt(3)*TileScale) && (y_cor < cursor_coor.getInt(5)*TileScale)) {
+                        if ((x_cor > cursor_coor.getInt(2)*TileScale) && (x_cor < cursor_coor.getInt(4)*TileScale)
+                                && (y_cor > cursor_coor.getInt(3)*TileScale) && (y_cor < cursor_coor.getInt(5)*TileScale)) {
 
                             curStation = cursor_coor.getString(1);
                             makeQuickAction();
                             quickAction.show(imageView,1,1);
-
-                            Toast.makeText(getApplicationContext(), curStation+x_cor + "/"+ y_cor + "\n" , Toast.LENGTH_LONG).show();
-
                         }
                     } while (cursor_coor.moveToNext());
 
                 }
-
-                //Toast.makeText(getApplicationContext(),"x: "+x_cor+ "y :"+y_cor,Toast.LENGTH_LONG).show();
                 return false;
             }
 
@@ -247,7 +243,6 @@ public class Subway_Map extends AppCompatActivity {
         quickAction.addActionItem(infoItem);
         quickAction.addActionItem(searchItem);
         quickAction.addActionItem(inner);
-        //quickAction.addActionItem(bookmark);
 
         //퀵 액션 클릭 리스너
         quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
@@ -260,7 +255,6 @@ public class Subway_Map extends AppCompatActivity {
                         Intent intent3 = new Intent(Subway_Map.this,Subway_Route.class);
                         intent3.putExtra("station", curStation);
                         startActivity(intent3);
-                        //Toast.makeText(getApplicationContext(), curStation, Toast.LENGTH_LONG).show();
                         break;
                     case "상세보기":
                         Intent intent = new Intent(Subway_Map.this,Subway_Detailed_View.class);

@@ -135,10 +135,8 @@ public class Fragment_InsideNavi extends Fragment {
 
             cursor_test.moveToFirst();
             for (int j=0;j<cursor_test.getCount();j++){
-
                 if (cursor_test.getInt(1)>=(i+1)*100){
                     int Mnode2 = 100*(i+1)-floorNodeCount.get(i);
-
                     navigation.input(cursor_test.getInt(0)-Mnode,cursor_test.getInt(1)-Mnode2,cursor_test.getInt(2));
                 }else {
                     navigation.input(cursor_test.getInt(0)-Mnode,cursor_test.getInt(1)-Mnode,cursor_test.getInt(2));
@@ -166,7 +164,7 @@ public class Fragment_InsideNavi extends Fragment {
 //            navigation.dijkstra(EndL,StartL);
 //        }
 
-        navigation.dijkstra(2,32);
+        navigation.dijkstra(2,21);
 
         ArrayList route_list = navigation.getRoute_list();
 
@@ -197,11 +195,8 @@ public class Fragment_InsideNavi extends Fragment {
         paint.setColor(Color.BLUE);
         paint.setStrokeWidth(10f);
 
-
-
-        //그림그리기, 각 층별로 구분해야함
+        //그림그리기
         for(int i=0;i<result_list.size();i++){
-           //System.out.println(route_list.get(i) +"포문 노드");
             cursor_all.moveToFirst();
             while (true){
                 try{

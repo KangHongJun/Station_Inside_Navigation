@@ -53,7 +53,6 @@ public class Fragment_Transfer_Two extends Fragment {
         transfer_count=0;
         transfer= new int[2];
 
-
         Bundle bundle= getArguments();
         route = bundle.getStringArray("subway_route");
         route_line = bundle.getIntArray("subway_route_line");
@@ -155,7 +154,6 @@ public class Fragment_Transfer_Two extends Fragment {
 
         switch (route_line[transfer[0]]){
             case 1:
-                System.out.println("된가인ㄴ가?");
                 Trans_stick3.setBackgroundResource(R.color.line1);
                 Trans_img2.setImageResource(R.drawable.img_line1);
                 break;
