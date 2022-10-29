@@ -31,6 +31,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
     int Step = 0;
     int stationnum = 0;
+    int StartIn =0,EndIn=0;
 
     TextView inside_start,inside_startSub,inside_arrival;
 
@@ -52,9 +53,8 @@ public class Inside_Navigation_test extends AppCompatActivity {
         inside_station.setText(curStation);
 
         inside_start = findViewById(R.id.Inside_Start_Edit);
-        inside_startSub = findViewById(R.id.Inside_StartSub_Edit);
-
         inside_arrival = findViewById(R.id.Inside_Arrival_Edit);
+
 
         inside_btn = findViewById(R.id.inside_Btn);
 
@@ -118,8 +118,8 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         }
                         Step = 1;
                         Toast.makeText(getApplicationContext(),"현재 위치를 입력해주세요",Toast.LENGTH_SHORT).show();
-                        
-                      //DB참조
+
+                        //DB참조
 
 
                         //층수를 구별해야 하므로 전체조회 및 층수 저장
@@ -140,7 +140,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
                     }
 
                 }else if(Step ==1){
-                    if(!(inside_start.length()==0|inside_startSub.length()==0)){
+                    if(!(inside_start.length()==0)){
                         Step = 2;
 
                         try{//일단 범계만 예시로
@@ -179,7 +179,12 @@ public class Inside_Navigation_test extends AppCompatActivity {
                             Bundle bundle_last = new Bundle();
                             bundle_last.putInt("stationnum", stationnum);
                             bundle_last.putString("floor", "범계B2");
+                            StartIn  = Integer.parseInt(String.valueOf(inside_start.getText()));
+                            EndIn  = Integer.parseInt(String.valueOf(inside_arrival.getText()));
+                            bundle_last.putInt("start",StartIn);
+                            bundle_last.putInt("end",EndIn);
                             InsideB2.setArguments(bundle_last);
+                            InsideB1.setArguments(bundle_last);
                         }
 
                         getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,InsideB2).commit();
@@ -222,6 +227,11 @@ public class Inside_Navigation_test extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putInt("stationnum", stationnum);
                 bundle.putString("floor", "범계B1");
+                StartIn  = Integer.parseInt(String.valueOf(inside_start.getText()));
+                EndIn  = Integer.parseInt(String.valueOf(inside_arrival.getText()));
+                bundle.putInt("start",StartIn);
+                bundle.putInt("end",EndIn);
+
                 InsideB1.setArguments(bundle);
 
                 try {

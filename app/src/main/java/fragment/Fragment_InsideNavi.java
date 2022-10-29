@@ -33,6 +33,7 @@ public class Fragment_InsideNavi extends Fragment {
     int stationnum;
     String curdata;
     DatabaseHelper db;
+    int MNodeCount;
 
     int StartL, EndL, FloorCount,Mnode;
     BitmapDrawable bitmapDrawable;//지도 이미지 비트맵 변환,저장
@@ -103,10 +104,10 @@ public class Fragment_InsideNavi extends Fragment {
         sqlDB = Helper.getReadableDatabase();
         Helper.onCreate(sqlDB);
 
-        Cursor cursor_all = sqlDB.rawQuery("select * from BeomB2_test2;",null);
+        Cursor cursor_all = sqlDB.rawQuery("select * from BeomB2_test3;",null);
         int NodeCount = cursor_all.getCount();
 
-        Cursor cursor_get_node = sqlDB.rawQuery("select max(B/100) from BeomB2_test2;",null);
+        Cursor cursor_get_node = sqlDB.rawQuery("select max(B/100) from BeomB2_test3;",null);
 
         cursor_get_node.moveToFirst();
         FloorCount = cursor_get_node.getInt(0);
@@ -120,13 +121,17 @@ public class Fragment_InsideNavi extends Fragment {
         floorNodeCount.add(0);
 
         for(int i=1;i<FloorCount+1;i++){
-            String SQl = "select * from BeomB2_test2 where A/100=" +i;
+            String SQl = "select * from BeomB2_test3 where A/100=" +i;
             Cursor cursor_test = sqlDB.rawQuery(SQl,null);
 
-            String SQl_count = "select max(B) from BeomB2_test2 where B/100=" +i;
+            String SQl_count = "select max(max(B),max(A)) from BeomB2_test3 where B/100=" +i;
             Cursor nodeCount = sqlDB.rawQuery(SQl_count,null);
 
+
             nodeCount.moveToFirst();
+
+            //MNodeCount = nodeCount.getInt(0);//나중엔 이걸 쓸지도?
+
             floorNodeCount.add(floorNodeCount.get(i-1) + nodeCount.getInt(0)-100*i+1);
             System.out.println(floorNodeCount+"floorNodeCount");
             Mnode = 100*(i)-floorNodeCount.get(i-1);
@@ -138,9 +143,12 @@ public class Fragment_InsideNavi extends Fragment {
                 if (cursor_test.getInt(1)>=(i+1)*100){
                     int Mnode2 = 100*(i+1)-floorNodeCount.get(i);
                     navigation.input(cursor_test.getInt(0)-Mnode,cursor_test.getInt(1)-Mnode2,cursor_test.getInt(2));
+                    System.out.println(cursor_test.getInt(0)-Mnode+"if일때 A");
+                    System.out.println(cursor_test.getInt(1)-Mnode2+"if일때 B");
                 }else {
                     navigation.input(cursor_test.getInt(0)-Mnode,cursor_test.getInt(1)-Mnode,cursor_test.getInt(2));
-
+                    System.out.println(cursor_test.getInt(0)-Mnode+" A");
+                    System.out.println(cursor_test.getInt(1)-Mnode+" B");
                 }
                 cursor_test.moveToNext();
             }
@@ -155,16 +163,35 @@ public class Fragment_InsideNavi extends Fragment {
         //루트 반환 및 지도 그리기
 
         //시작 및 도착지점도 번들 데이터로 받아야한다
-        StartL = 5;
-        EndL=13;
+
+
+        Bundle StartI = getArguments();
+        if(StartI != null){
+            if (StartI.getInt("start")>0){
+                StartL = StartI.getInt("start")-1;
+            }
+        }
+        Bundle EndI = getArguments();
+        if(EndI != null){
+            if (EndI.getInt("end")>0){
+                EndL =  EndI.getInt("end")+floorNodeCount.get(1)-1;
+
+            }
+
+        }
+//        StartL = 5;
+//        EndL=13;
         //큰값보다는 작은값에서 시작하는 것이 잘되기 값 조정
 //        if (StartL>EndL){
 //            navigation.dijkstra(StartL,EndL);
 //        }else if(StartL<EndL){
 //            navigation.dijkstra(EndL,StartL);
 //        }
+        System.out.println(StartL+"starttt");
+        System.out.println(EndL+"endlll");
 
-        navigation.dijkstra(2,21);
+
+        navigation.dijkstra(StartL,EndL);
 
         ArrayList route_list = navigation.getRoute_list();
 
