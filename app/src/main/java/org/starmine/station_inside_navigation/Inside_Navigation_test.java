@@ -105,6 +105,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"역 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else{
                         try{
+                            //번들 및 프라그먼트 삭제->setimage를 db Bitmap으로 층수에 따라서 마지막층에 해당하는 이미
                             if (curStation.equals("범계")){
                                 Bundle bundle = new Bundle();
                                 bundle.putString("floor", "범계B2");
@@ -144,6 +145,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Step = 2;
 
                         try{//일단 범계만 예시로
+                            //번들 및 프라그먼트 삭제->setimage를 db Bitmap으로 B1에 해당하는 이미지
                             if (curStation.equals("범계")){
                                 Bundle bundle = new Bundle();
                                 bundle.putString("floor", "범계B1");
@@ -175,7 +177,8 @@ public class Inside_Navigation_test extends AppCompatActivity {
 
                         if(stationnum==1){//프라그먼트에서 지도를 띄우기 위한 작업, 위에서 보낸 번들데이터를 여기에서 보내는게
 
-
+                            //번들 및 프라그먼트 삭제->fragment에 있는 그림그리는 코드 진행
+                      
                             Bundle bundle_last = new Bundle();
                             bundle_last.putInt("stationnum", stationnum);
                             bundle_last.putString("floor", "범계B2");
