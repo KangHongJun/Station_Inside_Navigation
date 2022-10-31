@@ -2,12 +2,17 @@ package org.starmine.station_inside_navigation;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +24,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.ArrayList;
+
 import fragment.Fragment_InsideNavi;
+import fragment.Fragment_InsideNavi_Song;
 import fragment.Sadangb1;
 import fragment.Sadangb3;
 
@@ -32,6 +40,11 @@ public class Inside_Navigation_test extends AppCompatActivity {
     int Step = 0;
     int stationnum = 0;
     int StartIn =0,EndIn=0;
+    //층수 데이터
+    int floor_cnt = 0;
+
+    ListView listView_floor;
+    ArrayAdapter<String> arrayAdapter;
 
     TextView inside_start,inside_startSub,inside_arrival;
 
@@ -39,6 +52,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
     Sadangb1 sadangb1;
     Sadangb3 sadangb3;
     Fragment_InsideNavi InsideB4,InsideB3,InsideB2,InsideB1;
+    Fragment_InsideNavi_Song Inside_Test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +69,16 @@ public class Inside_Navigation_test extends AppCompatActivity {
         inside_start = findViewById(R.id.Inside_Start_Edit);
         inside_arrival = findViewById(R.id.Inside_Arrival_Edit);
 
+        listView_floor = findViewById(R.id.Subway_Floor_List);
 
         inside_btn = findViewById(R.id.inside_Btn);
 
 
-        B2 = findViewById(R.id.Inside_B2_Btn);
-        B1 = findViewById(R.id.Inside_B1_Btn);
+        //B2 = findViewById(R.id.Inside_B2_Btn);
+        //B1 = findViewById(R.id.Inside_B1_Btn);
 
-        B2.setVisibility(View.INVISIBLE);
-        B1.setVisibility(View.INVISIBLE);
+        //B2.setVisibility(View.INVISIBLE);
+        //B1.setVisibility(View.INVISIBLE);
 
 
 
@@ -75,6 +90,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
         InsideB2 = new Fragment_InsideNavi();
         InsideB3 = new Fragment_InsideNavi();
         InsideB4 = new Fragment_InsideNavi();
+        Inside_Test = new Fragment_InsideNavi_Song();
 
 
         Toolbar toolbar = findViewById(R.id.Inside_Toolbar);
@@ -85,6 +101,12 @@ public class Inside_Navigation_test extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
+        DBHelper Helper;
+        SQLiteDatabase sqlDB;
+        Helper = new DBHelper(Inside_Navigation_test.this,"test.db",null,1);
+        sqlDB = Helper.getReadableDatabase();
+        Helper.onCreate(sqlDB);
+
         inside_station.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,8 +114,28 @@ public class Inside_Navigation_test extends AppCompatActivity {
                 inside_launcher.launch(intent);
                 Step = 0;//역 이름 다시입력하기위한 초기화 테스트
 
+                Cursor cursor1 = sqlDB.rawQuery("select Max(B) from BeomB2_test3",null);
+
+                cursor1.moveToLast();
+
+                if(cursor1 != null){
+                    floor_cnt = cursor1.getInt(0)/100;
+                }
+
+                Toast.makeText(Inside_Navigation_test.this, String.valueOf(floor_cnt), Toast.LENGTH_LONG).show();
             }
         });
+
+        Cursor cursor1 = sqlDB.rawQuery("select Max(B) from BeomB2_test2",null);
+
+        cursor1.moveToLast();
+
+        if(cursor1 != null){
+            floor_cnt = cursor1.getInt(0)/100;
+        }
+
+        //Toast.makeText(Inside_Navigation_test.this, String.valueOf(floor_cnt), Toast.LENGTH_LONG).show();
+
         inside_btn.setText("다음");
         inside_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +147,6 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"역 이름을 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else{
                         try{
-                            //번들 및 프라그먼트 삭제->setimage를 db Bitmap으로 층수에 따라서 마지막층에 해당하는 이미
                             if (curStation.equals("범계")){
                                 Bundle bundle = new Bundle();
                                 bundle.putString("floor", "범계B2");
@@ -145,7 +186,6 @@ public class Inside_Navigation_test extends AppCompatActivity {
                         Step = 2;
 
                         try{//일단 범계만 예시로
-                            //번들 및 프라그먼트 삭제->setimage를 db Bitmap으로 B1에 해당하는 이미지
                             if (curStation.equals("범계")){
                                 Bundle bundle = new Bundle();
                                 bundle.putString("floor", "범계B1");
@@ -169,16 +209,18 @@ public class Inside_Navigation_test extends AppCompatActivity {
                     if(inside_arrival.length()==0){
                         Toast.makeText(getApplicationContext(),"목적지를 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else{
+                        //층수 리스트 생성
+                        ListAdd(floor_cnt);
+
                         //위에서 목적지까지 입력하면 보이게
-                        B2.setVisibility(View.VISIBLE);
-                        B1.setVisibility(View.VISIBLE);
+                        //B2.setVisibility(View.VISIBLE);
+                        //B1.setVisibility(View.VISIBLE);
                         Toast.makeText(getApplicationContext(),"아래의 버튼으로 층마다의 경로를 확인할수 있습니다.",Toast.LENGTH_SHORT).show();
                         stationnum=1;
 
                         if(stationnum==1){//프라그먼트에서 지도를 띄우기 위한 작업, 위에서 보낸 번들데이터를 여기에서 보내는게
 
-                            //번들 및 프라그먼트 삭제->fragment에 있는 그림그리는 코드 진행
-                      
+
                             Bundle bundle_last = new Bundle();
                             bundle_last.putInt("stationnum", stationnum);
                             bundle_last.putString("floor", "범계B2");
@@ -200,7 +242,42 @@ public class Inside_Navigation_test extends AppCompatActivity {
             }
         });
 
-        B2.setOnClickListener(new View.OnClickListener() {
+        listView_floor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Inside_Test = new Fragment_InsideNavi_Song();
+                String curFloor = adapterView.getItemAtPosition(i).toString();
+
+                String sql = "Select * from Floor_TB Where Station_Name = '" + curStation + "' AND Floor_Nm = '" + curFloor + "'";
+                Cursor Floor_cursor = sqlDB.rawQuery(sql,null);
+
+                Floor_cursor.moveToLast();
+
+                //String TEST = Floor_cursor.getString(0).concat(Floor_cursor.getString(1));
+
+                //Toast.makeText(Inside_Navigation_test.this, curFloor, Toast.LENGTH_LONG).show();
+                System.out.println(curFloor);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("Name", curStation);
+                bundle.putString("Floor", curFloor);
+                bundle.putInt("stationnum", stationnum);
+
+                StartIn  = Integer.parseInt(String.valueOf(inside_start.getText()));
+                EndIn  = Integer.parseInt(String.valueOf(inside_arrival.getText()));
+
+                bundle.putInt("start",StartIn);
+                bundle.putInt("end",EndIn);
+
+                Inside_Test.setArguments(bundle);
+
+                //System.out.println("Check");
+                getSupportFragmentManager().beginTransaction().replace(R.id.container_insidetest,Inside_Test).commitAllowingStateLoss();
+                //finish();
+            }
+        });
+
+        /*B2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stationnum = 1;
@@ -248,9 +325,19 @@ public class Inside_Navigation_test extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
 
 
+    }
+
+    private void ListAdd(int Cnt){
+        ArrayList<String> itemList = new ArrayList<>();
+
+        for(int i=1; i <= Cnt; i++){
+            itemList.add("B".concat(String.valueOf(i)));
+        }
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itemList);
+        listView_floor.setAdapter(arrayAdapter);
     }
 
     ActivityResultLauncher<Intent> inside_launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
