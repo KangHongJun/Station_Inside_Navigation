@@ -8,9 +8,9 @@ Subway Information & Subway Station inside Navigation android APP in Korea
 
 # 추가작업
 * 역내부 안내
- 1. inside navigation 한층 기준은 test완료, 여러층 합쳐서 진행
- (방식은 subway route과 같다)
- 2. 길찾기 return값 기준으로 그림 그리기, 배열 추가 및, 반복a[i],a[i+1] ==(A B or B A)
+ 1. 환승역
+ 2. 리스트뷰 버튼 버그 수정
+ 3. 경로찾기 개선 방식 적용
 
 # 개선사항&에러
 * 역 내부 지도 개선 - 경로 안내 표시
