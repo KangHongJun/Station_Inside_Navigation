@@ -1,7 +1,7 @@
 # Station_Inside_Navigation
 Subway Information & Subway Station inside Navigation android APP in Korea
-[java file](https://github.com/KangHongJun/Station_Inside_Navigation/tree/main/app/src/main/java/org/starmine/station_inside_navigation)
-
+[main](https://github.com/KangHongJun/Station_Inside_Navigation/tree/main/app/src/main/java/org/starmine/station_inside_navigation)
+[fragment](https://github.com/KangHongJun/Station_Inside_Navigation/tree/main/app/src/main/java/fragment)
 
 
 * implementing subway route with Dijkstra
