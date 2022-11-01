@@ -35,7 +35,6 @@ public class Inside_Navigation_test extends AppCompatActivity {
     TextView inside_station;
     static String curStation;
     Button inside_btn;
-    Button B2, B1;
 
     int Step = 0;
     int stationnum = 0;
@@ -46,7 +45,7 @@ public class Inside_Navigation_test extends AppCompatActivity {
     ListView listView_floor;
     ArrayAdapter<String> arrayAdapter;
 
-    TextView inside_start,inside_startSub,inside_arrival;
+    TextView inside_start,inside_arrival;
 
 
     Sadangb1 sadangb1;
@@ -72,15 +71,6 @@ public class Inside_Navigation_test extends AppCompatActivity {
         listView_floor = findViewById(R.id.Subway_Floor_List);
 
         inside_btn = findViewById(R.id.inside_Btn);
-
-
-        //B2 = findViewById(R.id.Inside_B2_Btn);
-        //B1 = findViewById(R.id.Inside_B1_Btn);
-
-        //B2.setVisibility(View.INVISIBLE);
-        //B1.setVisibility(View.INVISIBLE);
-
-
 
 
         sadangb1 = new Sadangb1();

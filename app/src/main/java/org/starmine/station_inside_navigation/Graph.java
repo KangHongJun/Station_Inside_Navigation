@@ -127,7 +127,7 @@ public class Graph {
                 break;
             }
             routeStack[routeCount] = now;
-            System.out.println(now+"진행중");
+            //System.out.println(now+"진행중");
             route[i]=now;
             route_list.add(now);
             i++;

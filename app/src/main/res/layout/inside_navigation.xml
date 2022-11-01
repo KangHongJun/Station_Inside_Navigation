@@ -31,44 +31,49 @@
 
                 <TextView
                     android:id="@+id/Navi_curStation_Text"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="현재 역"
-                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/Inside_Station"
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/black_border"
+                    android:textColor="@color/black"
                     android:layout_marginStart="7dp"
-                    android:background="@color/white"
                     android:textSize="20sp"/>
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재위치(스크린 도어 번호 입력)"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="현재위치"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/Inside_Start_Edit"
-                    android:layout_width="match_parent"
+                    android:layout_width="35dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:background="@color/white"
-                    android:textSize="20sp" />
+                    android:background="@drawable/black_border"
+                    android:textSize="20sp"
+                    android:inputType="number"
+                    />
 
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,57 +82,50 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="목적지"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="목적지" />
 
                 <EditText
                     android:id="@+id/Inside_Arrival_Edit"
-                    android:layout_width="match_parent"
+                    android:layout_width="35dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:background="@color/white"
-                    android:textSize="20sp" />
-
-
+                    android:background="@drawable/black_border"
+                    android:textSize="20sp"
+                    android:inputType="number"
+                    />
             </LinearLayout>
 
-        </LinearLayout>
 
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/Inside_StationSearch_Btn"
+                android:id="@+id/inside_Btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/black_border"
-                android:text="역 검색"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/inside_Search_Btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/black_border"
-                android:text="탐색"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
+    <!--
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/Inside_B2_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -137,7 +135,7 @@
             android:text="B2"/>
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/Inside_B1_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -146,20 +144,17 @@
             android:textSize="20sp"
             android:text="B1" />
     </LinearLayout>
+    -->
 
     <ImageView
-        android:id="@+id/InsideMap_Img"
+        android:id="@+id/Subway_InnerMap"
         android:layout_width="match_parent"
-        android:layout_height="269dp"
-        android:src="@drawable/namtest"
-        />
+        android:layout_height="269dp"/>
 
-    <TextView
-        android:id="@+id/Inside_Route_Text"
-        android:layout_width="match_parent"
+    <ListView
+        android:id="@+id/Subway_Floor_List"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        android:layout_margin="5dp"/>
-
+        android:layout_margin="2dp">
+    </ListView>
 </LinearLayout>
