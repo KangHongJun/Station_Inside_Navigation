@@ -3,7 +3,7 @@ Subway Information & Subway Station inside Navigation android APP in Korea
 [main](https://github.com/KangHongJun/Station_Inside_Navigation/tree/main/app/src/main/java/org/starmine/station_inside_navigation)
 [fragment](https://github.com/KangHongJun/Station_Inside_Navigation/tree/main/app/src/main/java/fragment)
 
-[캡스톤 프로젝트 설명 한글파일 다운로드](https://github.com/KangHongJun/Station_Inside_Navigation/raw/main/%EC%BA%A1%EC%8A%A4%ED%86%A4_%EC%A7%80%ED%95%98%EC%B2%A0%20%EC%97%AD%20%EB%82%B4%EB%B6%80%20%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98.hwp)
+[프로젝트 설명 pdf 다운로드](https://github.com/KangHongJun/Station_Inside_Navigation/raw/main/%EC%BA%A1%EC%8A%A4%ED%86%A4_Subwat_Inside_navaigaton.pdf)
 
 * implementing subway route with Dijkstra
 
