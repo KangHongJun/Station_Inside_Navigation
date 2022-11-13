@@ -93,11 +93,6 @@ public class Inside_Navigation extends AppCompatActivity {
                 Step = 0;//역 이름 다시입력하기위한 초기화 테스트
                 DrawCanvas = new ArrayList<Bitmap>();
 
-                Cursor cursor1 = sqlDB.rawQuery("select Max(B) from BeomB2_test3",null);
-                cursor1.moveToLast();
-                if(cursor1 != null){
-                    floor_cnt = cursor1.getInt(0)/100;
-                }
 
             }
         });
@@ -114,6 +109,22 @@ public class Inside_Navigation extends AppCompatActivity {
                     else
                     {
                         try {
+
+                            Cursor cursor1 = sqlDB.rawQuery("select Max(B) from BeomB2_test3",null);
+                            String quety = "select Max(Floor_Nm) from Floor_TB where Station_Name=" + "\""+curStation+"\"";
+                            Cursor cursor_Floor = sqlDB.rawQuery(quety,null);
+
+
+                            cursor1.moveToLast();
+                            cursor_Floor.moveToLast();
+                            if(cursor1 != null){
+                                String test  =cursor_Floor.getString(0);
+                                test = test.replaceAll("[^0-9]", "");
+                                //floor_cnt = cursor1.getInt(0)/100;
+                                floor_cnt = Integer.parseInt(test);
+                            }
+
+
 
                             String curfloor = "B2";
                             String sql = "Select Floor_Image from Floor_TB Where Station_Name = '" + curStation + "' AND Floor_Nm = '" + curfloor + "'";
@@ -161,8 +172,9 @@ public class Inside_Navigation extends AppCompatActivity {
                     {
                         Toast.makeText(getApplicationContext(),"목적지를 입력해주세요",Toast.LENGTH_SHORT).show();
                     }else {
+                        System.out.println(floor_cnt+"floor");
                         ListAdd(floor_cnt);
-                        SetDrawLine(DrawCanvas.get(0),floor_cnt);
+                        //SetDrawLine(DrawCanvas.get(0),floor_cnt);
                     }
 
                 }
