@@ -42,8 +42,10 @@ public class Inside_Navigation extends AppCompatActivity {
     ArrayList<Bitmap> DrawCanvas = new ArrayList<Bitmap>();
 
 
+
     int Step = 0;
     int StartIn =0,EndIn=0;
+    String curfloor;
     int floor_cnt = 0;
 
     ListView listView_floor;
@@ -118,32 +120,35 @@ public class Inside_Navigation extends AppCompatActivity {
                             cursor1.moveToLast();
                             cursor_Floor.moveToLast();
                             if(cursor1 != null){
-                                String test  =cursor_Floor.getString(0);
-                                test = test.replaceAll("[^0-9]", "");
-                                //floor_cnt = cursor1.getInt(0)/100;
-                                floor_cnt = Integer.parseInt(test);
+                                curfloor  =cursor_Floor.getString(0);
+                                floor_cnt = Integer.parseInt(curfloor.replaceAll("[^0-9]", ""));
                             }
 
 
 
 
                             //curfloor = "B"+최대층 or 그냥 최대층 값(floor_cnt인가?)
-
-                            String curfloor = "B2";
                             String sql = "Select Floor_Image from Floor_TB Where Station_Name = '" + curStation + "' AND Floor_Nm = '" + curfloor + "'";
                             Cursor Floor_cursor = sqlDB.rawQuery(sql,null);
 
                             //이부분에서 0을 max값으로 
                             Floor_cursor.moveToLast();
-                            byte[] Image = Floor_cursor.getBlob(0);
-
-                      
-                            StaionInnerBitmap = BitmapFactory.decodeByteArray(Image, 0, Image.length).copy(Bitmap.Config.ARGB_8888, true);
-
+                            byte[] Image1 = Floor_cursor.getBlob(0);
+                            StaionInnerBitmap = BitmapFactory.decodeByteArray(Image1, 0, Image1.length).copy(Bitmap.Config.ARGB_8888, true);
                             StaionInnerMap.setImageBitmap(StaionInnerBitmap);
+
+
                             //여기에서 DB참조하여 DrawCanvas에 이미지 전부add
+                            String getImageQuery  = "select Floor_Image from Floor_TB where Station_Name =" + "\""+curStation+"\"";
+                            Cursor cursor_bitmap = sqlDB.rawQuery(getImageQuery,null);
+                            while (cursor_bitmap.moveToNext())
+                            {
+                                byte[] Image = cursor_bitmap.getBlob(0);
+                                StaionInnerBitmap = BitmapFactory.decodeByteArray(Image, 0, Image.length).copy(Bitmap.Config.ARGB_8888, true);
+                                DrawCanvas.add(StaionInnerBitmap);
+                            }
                             //DrawCanvas에 B1,B2,B3..순서로 넣는다
-                            DrawCanvas.add(0,StaionInnerBitmap);
+                            //DrawCanvas.add(0,StaionInnerBitmap);
                             Step=1;
 
                         }catch (Exception e){
@@ -157,8 +162,8 @@ public class Inside_Navigation extends AppCompatActivity {
                 {
                     try {
                         System.out.println("Sdsdd");
-                        String curfloor = "B1";
-                        String sql = "Select Floor_Image from Floor_TB Where Station_Name = '" + curStation + "' AND Floor_Nm = '" + curfloor + "'";
+                        String curfloorB1 = "B1";
+                        String sql = "Select Floor_Image from Floor_TB Where Station_Name = '" + curStation + "' AND Floor_Nm = '" + curfloorB1 + "'";
                         Cursor Floor_cursor = sqlDB.rawQuery(sql,null);
 
                         Floor_cursor.moveToLast();
@@ -168,7 +173,7 @@ public class Inside_Navigation extends AppCompatActivity {
                         StaionInnerBitmap = BitmapFactory.decodeByteArray(Image, 0, Image.length).copy(Bitmap.Config.ARGB_8888, true);
                         StaionInnerMap.setImageBitmap(StaionInnerBitmap);
                      
-                        DrawCanvas.add(1,StaionInnerBitmap);//add필요없음
+                        //DrawCanvas.add(1,StaionInnerBitmap);//add필요없음
                         Step=2;
 
                     }catch (Exception e)
@@ -183,7 +188,13 @@ public class Inside_Navigation extends AppCompatActivity {
                     }else {
                         System.out.println(floor_cnt+"floor");
                         ListAdd(floor_cnt);
-                        //SetDrawLine(DrawCanvas.get(0),floor_cnt);
+                        try{
+                            SetDrawLine(DrawCanvas.get(0),1);
+                        }catch (Exception e)
+                        {
+
+                        }
+
                     }
 
                 }
@@ -200,9 +211,11 @@ public class Inside_Navigation extends AppCompatActivity {
                 int cur = Integer.parseInt(curfloor);
                 System.out.println(cur+"cur-----");
                 if (cur==2){
-                    SetDrawLine(DrawCanvas.get(0),2);
+                    SetDrawLine(DrawCanvas.get(1),2);
                 }else if (cur==1)
-                    SetDrawLine(DrawCanvas.get(1),1);
+                    SetDrawLine(DrawCanvas.get(0),1);
+                else if(cur==3)
+                    SetDrawLine(DrawCanvas.get(2),2);
             }
         });
 
