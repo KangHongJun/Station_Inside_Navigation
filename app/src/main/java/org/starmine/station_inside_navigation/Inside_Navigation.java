@@ -126,16 +126,23 @@ public class Inside_Navigation extends AppCompatActivity {
 
 
 
+
+                            //curfloor = "B"+최대층 or 그냥 최대층 값(floor_cnt인가?)
+
                             String curfloor = "B2";
                             String sql = "Select Floor_Image from Floor_TB Where Station_Name = '" + curStation + "' AND Floor_Nm = '" + curfloor + "'";
                             Cursor Floor_cursor = sqlDB.rawQuery(sql,null);
 
+                            //이부분에서 0을 max값으로 
                             Floor_cursor.moveToLast();
                             byte[] Image = Floor_cursor.getBlob(0);
 
+                      
                             StaionInnerBitmap = BitmapFactory.decodeByteArray(Image, 0, Image.length).copy(Bitmap.Config.ARGB_8888, true);
 
                             StaionInnerMap.setImageBitmap(StaionInnerBitmap);
+                            //여기에서 DB참조하여 DrawCanvas에 이미지 전부add
+                            //DrawCanvas에 B1,B2,B3..순서로 넣는다
                             DrawCanvas.add(0,StaionInnerBitmap);
                             Step=1;
 
@@ -157,9 +164,11 @@ public class Inside_Navigation extends AppCompatActivity {
                         Floor_cursor.moveToLast();
                         byte[] Image = Floor_cursor.getBlob(0);
 
+                        //윗부분 삭제하고 DrawCanvas.get(0)으로
                         StaionInnerBitmap = BitmapFactory.decodeByteArray(Image, 0, Image.length).copy(Bitmap.Config.ARGB_8888, true);
                         StaionInnerMap.setImageBitmap(StaionInnerBitmap);
-                        DrawCanvas.add(1,StaionInnerBitmap);
+                     
+                        DrawCanvas.add(1,StaionInnerBitmap);//add필요없음
                         Step=2;
 
                     }catch (Exception e)
@@ -188,15 +197,12 @@ public class Inside_Navigation extends AppCompatActivity {
                 String curFloor = adapterView.getItemAtPosition(i).toString();
                 String curfloor = curFloor.replaceAll("[^0-9]", "");
 
-
                 int cur = Integer.parseInt(curfloor);
                 System.out.println(cur+"cur-----");
                 if (cur==2){
                     SetDrawLine(DrawCanvas.get(0),2);
                 }else if (cur==1)
                     SetDrawLine(DrawCanvas.get(1),1);
-
-
             }
         });
 
