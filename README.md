@@ -9,7 +9,7 @@ Subway Information & Subway Station inside Navigation android APP in Korea
 
 # 추가작업
 * 역내부 안내
- 1. 역 추가하여 테스트 및 적용
+ 1. 역 추가하여 테스트 및 적용 - 버튼완, 길찾기 적용
  2. 환승역
 * DB읽어오기
 
@@ -19,7 +19,6 @@ Subway Information & Subway Station inside Navigation android APP in Korea
  1. 각 지점 좌표값 지정해주고, 좌표값 기준으로 선긋기
   - 시작 지점에 canvas로 위치 표시 or 이미지 배치
   - 끝 지점에 canvas로 화살표 그리기(마지막 좌표간의 이동방향에 따라서 조절,ex)draw(765,190,765,230) : 동쪽 ) or 이미지 배치
-  - 선그리기 완료, 지금은 특정역 기준이기 때문에 다른 역 데이터 받았을때 적용되는것 생각해야함
   
 
 * 호선 데이터 추가
