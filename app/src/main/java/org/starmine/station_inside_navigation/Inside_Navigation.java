@@ -99,6 +99,7 @@ public class Inside_Navigation extends AppCompatActivity {
                 Step = 0;//역 이름 다시입력하기위한 초기화 테스트
                 DrawCanvas = new ArrayList<Bitmap>();
                 item_layout.setVisibility(View.GONE);
+                inside_btn.setText("다음");
 
             }
         });
