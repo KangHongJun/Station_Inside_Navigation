@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class Inside_Navigation extends AppCompatActivity {
     Bitmap StaionInnerBitmap;
     Button inside_btn;
     ArrayList<Bitmap> DrawCanvas = new ArrayList<Bitmap>();
-
+    LinearLayout item_layout;
 
 
     int Step = 0;
@@ -52,7 +53,6 @@ public class Inside_Navigation extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
 
     TextView inside_start,inside_arrival;
-
 
 
     @Override
@@ -71,6 +71,10 @@ public class Inside_Navigation extends AppCompatActivity {
         listView_floor = findViewById(R.id.Subway_Floor_List);
         inside_btn = findViewById(R.id.inside_Btn);
         StaionInnerMap = findViewById(R.id.Subway_InnerMap);
+        item_layout = (LinearLayout) findViewById(R.id.ITEM_LAYOUT);
+
+        //층 수, aed, 엘레베이터 이미지 등 숨김
+        item_layout.setVisibility(View.GONE);
 
         Toolbar toolbar = findViewById(R.id.Inside_Toolbar);
         setSupportActionBar(toolbar);
@@ -94,7 +98,7 @@ public class Inside_Navigation extends AppCompatActivity {
                 inside_launcher.launch(intent);
                 Step = 0;//역 이름 다시입력하기위한 초기화 테스트
                 DrawCanvas = new ArrayList<Bitmap>();
-
+                item_layout.setVisibility(View.GONE);
 
             }
         });
@@ -131,7 +135,7 @@ public class Inside_Navigation extends AppCompatActivity {
                             String sql = "Select Floor_Image from Floor_TB Where Station_Name = '" + curStation + "' AND Floor_Nm = '" + curfloor + "'";
                             Cursor Floor_cursor = sqlDB.rawQuery(sql,null);
 
-                            //이부분에서 0을 max값으로 
+                            //이부분에서 0을 max값으로
                             Floor_cursor.moveToLast();
                             byte[] Image1 = Floor_cursor.getBlob(0);
                             StaionInnerBitmap = BitmapFactory.decodeByteArray(Image1, 0, Image1.length).copy(Bitmap.Config.ARGB_8888, true);
@@ -172,7 +176,7 @@ public class Inside_Navigation extends AppCompatActivity {
                         //윗부분 삭제하고 DrawCanvas.get(0)으로
                         StaionInnerBitmap = BitmapFactory.decodeByteArray(Image, 0, Image.length).copy(Bitmap.Config.ARGB_8888, true);
                         StaionInnerMap.setImageBitmap(StaionInnerBitmap);
-                     
+
                         //DrawCanvas.add(1,StaionInnerBitmap);//add필요없음
                         Step=2;
 
@@ -188,6 +192,7 @@ public class Inside_Navigation extends AppCompatActivity {
                     }else {
                         System.out.println(floor_cnt+"floor");
                         ListAdd(floor_cnt);
+                        item_layout.setVisibility(View.VISIBLE);
                         try{
                             SetDrawLine(DrawCanvas.get(0),1);
                         }catch (Exception e)

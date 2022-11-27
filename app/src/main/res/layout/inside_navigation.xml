@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/Inside_Toolbar"
@@ -41,10 +43,11 @@
                     android:id="@+id/Inside_Station"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/black_border"
-                    android:textColor="@color/black"
                     android:layout_marginStart="7dp"
-                    android:textSize="20sp"/>
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:background="@drawable/velvet_border"/>
+
 
             </LinearLayout>
 
@@ -57,6 +60,7 @@
                 android:textSize="20sp" />
 
             <LinearLayout
+                android:layout_marginTop="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_weight="1"
@@ -67,9 +71,9 @@
                     android:layout_width="35dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:background="@drawable/black_border"
                     android:textSize="20sp"
                     android:inputType="number"
+                    android:background="@drawable/yellow_border"
                     />
 
             </LinearLayout>
@@ -94,7 +98,7 @@
                     android:layout_width="35dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:background="@drawable/black_border"
+                    android:background="@drawable/blue_border"
                     android:textSize="20sp"
                     android:inputType="number"
                     />
@@ -113,8 +117,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/black_border"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/velvet2_border"/>
+
+
         </LinearLayout>
     </LinearLayout>
 
@@ -146,15 +152,81 @@
     </LinearLayout>
     -->
 
+
     <ImageView
         android:id="@+id/Subway_InnerMap"
         android:layout_width="match_parent"
         android:layout_height="269dp"/>
 
-    <ListView
-        android:id="@+id/Subway_Floor_List"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp">
-    </ListView>
+    <LinearLayout
+        android:id = "@+id/ITEM_LAYOUT"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <ListView
+            android:id="@+id/Subway_Floor_List"
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp">
+
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_gravity="bottom"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/callbox" />
+
+            <ImageView
+                android:layout_gravity="bottom"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/aed" />
+
+            <ImageView
+                android:layout_gravity="bottom"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/elevator" />
+
+            <ImageView
+                android:layout_gravity="bottom"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/fireplug" />
+
+
+            <ImageView
+                android:layout_gravity="bottom"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/restroom" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
 </LinearLayout>
+
+
+
+

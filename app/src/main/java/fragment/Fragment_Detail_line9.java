@@ -26,7 +26,7 @@ import org.jsoup.select.Elements;
 import org.starmine.station_inside_navigation.DBHelper;
 import org.starmine.station_inside_navigation.DatabaseHelper;
 import org.starmine.station_inside_navigation.Inquiry_Page;
-import org.starmine.station_inside_navigation.Inside_Navigation_test;
+import org.starmine.station_inside_navigation.Inside_Navigation;
 import org.starmine.station_inside_navigation.R;
 import org.starmine.station_inside_navigation.Subway_Detailed_View;
 import org.starmine.station_inside_navigation.Subway_Route;
@@ -236,7 +236,7 @@ public class Fragment_Detail_line9 extends Fragment {
                 if(curstation != null){
                     curStation = curstation.getString("station");
                 }
-                Intent intent = new Intent(getActivity(), Inside_Navigation_test.class);
+                Intent intent = new Intent(getActivity(), Inside_Navigation.class);
                 intent.putExtra("station", curStation);
                 startActivity(intent);
             }
