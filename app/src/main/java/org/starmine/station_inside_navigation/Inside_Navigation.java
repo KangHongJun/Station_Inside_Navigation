@@ -165,7 +165,6 @@ public class Inside_Navigation extends AppCompatActivity {
                 }else if(Step==1)
                 {
                     try {
-                        System.out.println("Sdsdd");
                         String curfloorB1 = "B1";
                         String sql = "Select Floor_Image from Floor_TB Where Station_Name = '" + curStation + "' AND Floor_Nm = '" + curfloorB1 + "'";
                         Cursor Floor_cursor = sqlDB.rawQuery(sql,null);
@@ -176,6 +175,7 @@ public class Inside_Navigation extends AppCompatActivity {
                         //윗부분 삭제하고 DrawCanvas.get(0)으로
                         StaionInnerBitmap = BitmapFactory.decodeByteArray(Image, 0, Image.length).copy(Bitmap.Config.ARGB_8888, true);
                         StaionInnerMap.setImageBitmap(StaionInnerBitmap);
+                        inside_btn.setText("탐색");
 
                         //DrawCanvas.add(1,StaionInnerBitmap);//add필요없음
                         Step=2;
